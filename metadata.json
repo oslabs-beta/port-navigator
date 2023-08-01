@@ -1,5 +1,5 @@
 {
-  "icon": "docker.svg",
+  "icon": "PortNavigator.svg",
   "vm": {
     "composefile": "docker-compose.yaml",
     "exposes": {
@@ -8,7 +8,7 @@
   },
   "ui": {
     "dashboard-tab": {
-      "title": "Test Extension",
+      "title": "PortNavigator",
       "root": "/ui",
       "src": "index.html",
       "backend": {
