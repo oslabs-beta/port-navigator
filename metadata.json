@@ -1,5 +1,5 @@
 {
-  "icon": "docker.svg",
+  "icon": "portnavigatorIcon.png",
   "vm": {
     "composefile": "docker-compose.yaml",
     "exposes": {
