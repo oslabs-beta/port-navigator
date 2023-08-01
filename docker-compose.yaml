@@ -1,0 +1,3 @@
+services:
+  typescript-backend-extension:
+    image: ${DESKTOP_PLUGIN_IMAGE}
