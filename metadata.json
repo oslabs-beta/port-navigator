@@ -1,0 +1,10 @@
+{
+  "icon": "docker.svg",
+  "ui": {
+    "dashboard-tab": {
+      "title": "Test Extension",
+      "root": "/ui",
+      "src": "index.html"
+    }
+  }
+}
