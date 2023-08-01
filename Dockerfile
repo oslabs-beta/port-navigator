@@ -33,6 +33,6 @@ LABEL org.opencontainers.image.title="port-navigator" \
 COPY --from=builder /backend backend
 COPY docker-compose.yaml .
 COPY metadata.json .
-COPY docker.svg .
+COPY portnavigatorIcon.png .
 COPY --from=client-builder /ui/build ui
 CMD ["node", "backend/server.js", "/run/guest-services/extension-node-extension.sock"]
