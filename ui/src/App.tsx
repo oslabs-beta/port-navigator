@@ -12,7 +12,7 @@ function useDockerDesktopClient() {
 }
 
 export function App() {
-  const [response, setResponse] = useState();
+  const [response, setResponse] = useState('');
   const ddClient = useDockerDesktopClient();
 
   const fetchAndDisplayResponse = async () => {
