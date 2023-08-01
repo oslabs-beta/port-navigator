@@ -1,15 +1,21 @@
 import React from 'react';
-import { render } from 'react-dom';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import ReactDOM from 'react-dom';
+import CssBaseline from '@mui/material/CssBaseline';
+import { DockerMuiThemeProvider } from '@docker/docker-mui-theme';
 
-import App from './App.jsx';
+import { App } from './App';
 
-const root = createRoot(document.getElementById('root'));
-root.render(
+ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    {/*
+      If you eject from MUI (which we don't recommend!), you should add
+      the `dockerDesktopTheme` class to your root <html> element to get
+      some minimal Docker theming.
+    */}
+    <DockerMuiThemeProvider>
+      <CssBaseline />
       <App />
-    </BrowserRouter>
+    </DockerMuiThemeProvider>
   </React.StrictMode>,
+  document.getElementById('root'),
 );
