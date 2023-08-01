@@ -21,7 +21,7 @@ docker extension dev debug ctri17g/port-navigator
 ## Hot reloading
 
 1. navigate to ui folder
-2. npm run dev
+2. npm start
 3. While server is running, in a separate termianal run:
 
 docker extension dev ui-source ctri17g/port-navigator http://localhost:3000
