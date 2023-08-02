@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import { DockerMuiThemeProvider } from '@docker/docker-mui-theme';
+import { BrowserRouter } from 'react-router-dom';
 
 import { App } from './App';
 
@@ -14,7 +15,9 @@ ReactDOM.render(
     */}
     <DockerMuiThemeProvider>
       <CssBaseline />
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </DockerMuiThemeProvider>
   </React.StrictMode>,
   document.getElementById('root'),
