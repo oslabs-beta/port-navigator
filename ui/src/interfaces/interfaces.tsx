@@ -4,7 +4,7 @@ interface ContainerInfo {
   Image: string;
   State: string;
   Networks: string | [string];
-  Ports: PortItem;
+  Ports?: PortItem;
 }
 interface PortItem {
   IP: string;
@@ -14,10 +14,9 @@ interface PortItem {
 }
 
 interface BridgeInfo {
-  Alias: string | null;
-  Gateway: string;
-  IPAddress: string;
-  MacAddress: string;
+  Driver: string;
+  Name: string;
+  ID: string;
 }
 
 export type { ContainerInfo, PortItem, BridgeInfo };
