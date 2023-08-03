@@ -1,15 +1,16 @@
 // ---- imports go here ----
-import React from 'react';
+import ContainerDisplay from './ContainerDisplay';
+import type { ContainerInfo, BridgeInfo } from '../interfaces/interfaces';
 
 // TO DO: typing will need to be more specific here once the exact contents of bridge and container are known
-const bridge = (props: { bridge: [{}]; container: [{}] }) => {
+const Bridge = (props: { bridges: {}; containers: [ContainerInfo] }) => {
   // declare a variable, bridgeContainerDisplay, and assign it the value of an empty array
-  const bridgeContainerDisplay = [{}];
+  const bridgeContainerDisplay: JSX.Element[] = [];
   // for each of the container objects passed down in the containerDisplay through props
   // TO DO: more specific typing on current container
-  props.container.forEach((currentContainer: {}) => {
+  props.containers.forEach((currentContainer: ContainerInfo) => {
     // declare a variable, newContainer, and assign it the value of a container component passing down the currentContainer object as props
-    const newContainer = <Container props={currentContainer} />;
+    const newContainer = <ContainerDisplay info={currentContainer} />;
     // push the newContainer into the bridgeContainerDisplay
     bridgeContainerDisplay.push(newContainer);
   });
@@ -18,8 +19,8 @@ const bridge = (props: { bridge: [{}]; container: [{}] }) => {
   // return
   return (
     // a div containing the bridge name and the array displaying each container
-    <div id={bridgeName} className="bridge">
-      <div className="bridgeName">
+    <div id={bridgeName} className='bridge'>
+      <div className='bridgeName'>
         <strong>Name: </strong>
         {bridgeName}
       </div>
@@ -29,4 +30,4 @@ const bridge = (props: { bridge: [{}]; container: [{}] }) => {
 };
 
 // ---- exports go here ----
-export default bridge;
+export default Bridge;
