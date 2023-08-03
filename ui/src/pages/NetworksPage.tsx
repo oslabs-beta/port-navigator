@@ -10,7 +10,7 @@ const NetworksPage = (props: {
   containers: ContainerInfo[] | [];
 }) => {
   const nav = useNavigate();
-
+  console.log(props);
   return (
     <div className='networksContainer'>
       <div className='pageButtonContainer'>
@@ -20,7 +20,7 @@ const NetworksPage = (props: {
           onClick={() => nav('containers')}></button>
       </div>
       <div className='hostContainer'>
-        <h1>Host {props.containers}</h1>
+        <h1>Host</h1>
         {/* Bridges in specific order? */}
       </div>
       {/* <div className="bridgeContainer">

@@ -14,11 +14,9 @@ interface PortItem {
 }
 
 interface BridgeInfo {
-  Aliases: string | null;
-  Gateway: string;
-  IPAddress: string;
-  MacAddress: string;
-  NetworkID: string;
+  Driver: string;
+  Name: string;
+  ID: string;
 }
 
 export type { ContainerInfo, PortItem, BridgeInfo };

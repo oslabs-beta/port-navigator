@@ -17,22 +17,45 @@ function useDockerDesktopClient() {
 }
 
 export function App() {
+  //declaring ddClient to interact with Docker Desktop
   const ddClient = useDockerDesktopClient();
+  //declaring state
   const [containers, setContainers] = useState<ContainerInfo[] | []>([]);
   const [bridges, setBridges] = useState<BridgeInfo[] | []>([]);
 
+  //async function to obtain container and bridge info
   const getDockerInfo = async (): Promise<void> => {
-    // obtain list of all containers on Docker Desktop
-    const dockerNetworks = await ddClient.docker.cli.exec('network ls', [
+    // obtain list of all networks on Docker Desktop
+    const result = await ddClient.docker.cli.exec('network ls', [
       '--format',
       '"{{json .}}"',
     ]);
-    const dockerNetworksJSON = await JSON.parse(dockerNetworks);
-    console.log('dockerNetworks: ', dockerNetworksJSON.stdout);
+    //parsing list of networks
+    const networks = result.parseJsonLines();
 
+    //formatting newNetworks to only contain relevant info from networks
+    const newNetworks = networks.map(el => {
+      const bridge: BridgeInfo = {
+        Driver: el.Driver,
+        Name: el.Name,
+        ID: el.ID,
+      };
+      return bridge;
+    });
+    //setting bridges as new networks
+    setBridges(newNetworks);
+    console.log('bridges', bridges);
+
+    const result2 = await ddClient.docker.cli.exec(
+      'network inspect containerwatch_containerwatch-desktop-extension_default',
+      ['--format', '"{{json .}}"'],
+    );
+    const dockerNetworks2 = result2.parseJsonLines();
+    console.log('containerwatch: ', dockerNetworks2);
+
+    // obtain list of all containers on Docker Desktop
     const dockerContainers: [] | unknown =
       await ddClient.docker.listContainers();
-    // console.log('containers: ', dockerContainers);
     if (Array.isArray(dockerContainers)) {
       const newContainers = dockerContainers.map(el => {
         const newEl: ContainerInfo = {
@@ -42,7 +65,6 @@ export function App() {
           State: el.Status,
           Networks: el.HostConfig.NetworkMode,
         };
-        // console.log('newEl: ', newEl);
         if (el.Ports.length !== 0) {
           newEl.Ports = {
             IP: el.Ports[0].IP,
@@ -52,31 +74,10 @@ export function App() {
           };
         }
 
-        const networks = el.NetworkSettings.Networks;
-        // console.log('bridges: ', bridges);
-        const newBridges: { [key: string]: BridgeInfo } =
-          Object.assign(bridges);
-        // console.log('newBridges: ', newBridges);
-        for (const network in networks) {
-          const obj: BridgeInfo = networks[network];
-          const bridge: BridgeInfo = {
-            Aliases: obj.Aliases,
-            Gateway: obj.Gateway,
-            IPAddress: obj.IPAddress,
-            MacAddress: obj.MacAddress,
-            NetworkID: obj.NetworkID,
-          };
-          const networkId = obj.NetworkID;
-          newBridges[networkId] = bridge;
-          const bridgeArray = Object.values(newBridges);
-          // console.log('bridgeArray: ', bridgeArray);
-          setBridges(bridgeArray);
-        }
-        // setBridges(bridges=> {...bridges, bridge});
         return newEl;
       });
-      // console.log('New Containers', newContainers);
       setContainers(newContainers);
+      console.log('containers: ', containers);
     }
   };
   getDockerInfo();

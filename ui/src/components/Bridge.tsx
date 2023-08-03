@@ -4,8 +4,8 @@ import type { ContainerInfo, BridgeInfo } from '../interfaces/interfaces';
 
 // TO DO: typing will need to be more specific here once the exact contents of bridge and container are known
 const Bridge = (props: {
-  bridges: BridgeInfo | [];
-  containers: [ContainerInfo];
+  bridges: BridgeInfo[] | [];
+  containers: ContainerInfo[] | [];
 }) => {
   // declare a variable, bridgeContainerDisplay, and assign it the value of an empty array
   const bridgeContainerDisplay: JSX.Element[] = [];
