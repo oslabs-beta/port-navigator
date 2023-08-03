@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Button from '@mui/material/Button';
 import { createDockerDesktopClient } from '@docker/extension-api-client';
-import { Stack, TextField, Typography } from '@mui/material';
+import type { ContainerInfo, BridgeInfo } from './interfaces/interfaces';
+// import Button from '@mui/material/Button';
+// import { Stack, TextField, Typography } from '@mui/material';
 
-import NetworksPage from './pages/NetworksPage.jsx';
-import ContainersPage from './pages/ContainersPage.jsx';
+import NetworksPage from './pages/NetworksPage';
+import ContainersPage from './pages/ContainersPage';
 
 // Note: This line relies on Docker Desktop's presence as a host application.
 // If you're running this React app in a browser, it won't work properly.
@@ -16,46 +17,70 @@ function useDockerDesktopClient() {
 }
 
 export function App() {
-  // const [response, setResponse] = useState('');
   const ddClient = useDockerDesktopClient();
-  // const [containers, setContainers] = useState([]);
-  // const [bridges, setBridges] = useState([]);
+  const [containers, setContainers] = useState<ContainerInfo[] | []>([]);
+  const [bridges, setBridges] = useState({});
 
-  // const getDockerInfo = async () => {
-  //obtain list of all containers on Docker Desktop
-  // type Container = {
-  //   Id: String,
-  //   Names: [],
-  //   Ports: [{
-  //     IP: String,
-  //     PrivatePort: Number,
-  //     PublicPort: Number,
-  //     Type: String
-  //   }],
-  //   State: String
-  // }
-  // const containers: Container[] = await ddClient.docker.listContainers();
-  // console.log('containers: ', containers);
-  // const newContainerArr = containers.map(el => {
-  //   const newEl = {id: el.Id, Image: el.Image, IpAddress: el.NetworkSettings.Networks.}
-  //   })
-  // };
-  // getDockerInfo();
+  const getDockerInfo = async (): Promise<void> => {
+    // obtain list of all containers on Docker Desktop
 
-  // const fetchAndDisplayResponse = async () => {
-  //   const result = await ddClient.extension.vm?.service?.get('/hello');
-  //   setResponse(JSON.stringify(result));
-  // };
+    const dockerContainers: [] | unknown =
+      await ddClient.docker.listContainers();
+    console.log('containers: ', dockerContainers);
+    if (Array.isArray(dockerContainers)) {
+      const newContainers = dockerContainers.map(el => {
+        const newEl: ContainerInfo = {
+          Name: el.Names[0],
+          Id: el.Id,
+          Image: el.Image,
+          State: el.Status,
+          Networks: el.HostConfig.NetworkMode,
+          Ports: {
+            IP: el.Ports[0].IP,
+            PrivatePort: el.Ports[0].PrivatePort,
+            PublicPort: el.Ports[0].PublicPort,
+            Type: el.Ports[0].Type,
+          },
+        };
+        const networks = el.NetworkSettings.Networks;
+        const newBridges: { [key: string]: BridgeInfo } = { ...bridges };
+        for (const network of networks) {
+          const bridge: BridgeInfo = {
+            Alias: network.Aliases,
+            Gateway: network.Gateway,
+            IPAddress: network.IPAddress,
+            MacAddress: network.MacAddress,
+          };
+          const networkId: string = network.NetworkID;
+          newBridges[networkId] = bridge;
+          setBridges(newBridges);
+        }
+        // setBridges(bridges=> {...bridges, bridge});
+        return newEl;
+      });
+      setContainers(newContainers);
+    }
+  };
+  getDockerInfo();
 
   return (
     <Routes>
-      <Route path='/' element={<NetworksPage />} />
+      <Route
+        path='/'
+        element={<NetworksPage bridges={bridges} containers={containers} />}
+      />
       <Route path='/containers' element={<ContainersPage />} />
     </Routes>
   );
 }
 
 // ! example extension test code
+// const [response, setResponse] = useState('');
+
+// const fetchAndDisplayResponse = async () => {
+//   const result = await ddClient.extension.vm?.service?.get('/hello');
+//   setResponse(JSON.stringify(result));
+// };
 // <>
 //   <Typography variant='h3'>Docker extension demo</Typography>
 //   <Typography variant='body1' color='text.secondary' sx={{ mt: 2 }}>
