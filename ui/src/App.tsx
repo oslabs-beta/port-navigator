@@ -23,10 +23,16 @@ export function App() {
 
   const getDockerInfo = async (): Promise<void> => {
     // obtain list of all containers on Docker Desktop
+    const dockerNetworks = await ddClient.docker.cli.exec('network ls', [
+      '--format',
+      '"{{json .}}"',
+    ]);
+    const dockerNetworksJSON = await JSON.parse(dockerNetworks);
+    console.log('dockerNetworks: ', dockerNetworksJSON.stdout);
 
     const dockerContainers: [] | unknown =
       await ddClient.docker.listContainers();
-    console.log('containers: ', dockerContainers);
+    // console.log('containers: ', dockerContainers);
     if (Array.isArray(dockerContainers)) {
       const newContainers = dockerContainers.map(el => {
         const newEl: ContainerInfo = {
@@ -36,7 +42,7 @@ export function App() {
           State: el.Status,
           Networks: el.HostConfig.NetworkMode,
         };
-        console.log('newEl: ', newEl);
+        // console.log('newEl: ', newEl);
         if (el.Ports.length !== 0) {
           newEl.Ports = {
             IP: el.Ports[0].IP,
@@ -47,10 +53,10 @@ export function App() {
         }
 
         const networks = el.NetworkSettings.Networks;
-        console.log('bridges: ', bridges);
+        // console.log('bridges: ', bridges);
         const newBridges: { [key: string]: BridgeInfo } =
           Object.assign(bridges);
-        console.log('newBridges: ', newBridges);
+        // console.log('newBridges: ', newBridges);
         for (const network in networks) {
           const obj: BridgeInfo = networks[network];
           const bridge: BridgeInfo = {
@@ -63,13 +69,13 @@ export function App() {
           const networkId = obj.NetworkID;
           newBridges[networkId] = bridge;
           const bridgeArray = Object.values(newBridges);
-          console.log('bridgeArray: ', bridgeArray);
+          // console.log('bridgeArray: ', bridgeArray);
           setBridges(bridgeArray);
         }
         // setBridges(bridges=> {...bridges, bridge});
         return newEl;
       });
-      console.log('New Containers', newContainers);
+      // console.log('New Containers', newContainers);
       setContainers(newContainers);
     }
   };
