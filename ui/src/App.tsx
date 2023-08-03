@@ -19,7 +19,7 @@ function useDockerDesktopClient() {
 export function App() {
   const ddClient = useDockerDesktopClient();
   const [containers, setContainers] = useState<ContainerInfo[] | []>([]);
-  const [bridges, setBridges] = useState({});
+  const [bridges, setBridges] = useState<BridgeInfo[] | []>([]);
 
   const getDockerInfo = async (): Promise<void> => {
     // obtain list of all containers on Docker Desktop
@@ -35,29 +35,41 @@ export function App() {
           Image: el.Image,
           State: el.Status,
           Networks: el.HostConfig.NetworkMode,
-          Ports: {
+        };
+        console.log('newEl: ', newEl);
+        if (el.Ports.length !== 0) {
+          newEl.Ports = {
             IP: el.Ports[0].IP,
             PrivatePort: el.Ports[0].PrivatePort,
             PublicPort: el.Ports[0].PublicPort,
             Type: el.Ports[0].Type,
-          },
-        };
-        const networks = el.NetworkSettings.Networks;
-        const newBridges: { [key: string]: BridgeInfo } = { ...bridges };
-        for (const network of networks) {
-          const bridge: BridgeInfo = {
-            Alias: network.Aliases,
-            Gateway: network.Gateway,
-            IPAddress: network.IPAddress,
-            MacAddress: network.MacAddress,
           };
-          const networkId: string = network.NetworkID;
+        }
+
+        const networks = el.NetworkSettings.Networks;
+        console.log('bridges: ', bridges);
+        const newBridges: { [key: string]: BridgeInfo } =
+          Object.assign(bridges);
+        console.log('newBridges: ', newBridges);
+        for (const network in networks) {
+          const obj: BridgeInfo = networks[network];
+          const bridge: BridgeInfo = {
+            Aliases: obj.Aliases,
+            Gateway: obj.Gateway,
+            IPAddress: obj.IPAddress,
+            MacAddress: obj.MacAddress,
+            NetworkID: obj.NetworkID,
+          };
+          const networkId = obj.NetworkID;
           newBridges[networkId] = bridge;
-          setBridges(newBridges);
+          const bridgeArray = Object.values(newBridges);
+          console.log('bridgeArray: ', bridgeArray);
+          setBridges(bridgeArray);
         }
         // setBridges(bridges=> {...bridges, bridge});
         return newEl;
       });
+      console.log('New Containers', newContainers);
       setContainers(newContainers);
     }
   };
