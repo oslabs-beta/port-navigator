@@ -10,7 +10,7 @@ const NetworksPage = (props: {
   containers: ContainerInfo[] | [];
 }) => {
   const nav = useNavigate();
-  console.log(props);
+  // console.log(props);
   return (
     <div className='networksContainer'>
       <div className='pageButtonContainer'>
