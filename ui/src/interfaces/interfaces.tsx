@@ -13,10 +13,10 @@ interface PortItem {
   Type: string;
 }
 
-interface BridgeInfo {
+interface NetworkInfo {
   Driver: string;
   Name: string;
   ID: string;
 }
 
-export type { ContainerInfo, PortItem, BridgeInfo };
+export type { ContainerInfo, PortItem, NetworkInfo };

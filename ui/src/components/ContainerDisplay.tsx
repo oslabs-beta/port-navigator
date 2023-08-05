@@ -1,14 +1,15 @@
 import React from 'react';
 import { ContainerInfo } from '../interfaces/interfaces';
 
+
 //Component to display Container
-const ContainerDisplay: React.FC<{ info: ContainerInfo }> = props => {
+const ContainerDisplay: React.FC<{ id:string ,info: ContainerInfo }> = props => {
   //if the Ports object exist within our props
   if (props.info.Ports) {
     // return container information including Ports info.
     return (
       <div>
-        <div id={props.info.Name} className='container'>
+        <div id={props.id} className='container'>
           {/* Display container information*/}
           <p>Name: {props.info.Name}</p>
           <p>ContainerID: {props.info.Id}</p>
@@ -29,7 +30,7 @@ const ContainerDisplay: React.FC<{ info: ContainerInfo }> = props => {
   //else return container information without Ports info
   return (
     <div>
-      <div id={props.info.Name} className='container'>
+      <div id={props.id} className='container'>
         {/* Display container information*/}
         <p>Name: {props.info.Name}</p>
         <p>ContainerID: {props.info.Id}</p>
