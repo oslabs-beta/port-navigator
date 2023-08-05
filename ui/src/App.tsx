@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { createDockerDesktopClient } from '@docker/extension-api-client';
-import type { ContainerInfo, BridgeInfo } from './interfaces/interfaces';
+import type { ContainerInfo, NetworkInfo } from './interfaces/interfaces';
 // import Button from '@mui/material/Button';
 // import { Stack, TextField, Typography } from '@mui/material';
 
@@ -21,7 +21,7 @@ export function App() {
   const ddClient = useDockerDesktopClient();
   //declaring state
   const [containers, setContainers] = useState<ContainerInfo[] | []>([]);
-  const [bridges, setBridges] = useState<BridgeInfo[] | []>([]);
+  const [networks, setNetworks] = useState<NetworkInfo[] | []>([]);
 
   useEffect(() => {
     //async function to obtain container and bridge info
@@ -35,16 +35,16 @@ export function App() {
       const networks = result.parseJsonLines();
 
       //formatting newNetworks to only contain relevant info from networks
-      const newNetworks = networks.map(el => {
-        const bridge: BridgeInfo = {
+      const newNetworks = networks.map((el) => {
+        const network: NetworkInfo = {
           Driver: el.Driver,
           Name: el.Name,
           ID: el.ID,
         };
-        return bridge;
+        return network;
       });
       //setting bridges as new networks
-      setBridges(newNetworks);
+      setNetworks(newNetworks);
       // console.log('bridges', bridges);
 
       // const result2 = await ddClient.docker.cli.exec(
@@ -58,7 +58,7 @@ export function App() {
       const dockerContainers: [] | unknown =
         await ddClient.docker.listContainers();
       if (Array.isArray(dockerContainers)) {
-        const newContainers = dockerContainers.map(el => {
+        const newContainers = dockerContainers.map((el) => {
           const newEl: ContainerInfo = {
             Name: el.Names[0],
             Id: el.Id,
@@ -87,10 +87,10 @@ export function App() {
   return (
     <Routes>
       <Route
-        path='/'
-        element={<NetworksPage bridges={bridges} containers={containers} />}
+        path="/"
+        element={<NetworksPage networks={networks} containers={containers} />}
       />
-      <Route path='/containers' element={<ContainersPage />} />
+      <Route path="/containers" element={<ContainersPage />} />
     </Routes>
   );
 }
