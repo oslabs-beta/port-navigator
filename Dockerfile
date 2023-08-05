@@ -19,11 +19,11 @@ COPY ui /ui
 RUN npm run build
 
 FROM --platform=$BUILDPLATFORM node:18.9-alpine3.16
-LABEL org.opencontainers.image.title="port-navigator" \
-    org.opencontainers.image.description="Docker Desktop Network Extension" \
-    org.opencontainers.image.vendor="ctri17g" \
+LABEL org.opencontainers.image.title="PortNavigator" \
+    org.opencontainers.image.description="Networking Tool for Docker: Network visualization, information, and modification tool. " \
+    org.opencontainers.image.vendor="PortNavigator" \
     com.docker.desktop.extension.api.version="0.3.3" \
-    com.docker.desktop.extension.icon="https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png" \
+    com.docker.desktop.extension.icon="https://res.cloudinary.com/dbinuhocd/image/upload/v1690916975/PortNavigatorLarge_qijsks.png" \
     com.docker.extension.screenshots="" \
     com.docker.extension.detailed-description="" \
     com.docker.extension.publisher-url="" \
@@ -33,6 +33,6 @@ LABEL org.opencontainers.image.title="port-navigator" \
 COPY --from=builder /backend backend
 COPY docker-compose.yaml .
 COPY metadata.json .
-COPY portnavigatorIcon.png .
+COPY assets/PortNavigator.svg .
 COPY --from=client-builder /ui/build ui
 CMD ["node", "backend/server.js", "/run/guest-services/extension-node-extension.sock"]

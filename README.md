@@ -1,2 +1,31 @@
-# CTRI-G
+# port-navigator
+
 CTRI-G Docker Desktop Extension (Adrian, Brandon, Clayton, Wes)
+
+## To build the extension image
+
+docker build --tag=ctri17g/port-navigator:latest .
+
+## To install the extension
+
+docker extension install ctri17g/port-navigator:latest
+
+## To update the extension
+
+docker extension update ctri17g/port-navigator:latest
+
+## Enable front-end debug mode
+
+docker extension dev debug ctri17g/port-navigator
+
+## Hot reloading
+
+1. navigate to ui folder
+2. npm start
+3. While server is running, in a separate termianal run:
+
+docker extension dev ui-source ctri17g/port-navigator http://localhost:3000
+
+## Disable debug mode, hot reloading, etc.
+
+docker extension dev reset ctri17g/port-navigator
