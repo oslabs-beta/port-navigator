@@ -91,8 +91,8 @@ const getMoreNetworkInfo = async (
     };
     newNetworks[i] = newNetwork;
   }
+  console.log('networks: ', newNetworks);
   setNetworks(newNetworks);
-  console.log('networks: ', networks);
 };
 export { getNetworks, getAllContainers, getMoreNetworkInfo };
 

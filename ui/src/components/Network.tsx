@@ -24,21 +24,21 @@ const Network = (props: {
     networkContainerDisplay.push(newContainer);
   });
   // TO DO: extract the bridge name from the bridge props
-  console.log('network: ', props.network);
-  console.log('networkContainerDisplay: ', networkContainerDisplay);
+  // console.log('network: ', props.network);
+  // console.log('networkContainerDisplay: ', networkContainerDisplay);
   if (networkContainerDisplay[0]) {
-    console.log(
-      'networkContainerDisplay[0].props.info.Name: ',
-      networkContainerDisplay[0].props.info.Name
-    );
+    // console.log(
+    //   'networkContainerDisplay[0].props.info.Name: ',
+    //   networkContainerDisplay[0].props.info.Name
+    // );
   }
   // const bridgeName: string = bridgeContainerDisplay[0].props.info.name;
   const networkName = props.network.Name;
   // return
   return (
     // a div containing the bridge name and the array displaying each container
-    <div id={'network' + props.networkIndex} className="network">
-      <div className="networkName">
+    <div id={'network' + props.networkIndex} className='network'>
+      <div className='networkName'>
         <strong>Name: </strong>
         {networkName}
       </div>

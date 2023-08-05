@@ -37,7 +37,7 @@ export function App() {
     <Routes>
       <Route
         path='/'
-        element={<NetworksPage bridges={networks} containers={containers} />}
+        element={<NetworksPage networks={networks} containers={containers} />}
       />
       <Route path='/containers' element={<ContainersPage />} />
     </Routes>
