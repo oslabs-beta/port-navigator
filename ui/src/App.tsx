@@ -26,12 +26,12 @@ export function App() {
   const ddClient = useDockerDesktopClient();
   //declaring state
   const [containers, setContainers] = useState<ContainerInfo[] | []>([]);
-  const [networks, setnetworks] = useState<NetworkInfo[] | []>([]);
+  const [networks, setNetworks] = useState<NetworkInfo[] | []>([]);
 
   useEffect(() => {
-    getNetworks(ddClient, setnetworks);
     getAllContainers(ddClient, setContainers);
-    getMoreNetworkInfo(ddClient, networks, setnetworks);
+    getNetworks(ddClient, setNetworks);
+    getMoreNetworkInfo(ddClient, networks, setNetworks);
   }, [ddClient]);
   return (
     <Routes>

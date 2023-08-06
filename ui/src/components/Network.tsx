@@ -14,14 +14,19 @@ const Network = (props: {
   // TO DO: more specific typing on current container
   props.containers.forEach((currentContainer: ContainerInfo, i: number) => {
     // declare a variable, newContainer, and assign it the value of a container component passing down the currentContainer object as props
-    const newContainer = (
-      <ContainerDisplay
-        id={`${props.networkIndex}_container${i}`}
-        info={currentContainer}
-      />
-    );
-    // push the newContainer into the bridgeContainerDisplay
-    networkContainerDisplay.push(newContainer);
+
+    console.log('props.network: ', props.network);
+    console.log('currentContainer: ', currentContainer);
+    if (props.network.Containers?.includes(currentContainer.Name)) {
+      const newContainer = (
+        <ContainerDisplay
+          id={`${props.networkIndex}_container${i}`}
+          info={currentContainer}
+        />
+      );
+      // push the newContainer into the bridgeContainerDisplay
+      networkContainerDisplay.push(newContainer);
+    }
   });
   // TO DO: extract the bridge name from the bridge props
   // console.log('network: ', props.network);
