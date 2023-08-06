@@ -16,7 +16,7 @@ const Network = (props: {
     // declare a variable, newContainer, and assign it the value of a container component passing down the currentContainer object as props
     const newContainer = (
       <ContainerDisplay
-        id={`network${props.networkIndex}_container${i}`}
+        id={`${props.networkIndex}_container${i}`}
         info={currentContainer}
       />
     );
@@ -37,12 +37,13 @@ const Network = (props: {
   // return
   return (
     // a div containing the bridge name and the array displaying each container
-    <div id={'network' + props.networkIndex} className="network">
+    <div id={`${props.networkIndex}`} className="network">
       <div className="networkName">
         <strong>Name: </strong>
         {networkName}
+      <hr />
       </div>
-      <div>{networkContainerDisplay}</div>
+      <div className='containtersContainer' style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(400px, 1fr))', width:'100%', columnGap:'60px'}}>{networkContainerDisplay}</div>
     </div>
   );
 };

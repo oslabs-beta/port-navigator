@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import { DockerMuiThemeProvider } from '@docker/docker-mui-theme';
 import { BrowserRouter } from 'react-router-dom';
-
+import './styles.css';
 import { App } from './App';
 
 ReactDOM.render(

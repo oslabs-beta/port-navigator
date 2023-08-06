@@ -22,22 +22,18 @@ const NetworksPage = (props: {
     );
   });
   return (
-    <div className="networksContainer">
-      <div className="pageButtonContainer">
+    <div className="mainContainer">
+      <div className="buttonContainer">
         <button
-          className="containersButton"
+          className="button"
           title="Containers"
           onClick={() => nav('containers')}
-        ></button>
+        >Containers</button>
       </div>
       <div className="hostContainer">
         <h1>Host</h1>
-        {networkEl}
-        {/* Bridges in specific order? */}
       </div>
-      {/* <div className="bridgeContainer">
-        <Bridge></Bridge>
-      </div> */}
+      <div className="networksContainer">{networkEl}</div>
     </div>
   );
 };
