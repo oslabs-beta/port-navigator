@@ -44,21 +44,20 @@ const getAllContainers = async (
   if (Array.isArray(dockerContainers)) {
     const newContainers = dockerContainers.map(el => {
       const newEl: ContainerInfo = {
-        Name: el.Names[0],
+        Name: el.Names[0].slice(1),
         Id: el.Id,
         Image: el.Image,
         State: el.Status,
         Networks: el.HostConfig.NetworkMode,
+        Ports: el.Ports.length
+          ? {
+              IP: el.Ports[0].IP,
+              PrivatePort: el.Ports[0].PrivatePort,
+              PublicPort: el.Ports[0].PublicPort,
+              Type: el.Ports[0].Type,
+            }
+          : null,
       };
-      if (el.Ports.length !== 0) {
-        newEl.Ports = {
-          IP: el.Ports[0].IP,
-          PrivatePort: el.Ports[0].PrivatePort,
-          PublicPort: el.Ports[0].PublicPort,
-          Type: el.Ports[0].Type,
-        };
-      }
-
       return newEl;
     });
     console.log('newContainers: ', newContainers);
@@ -71,16 +70,17 @@ const getMoreNetworkInfo = async (
   setNetworks: setNetworks,
 ) => {
   const newNetworks = [...networks];
-  console.log('newNetworks: ', newNetworks);
   for (let i = 0; i < newNetworks.length; i++) {
     const result = await ddClient.docker.cli.exec(
       `network inspect ${newNetworks[i].Name}`,
       ['--format', '"{{json .}}"'],
     );
     const moreInfo: any = result.parseJsonLines()[0];
+    const networkContainers: any[] = Object.values(moreInfo.Containers);
+    const containerNames = networkContainers.map(el => el.Name);
     const newNetwork: NetworkInfo = {
       ...newNetworks[i],
-      Containers: moreInfo.Containers,
+      Containers: containerNames,
       Gateway: moreInfo.IPAM.Config.length
         ? moreInfo.IPAM.Config[0].Gateway
         : null,
@@ -91,7 +91,7 @@ const getMoreNetworkInfo = async (
     };
     newNetworks[i] = newNetwork;
   }
-  console.log('networks: ', newNetworks);
+  console.log('newNetworks: ', newNetworks);
   setNetworks(newNetworks);
 };
 export { getNetworks, getAllContainers, getMoreNetworkInfo };

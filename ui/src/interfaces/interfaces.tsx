@@ -4,7 +4,7 @@ interface ContainerInfo {
   Image: string;
   State: string;
   Networks: string | [string];
-  Ports?: PortItem;
+  Ports: PortItem | null;
 }
 interface PortItem {
   IP: string;
