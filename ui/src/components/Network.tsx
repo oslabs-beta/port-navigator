@@ -14,36 +14,50 @@ const Network = (props: {
   // TO DO: more specific typing on current container
   props.containers.forEach((currentContainer: ContainerInfo, i: number) => {
     // declare a variable, newContainer, and assign it the value of a container component passing down the currentContainer object as props
-    const newContainer = (
-      <ContainerDisplay
-        id={`${props.networkIndex}_container${i}`}
-        info={currentContainer}
-      />
-    );
-    // push the newContainer into the bridgeContainerDisplay
-    networkContainerDisplay.push(newContainer);
+
+    console.log('props.network: ', props.network);
+    console.log('currentContainer: ', currentContainer);
+    if (props.network.Containers?.includes(currentContainer.Name)) {
+      const newContainer = (
+        <ContainerDisplay
+          id={`${props.networkIndex}_container${i}`}
+          info={currentContainer}
+        />
+      );
+      // push the newContainer into the bridgeContainerDisplay
+      networkContainerDisplay.push(newContainer);
+    }
   });
   // TO DO: extract the bridge name from the bridge props
-  console.log('network: ', props.network);
-  console.log('networkContainerDisplay: ', networkContainerDisplay);
+  // console.log('network: ', props.network);
+  // console.log('networkContainerDisplay: ', networkContainerDisplay);
   if (networkContainerDisplay[0]) {
-    console.log(
-      'networkContainerDisplay[0].props.info.Name: ',
-      networkContainerDisplay[0].props.info.Name
-    );
+    // console.log(
+    //   'networkContainerDisplay[0].props.info.Name: ',
+    //   networkContainerDisplay[0].props.info.Name
+    // );
   }
   // const bridgeName: string = bridgeContainerDisplay[0].props.info.name;
   const networkName = props.network.Name;
   // return
   return (
     // a div containing the bridge name and the array displaying each container
-    <div id={`${props.networkIndex}`} className="network">
-      <div className="networkName">
+    <div id={`${props.networkIndex}`} className='network'>
+      <div className='networkName'>
         <strong>Name: </strong>
         {networkName}
-      <hr />
+        <hr />
       </div>
-      <div className='containtersContainer' style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(400px, 1fr))', width:'100%', columnGap:'60px'}}>{networkContainerDisplay}</div>
+      <div
+        className='containtersContainer'
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+          width: '100%',
+          columnGap: '60px',
+        }}>
+        {networkContainerDisplay}
+      </div>
     </div>
   );
 };

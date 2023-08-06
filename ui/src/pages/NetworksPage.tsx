@@ -12,28 +12,29 @@ const NetworksPage = (props: {
   const nav = useNavigate();
   const networkEl: JSX.Element[] = [];
   props.networks.forEach((network, i: number) => {
-    let networkIndex: String = `network${i}`;
+    const networkIndex: String = `network${i}`;
     networkEl.push(
       <Network
         networkIndex={networkIndex}
         network={network}
         containers={props.containers}
-      />
+      />,
     );
   });
   return (
-    <div className="mainContainer">
-      <div className="buttonContainer">
+    <div className='mainContainer'>
+      <div className='buttonContainer'>
         <button
-          className="button"
-          title="Containers"
-          onClick={() => nav('containers')}
-        >Containers</button>
+          className='button'
+          title='Containers'
+          onClick={() => nav('containers')}>
+          Containers
+        </button>
       </div>
-      <div className="hostContainer">
+      <div className='hostContainer'>
         <h1>Host</h1>
       </div>
-      <div className="networksContainer">{networkEl}</div>
+      <div className='networksContainer'>{networkEl}</div>
     </div>
   );
 };
