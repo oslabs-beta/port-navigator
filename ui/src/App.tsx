@@ -7,11 +7,7 @@ import type { ContainerInfo, NetworkInfo } from './interfaces/interfaces';
 
 import NetworksPage from './pages/NetworksPage';
 import ContainersPage from './pages/ContainersPage';
-import {
-  getNetworks,
-  getAllContainers,
-  getMoreNetworkInfo,
-} from './functions/functions';
+import { getNetworks, getAllContainers } from './functions/functions';
 
 // Note: This line relies on Docker Desktop's presence as a host application.
 // If you're running this React app in a browser, it won't work properly.
@@ -29,10 +25,11 @@ export function App() {
   const [networks, setNetworks] = useState<NetworkInfo[] | []>([]);
 
   useEffect(() => {
-    getAllContainers(ddClient, setContainers);
     getNetworks(ddClient, setNetworks);
-    getMoreNetworkInfo(ddClient, networks, setNetworks);
+    getAllContainers(ddClient, setContainers);
+    // getMoreNetworkInfo(ddClient, networks, setNetworks);
   }, [ddClient]);
+
   return (
     <Routes>
       <Route
