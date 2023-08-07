@@ -32,12 +32,50 @@ body {
   font-weight: 600;
   padding: 10px 20px;
   border-radius: 8px;
-  background: #3a5d60;
+  background: linear-gradient(to top left, rgb(46, 87, 120), rgb(47, 54, 71));
+  border-color: rgb(46, 87, 120);
+  border-bottom: none;
+  border-right: none;
+  border-radius: 24px;
   color: azure;
+  border-width: 0.1rem;
 }
 
 .button:hover {
   cursor: pointer;
+  transform: scale(1.1);
+  background: linear-gradient(to bottom right, #ba9311, #6b5506);
+  border: solid 0.1rem #d1a71d;
+  border-bottom: none;
+  border-right: none;
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
+  transition: ease-in-out 0.25s;
+}
+
+.innerButton {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: linear-gradient(to bottom right, azure, rgb(158, 198, 198));
+  border-color: rgb(255, 255, 255);
+  border-bottom: none;
+  border-right: none;
+  border-radius: 24px;
+  color: black;
+  border-width: 0.1rem;
+}
+
+.innerButton:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  background: linear-gradient(to bottom right, #ba9311, #6b5506);
+  border: solid 0.1rem #d1a71d;
+  border-bottom: none;
+  border-right: none;
+  color: azure;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: ease-in-out 0.2s;
 }
 
 .network {
@@ -45,61 +83,99 @@ body {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  background: #3a5d60;
+  background: linear-gradient(
+    to bottom right,
+    #3d6c70,
+    #3a5d60,
+    #3a5d60,
+    #2c474a
+  );
   border-radius: 24px;
   padding: 20px;
   margin: 40px;
   min-width: 80vw;
+  position: relative;
+  border-top: solid 0.15rem #4c99a0;
+  border-left: solid 0.15rem #4c99a0;
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
 }
 
 .hostContainer {
-  background: #105157;
+  background: linear-gradient(
+    to bottom right,
+    #3d6c70,
+    #3a5d60,
+    #3a5d60,
+    #2c474a
+  );
   border-radius: 24px;
   padding: 10px 20px;
+  border-top: solid 0.15rem #4c99a0;
+  border-left: solid 0.15rem #4c99a0;
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
 }
 
 .hostContainer h1 {
   font-size: 2rem;
 }
 
-.networkName {
+.networkContainer {
   width: 100%;
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.5rem;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
 }
 
-.networkName hr {
+.networkContainer hr {
   width: 97%;
   height: 2px;
   background-color: rgba(240, 255, 255, 0.298);
   border: none;
   border-radius: 2px;
-  margin: 6px auto 0;
+  margin: 6px auto 14px;
 }
 
-.deleteNetworkButton,
-.showHideNetworks {
-  width: 10%;
+.networkLabel {
+  padding: 0 20px;
+}
+
+.deleteNetworkButton {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  text-align: center;
+  padding-bottom: 2px;
+  width: 22px;
+  height: 22px;
   font-weight: bolder;
-  border-radius: 10px;
+  background-color: azure;
+  border: none;
+  border-radius: 12px;
 }
 
-.deleteNetworkButton:hover,
-.showHideNetworks:hover {
+.deleteNetworkButton:hover {
   cursor: pointer;
-  background-color: red;
+  padding: 0 1px 2px 0;
+  transform: scale(1.1) translate(-1px, -1px);
+  background: linear-gradient(to bottom right, #ba9311, #6b5506);
+  border: solid 0.05rem #d1a71d;
+  border-bottom: none;
+  border-right: none;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: ease-in-out 0.2s;
   color: azure;
 }
+
 
 .containersContainer {
   height: 100%;
   width: 100%;
   margin: 0;
-  display: grid;
+  display: none;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  column-gap: 20px;
   justify-items: center;
 }
 
@@ -108,12 +184,13 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background: #0c363a;
+  background: linear-gradient(to top left, rgb(46, 87, 120), rgb(47, 54, 71));
   border-radius: 24px;
   padding: 10px 10px;
   margin: 20px;
-  /* text-overflow: ellipsis; */
-  /* word-wrap: break-word; */
+  border-top: solid 0.15rem #45567e;
+  border-left: solid 0.15rem #45567e;
+  box-shadow: 4px 4px 6px 1px rgba(0, 0, 0, 0.281);
 }
 
 .containerInfo {
@@ -152,7 +229,8 @@ body {
   justify-content: space-around;
   height: 100%;
   list-style: none;
-  background: #105157;
+  background: linear-gradient(to bottom right, #106d75, #105157);
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
   border-radius: 24px;
   padding: 15px 20px 19px;
   margin: 0;

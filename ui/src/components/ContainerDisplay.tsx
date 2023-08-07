@@ -42,15 +42,10 @@ const ContainerDisplay: React.FC<{
             <strong>Activity: </strong>
             <br /> {props.info.State}
           </p>
-          <hr />
-          <p>
-            <strong>Network: </strong>
-            <br /> {props.info.Networks}
-          </p>
           <div className='containerButtons'>
             {/* <button className= 'button' onClick={() => ConnectContainers(props.info.Name) } >Connect</button>  */}
             <button
-              className='button'
+              className='innerButton'
               onClick={() =>
                 DisconnectContainer(
                   props.info.Name,
@@ -113,15 +108,10 @@ const ContainerDisplay: React.FC<{
           <strong>Activity: </strong>
           <br /> {props.info.State}
         </p>
-        <hr />
-        <p>
-          <strong>Network: </strong>
-          <br /> {props.info.Networks}
-        </p>
         <div className='containerButtons'>
           {/* <button className= 'button' onClick={ () => ConnectContainers(props.info.Name)}>Connect</button> */}
           <button
-            className='button'
+            className='innerButton'
             onClick={() =>
               DisconnectContainer(
                 props.info.Name,
