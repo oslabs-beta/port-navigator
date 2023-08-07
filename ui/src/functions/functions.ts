@@ -122,7 +122,27 @@ const DisconnectContainer = async (
   await GetAllContainers(setContainers);
 };
 
-export { GetNetworks, GetAllContainers, RemoveNetwork, DisconnectContainer };
+const HideContainers = (containerID: string, buttonId: string) => {
+  const divToHide: HTMLElement | null = document.getElementById(containerID);
+  const showHideButton: HTMLElement | null = document.getElementById(buttonId);
+  if (divToHide !== null && showHideButton !== null) {
+    if (divToHide.style.display === 'none') {
+      divToHide.style.display = 'block';
+      showHideButton.innerText = 'Hide Containers';
+    } else {
+      divToHide.style.display = 'none';
+      showHideButton.innerText = 'Show Containers';
+    }
+  }
+};
+
+export {
+  GetNetworks,
+  GetAllContainers,
+  RemoveNetwork,
+  DisconnectContainer,
+  HideContainers,
+};
 
 /* future functionality
 

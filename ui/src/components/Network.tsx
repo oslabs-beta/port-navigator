@@ -6,7 +6,7 @@ import type {
   setContainers,
   setNetworks,
 } from '../interfaces/interfaces';
-import { RemoveNetwork } from '../functions/functions';
+import { RemoveNetwork, HideContainers } from '../functions/functions';
 
 // TO DO: typing will need to be more specific here once the exact contents of bridge and container are known
 const Network = (props: {
@@ -58,13 +58,28 @@ const Network = (props: {
           {networkName}
         </div>
         <button
+          className='showHideNetworks'
+          id={`${props.networkIndex}ShowHideNetworksButton`}
+          onClick={() =>
+            HideContainers(
+              `${props.networkIndex}ContainersContainer`,
+              `${props.networkIndex}ShowHideNetworksButton`,
+            )
+          }>
+          Show Containers
+        </button>
+        <button
           className='deleteNetworkButton'
-          onClick={() => RemoveNetwork(props.network.Name, props.setNetworks)}>
+          onClick={() => RemoveNetwork(props.network.Name)}>
           X
         </button>
         <hr />
       </div>
-      <div className='containersContainer'>{networkContainerDisplay}</div>
+      <div
+        id={`${props.networkIndex}ContainersContainer`}
+        className='containersContainer'>
+        {networkContainerDisplay}
+      </div>
     </div>
   );
 };
