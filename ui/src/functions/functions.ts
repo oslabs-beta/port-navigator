@@ -109,8 +109,8 @@ const DisconnectContainer = async (
 ): Promise<void> => {
   const ddClient = useDockerDesktopClient();
   await ddClient.docker.cli.exec('network disconnect', [
-    containerName,
     networkName,
+    containerName,
   ]);
 };
 
