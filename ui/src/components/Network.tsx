@@ -1,7 +1,7 @@
 // ---- imports go here ----
 import ContainerDisplay from './ContainerDisplay';
 import type { ContainerInfo, NetworkInfo } from '../interfaces/interfaces';
-import { RemoveNetwork } from '../functions/functions';
+import { RemoveNetwork, HideContainers } from '../functions/functions';
 
 // TO DO: typing will need to be more specific here once the exact contents of bridge and container are known
 const Network = (props: {
@@ -21,7 +21,7 @@ const Network = (props: {
           id={`${props.networkIndex}_container${i}`}
           key={`${props.networkIndex}_container${i}`}
           info={currentContainer}
-          network = {props.network.Name}
+          network={props.network.Name}
         />
       );
       // push the newContainer into the bridgeContainerDisplay
@@ -49,6 +49,18 @@ const Network = (props: {
           {networkName}
         </div>
         <button
+          className="showHideNetworks"
+          id={`${props.networkIndex}ShowHideNetworksButton`}
+          onClick={() =>
+            HideContainers(
+              `${props.networkIndex}ContainersContainer`,
+              `${props.networkIndex}ShowHideNetworksButton`
+            )
+          }
+        >
+          Show Containers
+        </button>
+        <button
           className="deleteNetworkButton"
           onClick={() => RemoveNetwork(props.network.Name)}
         >
@@ -56,7 +68,12 @@ const Network = (props: {
         </button>
         <hr />
       </div>
-      <div className="containersContainer">{networkContainerDisplay}</div>
+      <div
+        id={`${props.networkIndex}ContainersContainer`}
+        className="containersContainer"
+      >
+        {networkContainerDisplay}
+      </div>
     </div>
   );
 };

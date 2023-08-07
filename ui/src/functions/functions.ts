@@ -27,7 +27,7 @@ const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
   const networks = result.parseJsonLines();
 
   //formatting newNetworks to only contain relevant info from networks
-  const newNetworks = networks.map(el => {
+  const newNetworks = networks.map((el) => {
     const network: NetworkInfo = {
       Driver: el.Driver,
       Name: el.Name,
@@ -41,13 +41,13 @@ const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
     //executing comand line to retrieve additional info
     const result = await ddClient.docker.cli.exec(
       `network inspect ${newNetworks[i].Name}`,
-      ['--format', '"{{json .}}"'],
+      ['--format', '"{{json .}}"']
     );
     //parsing additional info
     const moreInfo: any = result.parseJsonLines()[0];
     //grabbing container names and adding into array
     const networkContainers: any[] = Object.values(moreInfo.Containers);
-    const containerNames = networkContainers.map(el => el.Name);
+    const containerNames = networkContainers.map((el) => el.Name);
     //adding aditional info to network object
     const newNetwork: NetworkInfo = {
       ...newNetworks[i],
@@ -69,13 +69,13 @@ const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
 
 //obtains a list of all containers
 const GetAllContainers = async (
-  setContainers: setContainers,
+  setContainers: setContainers
 ): Promise<void> => {
   const ddClient = useDockerDesktopClient();
   // obtain list of all containers on Docker Desktop
   const dockerContainers: [] | unknown = await ddClient.docker.listContainers();
   if (Array.isArray(dockerContainers)) {
-    const newContainers = dockerContainers.map(el => {
+    const newContainers = dockerContainers.map((el) => {
       const newEl: ContainerInfo = {
         Name: el.Names[0].slice(1),
         Id: el.Id,
@@ -105,7 +105,7 @@ const RemoveNetwork = async (name: string): Promise<void> => {
 
 const DisconnectContainer = async (
   containerName: string,
-  networkName: string,
+  networkName: string
 ): Promise<void> => {
   const ddClient = useDockerDesktopClient();
   await ddClient.docker.cli.exec('network disconnect', [
@@ -114,7 +114,27 @@ const DisconnectContainer = async (
   ]);
 };
 
-export { GetNetworks, GetAllContainers, RemoveNetwork, DisconnectContainer };
+const HideContainers = (containerID: string, buttonId: string) => {
+  const divToHide: HTMLElement | null = document.getElementById(containerID);
+  const showHideButton: HTMLElement | null = document.getElementById(buttonId);
+  if (divToHide !== null && showHideButton !== null) {
+    if (divToHide.style.display === 'none') {
+      divToHide.style.display = 'block';
+      showHideButton.innerText = 'Hide Containers';
+    } else {
+      divToHide.style.display = 'none';
+      showHideButton.innerText = 'Show Containers';
+    }
+  }
+};
+
+export {
+  GetNetworks,
+  GetAllContainers,
+  RemoveNetwork,
+  DisconnectContainer,
+  HideContainers,
+};
 
 /* future functionality
 

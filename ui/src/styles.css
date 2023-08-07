@@ -27,7 +27,6 @@ body {
   column-gap: 20px;
 }
 
-
 .button {
   font-size: 1rem;
   font-weight: 600;
@@ -81,13 +80,15 @@ body {
   margin: 6px auto 0;
 }
 
-.deleteNetworkButton {
-  width: 5%;
+.deleteNetworkButton,
+.showHideNetworks {
+  width: 10%;
   font-weight: bolder;
   border-radius: 10px;
 }
 
-.deleteNetworkButton:hover {
+.deleteNetworkButton:hover,
+.showHideNetworks:hover {
   cursor: pointer;
   background-color: red;
   color: azure;
