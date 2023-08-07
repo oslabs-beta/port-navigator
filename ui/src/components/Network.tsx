@@ -1,6 +1,11 @@
 // ---- imports go here ----
 import ContainerDisplay from './ContainerDisplay';
-import type { ContainerInfo, NetworkInfo } from '../interfaces/interfaces';
+import type {
+  ContainerInfo,
+  NetworkInfo,
+  setContainers,
+  setNetworks,
+} from '../interfaces/interfaces';
 import { RemoveNetwork, HideContainers } from '../functions/functions';
 
 // TO DO: typing will need to be more specific here once the exact contents of bridge and container are known
@@ -8,6 +13,8 @@ const Network = (props: {
   network: NetworkInfo;
   networkIndex: String;
   containers: ContainerInfo[] | [];
+  setContainers: setContainers;
+  setNetworks: setNetworks;
 }) => {
   // declare a variable, bridgeContainerDisplay, and assign it the value of an empty array
   const networkContainerDisplay: JSX.Element[] = [];
@@ -22,6 +29,8 @@ const Network = (props: {
           key={`${props.networkIndex}_container${i}`}
           info={currentContainer}
           network={props.network.Name}
+          setContainers={props.setContainers}
+          setNetworks={props.setNetworks}
         />
       );
       // push the newContainer into the bridgeContainerDisplay
@@ -42,36 +51,33 @@ const Network = (props: {
   // return
   return (
     // a div containing the bridge name and the array displaying each container
-    <div id={`${props.networkIndex}`} className="network">
-      <div className="networkName">
+    <div id={`${props.networkIndex}`} className='network'>
+      <div className='networkName'>
         <div>
           <strong>Name: </strong>
           {networkName}
         </div>
         <button
-          className="showHideNetworks"
+          className='showHideNetworks'
           id={`${props.networkIndex}ShowHideNetworksButton`}
           onClick={() =>
             HideContainers(
               `${props.networkIndex}ContainersContainer`,
-              `${props.networkIndex}ShowHideNetworksButton`
+              `${props.networkIndex}ShowHideNetworksButton`,
             )
-          }
-        >
+          }>
           Show Containers
         </button>
         <button
-          className="deleteNetworkButton"
-          onClick={() => RemoveNetwork(props.network.Name)}
-        >
+          className='deleteNetworkButton'
+          onClick={() => RemoveNetwork(props.network.Name, props.setNetworks)}>
           X
         </button>
         <hr />
       </div>
       <div
         id={`${props.networkIndex}ContainersContainer`}
-        className="containersContainer"
-      >
+        className='containersContainer'>
         {networkContainerDisplay}
       </div>
     </div>
