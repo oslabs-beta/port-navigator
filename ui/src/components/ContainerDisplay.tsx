@@ -1,12 +1,13 @@
 import React from 'react';
 import { ContainerInfo } from '../interfaces/interfaces';
- import {ConnectContainers, DeleteContainers} from '../functions/functions'
+ import { DisconnectContainer} from '../functions/functions'
 
 //Component to display Container
-const ContainerDisplay: React.FC<{ id:string ,info: ContainerInfo }> = props => {
+const ContainerDisplay: React.FC<{ id:string ,info: ContainerInfo, network:string }> = props => {
   //if the Ports object exist within our props
   if (props.info.Ports) {
     // return container information including Ports info.
+    
     return (
         <div id={props.id} className='container'>
           {/* Display container information*/}
@@ -21,8 +22,8 @@ const ContainerDisplay: React.FC<{ id:string ,info: ContainerInfo }> = props => 
             <hr />
             <p><strong>Network: </strong><br /> {props.info.Networks}</p>
             <div className='containerButtons'>
-             <button className= 'button' onClick={() => ConnectContainers(props.info.Name) } >Connect</button> 
-            <button className='button' onClick={ () => DeleteContainers(props.info.Name, props.info.Networks) }>Disconnect</button>    
+             {/* <button className= 'button' onClick={() => ConnectContainers(props.info.Name) } >Connect</button>  */}
+            <button className='button' onClick={ () => DisconnectContainer(props.info.Name, props.network) }>Disconnect</button>    
             </div>
           </div>
           <ul className='portInfo'>
@@ -53,8 +54,8 @@ const ContainerDisplay: React.FC<{ id:string ,info: ContainerInfo }> = props => 
             <hr />
             <p><strong>Network: </strong><br /> {props.info.Networks}</p>
             <div className='containerButtons'>
-            <button className= 'button' onClick={ () => ConnectContainers(props.info.Name)}>Connect</button>
-            <button className='button' onClick={ () => DeleteContainers(props.info.Name, props.info.Networks) }>Disconnect</button>    
+            {/* <button className= 'button' onClick={ () => ConnectContainers(props.info.Name)}>Connect</button> */}
+            <button className='button' onClick={ () => DisconnectContainer(props.info.Name, props.network) }>Disconnect</button>    
             </div>
             
           </div>
