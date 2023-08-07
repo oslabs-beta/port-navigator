@@ -57,6 +57,9 @@ body {
   width: 100%;
   text-align: center;
   font-size: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .networkName hr {
@@ -64,6 +67,18 @@ body {
   height: 2px;
   background-color: rgba(240, 255, 255, 0.691);
   border: none;
+}
+
+.deleteNetworkButton {
+  width: 5%;
+  font-weight: bolder;
+  border-radius: 10px;
+}
+
+.deleteNetworkButton:hover {
+  cursor: pointer;
+  background-color: red;
+  color: azure;
 }
 
 /* .containersContainer {

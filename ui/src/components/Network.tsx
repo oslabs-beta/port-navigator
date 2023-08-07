@@ -46,8 +46,11 @@ const Network = (props: {
       key={`${props.networkIndex}`}
     >
       <div className="networkName">
-        <strong>Name: </strong>
-        {networkName}
+        <div>
+          <strong>Name: </strong>
+          {networkName}
+        </div>
+        <button className="deleteNetworkButton">X</button>
         <hr />
       </div>
       <div
