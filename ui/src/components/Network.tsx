@@ -70,7 +70,7 @@ const Network = (props: {
         </button>
         <button
           className='deleteNetworkButton'
-          onClick={() => RemoveNetwork(props.network.Name)}>
+          onClick={() => RemoveNetwork(props.network.Name, props.setNetworks)}>
           X
         </button>
         <hr />
