@@ -15,26 +15,28 @@ const NetworksPage = (props: {
     const networkIndex: String = `network${i}`;
     networkEl.push(
       <Network
+        key={`network${i}`}
         networkIndex={networkIndex}
         network={network}
         containers={props.containers}
-      />,
+      />
     );
   });
   return (
-    <div className='mainContainer'>
-      <div className='buttonContainer'>
+    <div className="mainContainer">
+      <div className="buttonContainer">
         <button
-          className='button'
-          title='Containers'
-          onClick={() => nav('containers')}>
+          className="button"
+          title="Containers"
+          onClick={() => nav('containers')}
+        >
           Containers
         </button>
       </div>
-      <div className='hostContainer'>
+      <div className="hostContainer">
         <h1>Host</h1>
       </div>
-      <div className='networksContainer'>{networkEl}</div>
+      <div className="networksContainer">{networkEl}</div>
     </div>
   );
 };
