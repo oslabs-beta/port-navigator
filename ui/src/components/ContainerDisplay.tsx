@@ -18,8 +18,8 @@ const ContainerDisplay: React.FC<{ id:string ,info: ContainerInfo }> = props => 
             <p><strong>Image: </strong><br /> {props.info.Image}</p>
             <hr />
             <p><strong>Activity: </strong><br /> {props.info.State}</p>
-            <hr />
-            <p><strong>Network: </strong><br /> {props.info.Networks}</p>
+            {/* <hr />
+            <p><strong>Network: </strong><br /> {props.info.Networks}</p> */}
           </div>
           <ul className='portInfo'>
             {/* Display list of information from Ports*/}
@@ -46,8 +46,8 @@ const ContainerDisplay: React.FC<{ id:string ,info: ContainerInfo }> = props => 
             <p><strong>Image: </strong><br /> {props.info.Image}</p>
             <hr />
             <p><strong>Activity: </strong><br /> {props.info.State}</p>
-            <hr />
-            <p><strong>Network: </strong><br /> {props.info.Networks}</p>
+            {/* <hr />
+            <p><strong>Network: </strong><br /> {props.info.Networks}</p> */}
           </div>
       </div>
   );

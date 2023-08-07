@@ -40,27 +40,16 @@ const Network = (props: {
   // return
   return (
     // a div containing the bridge name and the array displaying each container
-    <div
-      id={`${props.networkIndex}`}
-      className="network"
-      key={`${props.networkIndex}`}
-    >
+    <div id={`${props.networkIndex}`} className="network">
       <div className="networkName">
-        <strong>Name: </strong>
-        {networkName}
+        <div>
+          <strong>Name: </strong>
+          {networkName}
+        </div>
+        <button className="deleteNetworkButton">X</button>
         <hr />
       </div>
-      <div
-        className="containtersContainer"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-          width: '100%',
-          columnGap: '60px',
-        }}
-      >
-        {networkContainerDisplay}
-      </div>
+      <div className="containersContainer">{networkContainerDisplay}</div>
     </div>
   );
 };
