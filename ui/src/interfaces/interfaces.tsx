@@ -27,10 +27,13 @@ type setNetworks = React.Dispatch<React.SetStateAction<[] | NetworkInfo[]>>;
 
 type setContainers = React.Dispatch<React.SetStateAction<[] | ContainerInfo[]>>;
 
+ type isLoading = React.Dispatch<React.SetStateAction<Boolean>>
+
 export type {
   ContainerInfo,
   PortItem,
   NetworkInfo,
   setNetworks,
   setContainers,
+  isLoading
 };

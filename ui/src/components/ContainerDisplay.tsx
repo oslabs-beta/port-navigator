@@ -3,6 +3,7 @@ import {
   ContainerInfo,
   setContainers,
   setNetworks,
+  isLoading
 } from '../interfaces/interfaces';
 import { DisconnectContainer } from '../functions/functions';
 
@@ -13,6 +14,7 @@ const ContainerDisplay: React.FC<{
   network: string;
   setContainers: setContainers;
   setNetworks: setNetworks;
+  isLoading: isLoading
 }> = props => {
   //if the Ports object exist within our props
   if (props.info.Ports) {
@@ -52,6 +54,7 @@ const ContainerDisplay: React.FC<{
                   props.network,
                   props.setContainers,
                   props.setNetworks,
+                  props.isLoading
                 )
               }>
               Disconnect
@@ -118,6 +121,7 @@ const ContainerDisplay: React.FC<{
                 props.network,
                 props.setContainers,
                 props.setNetworks,
+                props.isLoading
               )
             }>
             Disconnect

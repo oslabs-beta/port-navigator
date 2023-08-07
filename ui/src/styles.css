@@ -251,3 +251,9 @@ body {
   border: none;
   border-radius: 1px;
 }
+
+.Loader{
+
+  font: 200px;
+  font-weight: bold
+}

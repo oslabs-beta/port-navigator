@@ -4,6 +4,7 @@ import type {
   NetworkInfo,
   setContainers,
   setNetworks,
+  isLoading
 } from '../interfaces/interfaces';
 
 // Note: This line relies on Docker Desktop's presence as a host application.
@@ -112,7 +113,9 @@ const DisconnectContainer = async (
   networkName: string,
   setContainers: setContainers,
   setNetworks: setNetworks,
+  isLoading: isLoading,
 ): Promise<void> => {
+  isLoading(true);
   const ddClient = useDockerDesktopClient();
   await ddClient.docker.cli.exec('network disconnect', [
     networkName,
@@ -120,6 +123,7 @@ const DisconnectContainer = async (
   ]);
   await GetNetworks(setNetworks);
   await GetAllContainers(setContainers);
+  isLoading(false)
 };
 
 const HideContainers = (containerID: string, buttonId: string) => {
