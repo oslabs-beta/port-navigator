@@ -78,7 +78,6 @@ body {
   /* overflow-y: scroll; */
 }
 
-
 .container {
   max-width: 400px;
   display: flex;
@@ -149,3 +148,4 @@ body {
   border: none;
   border-radius: 1px;
 }
+

@@ -18,6 +18,7 @@ const Network = (props: {
       const newContainer = (
         <ContainerDisplay
           id={`${props.networkIndex}_container${i}`}
+          key={`${props.networkIndex}_container${i}`}
           info={currentContainer}
         />
       );
