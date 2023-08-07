@@ -1,5 +1,4 @@
-import { DockerDesktopClient } from '@docker/extension-api-client-types/dist/v1';
-
+import { createDockerDesktopClient } from '@docker/extension-api-client';
 import type {
   ContainerInfo,
   NetworkInfo,
@@ -7,11 +6,17 @@ import type {
   setNetworks,
 } from '../interfaces/interfaces';
 
+// Note: This line relies on Docker Desktop's presence as a host application.
+// If you're running this React app in a browser, it won't work properly.
+const client = createDockerDesktopClient();
+
+function useDockerDesktopClient() {
+  return client;
+}
+
 // obtain basic network info
-const getNetworks = async (
-  ddClient: DockerDesktopClient,
-  setNetworks: setNetworks,
-): Promise<void> => {
+const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
+  const ddClient = useDockerDesktopClient();
   // obtain list of all networks on Docker Desktop
   const result = await ddClient.docker.cli.exec('network ls', [
     '--no-trunc',
@@ -63,10 +68,10 @@ const getNetworks = async (
 };
 
 //obtains a list of all containers
-const getAllContainers = async (
-  ddClient: DockerDesktopClient,
+const GetAllContainers = async (
   setContainers: setContainers,
 ): Promise<void> => {
+  const ddClient = useDockerDesktopClient();
   // obtain list of all containers on Docker Desktop
   const dockerContainers: [] | unknown = await ddClient.docker.listContainers();
   if (Array.isArray(dockerContainers)) {
@@ -92,7 +97,24 @@ const getAllContainers = async (
     setContainers(newContainers);
   }
 };
-export { getNetworks, getAllContainers };
+
+const RemoveNetwork = async (name: string): Promise<void> => {
+  const ddClient = useDockerDesktopClient();
+  await ddClient.docker.cli.exec('network rm', [name]);
+};
+
+const DisconnectContainer = async (
+  containerName: string,
+  networkName: string,
+): Promise<void> => {
+  const ddClient = useDockerDesktopClient();
+  await ddClient.docker.cli.exec('network disconnect', [
+    networkName,
+    containerName,
+  ]);
+};
+
+export { GetNetworks, GetAllContainers, RemoveNetwork, DisconnectContainer };
 
 /* future functionality
 
