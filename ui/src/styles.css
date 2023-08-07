@@ -83,14 +83,13 @@ body {
   color: azure;
 }
 
-/* .containersContainer {
+.containersContainer {
   height: 100%;
   width: 100%;
   margin: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   justify-items: center;
-  /* overflow-y: scroll; */
 }
 
 .container {
@@ -163,4 +162,3 @@ body {
   border: none;
   border-radius: 1px;
 }
-
