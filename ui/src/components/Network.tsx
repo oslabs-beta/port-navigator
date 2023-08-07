@@ -14,9 +14,6 @@ const Network = (props: {
   // TO DO: more specific typing on current container
   props.containers.forEach((currentContainer: ContainerInfo, i: number) => {
     // declare a variable, newContainer, and assign it the value of a container component passing down the currentContainer object as props
-
-    console.log('props.network: ', props.network);
-    console.log('currentContainer: ', currentContainer);
     if (props.network.Containers?.includes(currentContainer.Name)) {
       const newContainer = (
         <ContainerDisplay
