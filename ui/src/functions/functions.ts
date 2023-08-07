@@ -127,7 +127,7 @@ const HideContainers = (containerID: string, buttonId: string) => {
   const showHideButton: HTMLElement | null = document.getElementById(buttonId);
   if (divToHide !== null && showHideButton !== null) {
     if (divToHide.style.display === 'none') {
-      divToHide.style.display = 'block';
+      divToHide.style.display = 'grid';
       showHideButton.innerText = 'Hide Containers';
     } else {
       divToHide.style.display = 'none';
