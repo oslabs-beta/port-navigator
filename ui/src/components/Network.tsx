@@ -48,6 +48,7 @@ const Network = (props: {
   }
   // const bridgeName: string = bridgeContainerDisplay[0].props.info.name;
   const networkName = props.network.Name;
+
   // return
   return (
     // a div containing the bridge name and the array displaying each container
@@ -71,7 +72,7 @@ const Network = (props: {
         </button>
         <button
           className='deleteNetworkButton'
-          onClick={() => RemoveNetwork(props.network.Name, props.setNetworks)}>
+          onClick={() => RemoveNetwork(props.network, props.setNetworks)}>
           x
         </button>
       </div>
