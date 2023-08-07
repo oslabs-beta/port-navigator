@@ -1,11 +1,7 @@
 // ---- imports go here ----
 import ContainerDisplay from './ContainerDisplay';
 import type { ContainerInfo, NetworkInfo } from '../interfaces/interfaces';
-import {
-  RemoveNetwork,
-  GetAllContainers,
-  GetNetworks,
-} from '../functions/functions';
+import { RemoveNetwork } from '../functions/functions';
 
 // TO DO: typing will need to be more specific here once the exact contents of bridge and container are known
 const Network = (props: {
