@@ -21,6 +21,7 @@ const Network = (props: {
           id={`${props.networkIndex}_container${i}`}
           key={`${props.networkIndex}_container${i}`}
           info={currentContainer}
+          network = {props.network.Name}
         />
       );
       // push the newContainer into the bridgeContainerDisplay
