@@ -100,12 +100,26 @@ const GetAllContainers = async (
 };
 
 const RemoveNetwork = async (
-  name: string,
+  network: NetworkInfo,
   setNetworks: setNetworks,
 ): Promise<void> => {
   const ddClient = useDockerDesktopClient();
-  await ddClient.docker.cli.exec('network rm', [name]);
-  await GetNetworks(setNetworks);
+  console.log(network.Containers?.length);
+  if (
+    network.Name === 'bridge' ||
+    network.Name === 'host' ||
+    network.Name === 'none'
+  ) {
+    ddClient.desktopUI.toast.error(`You can't delete the ${network.Name}!`);
+  } else if (network.Containers?.length !== 0) {
+    ddClient.desktopUI.toast.error(
+      `You can't delete a Network that has Containers attached to it!`,
+    );
+  } else {
+    await ddClient.docker.cli.exec('network rm', [network.Name]);
+    await GetNetworks(setNetworks);
+    ddClient.desktopUI.toast.success('Successfully deleted Network!');
+  }
 };
 
 const DisconnectContainer = async (
