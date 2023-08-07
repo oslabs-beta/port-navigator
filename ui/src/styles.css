@@ -168,18 +168,6 @@ body {
   margin: 6px auto 0;
 }
 
-.deleteNetworkButton {
-  width: 5%;
-  font-weight: bolder;
-  border-radius: 10px;
-}
-
-.deleteNetworkButton:hover {
-  cursor: pointer;
-  background-color: red;
-  color: azure;
-}
-
 .containersContainer {
   height: 100%;
   width: 100%;
