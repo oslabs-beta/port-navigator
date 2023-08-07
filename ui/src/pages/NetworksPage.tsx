@@ -1,35 +1,50 @@
 // import React from 'react';
 import { useNavigate } from 'react-router-dom';
 // import ContainerDisplay from '../components/ContainerDisplay';
-import Bridge from '../components/Bridge';
-import { ContainerInfo, BridgeInfo } from '../interfaces/interfaces';
+import Network from '../components/Network';
+import {
+  ContainerInfo,
+  NetworkInfo,
+  setContainers,
+  setNetworks,
+} from '../interfaces/interfaces';
 // import { StoreContext } from '../dataStore';
 
 const NetworksPage = (props: {
-  bridges: BridgeInfo[] | [];
+  networks: NetworkInfo[] | [];
   containers: ContainerInfo[] | [];
+  setContainers: setContainers;
+  setNetworks: setNetworks;
 }) => {
   const nav = useNavigate();
-  const bridgeEl: JSX.Element[] = [];
-  props.bridges.forEach(bridge => {
-    bridgeEl.push(<Bridge bridge={bridge} containers={props.containers} />);
+  const networkEl: JSX.Element[] = [];
+  props.networks.forEach((network, i: number) => {
+    const networkIndex: String = `network${i}`;
+    networkEl.push(
+      <Network
+        key={`network${i}`}
+        networkIndex={networkIndex}
+        network={network}
+        containers={props.containers}
+        setContainers={props.setContainers}
+        setNetworks={props.setNetworks}
+      />,
+    );
   });
   return (
-    <div className='networksContainer'>
-      <div className='pageButtonContainer'>
+    <div className='mainContainer'>
+      <div className='buttonContainer'>
         <button
-          className='containersButton'
+          className='button'
           title='Containers'
-          onClick={() => nav('containers')}></button>
+          onClick={() => nav('containers')}>
+          Containers
+        </button>
       </div>
       <div className='hostContainer'>
         <h1>Host</h1>
-        {bridgeEl}
-        {/* Bridges in specific order? */}
       </div>
-      {/* <div className="bridgeContainer">
-        <Bridge></Bridge>
-      </div> */}
+      <div className='networksContainer'>{networkEl}</div>
     </div>
   );
 };

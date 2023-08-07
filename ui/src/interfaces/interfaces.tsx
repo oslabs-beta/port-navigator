@@ -4,7 +4,7 @@ interface ContainerInfo {
   Image: string;
   State: string;
   Networks: string | [string];
-  Ports?: PortItem;
+  Ports: PortItem | null;
 }
 interface PortItem {
   IP: string;
@@ -13,10 +13,24 @@ interface PortItem {
   Type: string;
 }
 
-interface BridgeInfo {
+interface NetworkInfo {
   Driver: string;
   Name: string;
   ID: string;
+  Containers?: string[];
+  Gateway?: string;
+  Subnet?: string;
+  Scope?: string;
 }
 
-export type { ContainerInfo, PortItem, BridgeInfo };
+type setNetworks = React.Dispatch<React.SetStateAction<[] | NetworkInfo[]>>;
+
+type setContainers = React.Dispatch<React.SetStateAction<[] | ContainerInfo[]>>;
+
+export type {
+  ContainerInfo,
+  PortItem,
+  NetworkInfo,
+  setNetworks,
+  setContainers,
+};
