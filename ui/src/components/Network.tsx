@@ -41,12 +41,12 @@ const Network = (props: {
   return (
     // a div containing the bridge name and the array displaying each container
     <div id={`${props.networkIndex}`} className="network">
-      <div className="networkName">
-        <div>
+      <div className="networkContainer">
+        <div className='networkLabel'>
           <strong>Name: </strong>
           {networkName}
         </div>
-        <button className="deleteNetworkButton">X</button>
+        <button className="deleteNetworkButton">x</button>
         <hr />
       </div>
       <div className="containersContainer">{networkContainerDisplay}</div>

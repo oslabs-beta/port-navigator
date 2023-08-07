@@ -27,7 +27,6 @@ const NetworksPage = (props: {
       <div className="buttonContainer">
         <button
           className="button"
-          title="Containers"
           onClick={() => nav('containers')}
         >
           Containers
