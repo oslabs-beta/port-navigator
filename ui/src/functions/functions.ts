@@ -98,20 +98,28 @@ const GetAllContainers = async (
   }
 };
 
-const RemoveNetwork = async (name: string): Promise<void> => {
+const RemoveNetwork = async (
+  name: string,
+  setNetworks: setNetworks,
+): Promise<void> => {
   const ddClient = useDockerDesktopClient();
   await ddClient.docker.cli.exec('network rm', [name]);
+  await GetNetworks(setNetworks);
 };
 
 const DisconnectContainer = async (
   containerName: string,
   networkName: string,
+  setContainers: setContainers,
+  setNetworks: setNetworks,
 ): Promise<void> => {
   const ddClient = useDockerDesktopClient();
   await ddClient.docker.cli.exec('network disconnect', [
     networkName,
     containerName,
   ]);
+  await GetNetworks(setNetworks);
+  await GetAllContainers(setContainers);
 };
 
 export { GetNetworks, GetAllContainers, RemoveNetwork, DisconnectContainer };

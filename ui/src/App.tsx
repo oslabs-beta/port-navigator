@@ -23,7 +23,14 @@ export function App() {
     <Routes>
       <Route
         path='/'
-        element={<NetworksPage networks={networks} containers={containers} />}
+        element={
+          <NetworksPage
+            networks={networks}
+            containers={containers}
+            setContainers={setContainers}
+            setNetworks={setNetworks}
+          />
+        }
       />
       <Route path='/containers' element={<ContainersPage />} />
     </Routes>

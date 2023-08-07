@@ -1,5 +1,9 @@
 import React from 'react';
-import { ContainerInfo } from '../interfaces/interfaces';
+import {
+  ContainerInfo,
+  setContainers,
+  setNetworks,
+} from '../interfaces/interfaces';
 import { DisconnectContainer } from '../functions/functions';
 
 //Component to display Container
@@ -7,6 +11,8 @@ const ContainerDisplay: React.FC<{
   id: string;
   info: ContainerInfo;
   network: string;
+  setContainers: setContainers;
+  setNetworks: setNetworks;
 }> = props => {
   //if the Ports object exist within our props
   if (props.info.Ports) {
@@ -46,7 +52,12 @@ const ContainerDisplay: React.FC<{
             <button
               className='button'
               onClick={() =>
-                DisconnectContainer(props.info.Name, props.network)
+                DisconnectContainer(
+                  props.info.Name,
+                  props.network,
+                  props.setContainers,
+                  props.setNetworks,
+                )
               }>
               Disconnect
             </button>
@@ -111,7 +122,14 @@ const ContainerDisplay: React.FC<{
           {/* <button className= 'button' onClick={ () => ConnectContainers(props.info.Name)}>Connect</button> */}
           <button
             className='button'
-            onClick={() => DisconnectContainer(props.info.Name, props.network)}>
+            onClick={() =>
+              DisconnectContainer(
+                props.info.Name,
+                props.network,
+                props.setContainers,
+                props.setNetworks,
+              )
+            }>
             Disconnect
           </button>
         </div>
