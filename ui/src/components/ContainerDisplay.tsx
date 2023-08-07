@@ -1,6 +1,6 @@
 import React from 'react';
 import { ContainerInfo } from '../interfaces/interfaces';
-
+ import {ConnectContainers, DeleteContainers} from '../functions/functions'
 
 //Component to display Container
 const ContainerDisplay: React.FC<{ id:string ,info: ContainerInfo }> = props => {
@@ -20,6 +20,10 @@ const ContainerDisplay: React.FC<{ id:string ,info: ContainerInfo }> = props => 
             <p><strong>Activity: </strong><br /> {props.info.State}</p>
             <hr />
             <p><strong>Network: </strong><br /> {props.info.Networks}</p>
+            <div className='containerButtons'>
+             <button className= 'button' onClick={() => ConnectContainers(props.info.Name) } >Connect</button> 
+            <button className='button' onClick={ () => DeleteContainers(props.info.Name, props.info.Networks) }>Disconnect</button>    
+            </div>
           </div>
           <ul className='portInfo'>
             {/* Display list of information from Ports*/}
@@ -48,9 +52,17 @@ const ContainerDisplay: React.FC<{ id:string ,info: ContainerInfo }> = props => 
             <p><strong>Activity: </strong><br /> {props.info.State}</p>
             <hr />
             <p><strong>Network: </strong><br /> {props.info.Networks}</p>
+            <div className='containerButtons'>
+            <button className= 'button' onClick={ () => ConnectContainers(props.info.Name)}>Connect</button>
+            <button className='button' onClick={ () => DeleteContainers(props.info.Name, props.info.Networks) }>Disconnect</button>    
+            </div>
+            
           </div>
       </div>
   );
 };
 
 export default ContainerDisplay;
+
+
+  

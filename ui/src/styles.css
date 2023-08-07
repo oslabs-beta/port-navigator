@@ -17,6 +17,16 @@ body {
   height: 50px;
 }
 
+.containerButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  column-gap: 20px;
+}
+
+
 .button {
   font-size: 1.2rem;
   font-weight: 600;
@@ -74,7 +84,6 @@ body {
   justify-items: center;
   overflow-y: scroll;
 } */
-
 
 .container {
   width: fit-content;
