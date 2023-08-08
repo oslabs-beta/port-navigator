@@ -1,4 +1,5 @@
 import { createDockerDesktopClient } from '@docker/extension-api-client';
+// import { ExecOptions } from '@docker/extension-api-client-types/dist/v1';
 import type {
   ContainerInfo,
   NetworkInfo,
@@ -125,7 +126,51 @@ const RemoveNetwork = async (
   }
 };
 
-const ConnectContainer = async (): Promise<void> => {};
+const ConnectContainer = async (
+  containerName: string,
+  networkName: string,
+  setContainers: setContainers,
+  setNetworks: setNetworks,
+  // alias?: string,
+  // ip?: string,
+): Promise<void> => {
+  const ddClient = useDockerDesktopClient();
+  // const aliasCommand = { alias };
+  // const ipCommand = { ip };
+  // const execOptions: ExecOptions = [aliasCommand, ipCommand];
+
+  //gets container info to check if network connection already exists
+  const result = await ddClient.docker.cli.exec('inspect', [containerName]);
+  const containerInfo: any = result.parseJsonObject();
+
+  //if network connection doesn't exist, make the connection
+  if (!containerInfo[0].NetworkSettings.Networks[networkName]) {
+    await ddClient.docker.cli.exec('network connect', [
+      networkName,
+      containerName,
+    ]);
+    //rerend networks with updated info
+    await GetNetworks(setNetworks);
+    await GetAllContainers(setContainers);
+    //if connection already exists, display warning message
+  } else {
+    ddClient.desktopUI.toast.warning(
+      `Container ${containerName} is already assigned to the networkS ${networkName}!`,
+    );
+  }
+
+  /*
+*connect a container to a network
+? https://docs.docker.com/engine/reference/commandline/network_connect/
+docker network connect [OPTIONS] <network name> <container name>
+*--alias		Add network-scoped alias for the container
+?--driver-opt		driver options for the network
+*--ip		IPv4 address (e.g., 172.30.100.104)
+--ip6		IPv6 address (e.g., 2001:db8::33)
+--link		Add link to another container
+--link-local-ip		Add a link-local address for the container
+  */
+};
 
 //disconnects a container from given network when button is clicked
 const DisconnectContainer = async (
