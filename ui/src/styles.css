@@ -33,6 +33,7 @@ body {
   padding: 10px 20px;
   border-radius: 8px;
   background: linear-gradient(to top left, rgb(46, 87, 120), rgb(47, 54, 71));
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
   border-color: rgb(46, 87, 120);
   border-bottom: none;
   border-right: none;
@@ -147,12 +148,12 @@ body {
   right: 18px;
   text-align: center;
   padding-bottom: 2px;
-  width: 22px;
-  height: 22px;
+  width: 26px;
+  height: 26px;
   font-weight: bolder;
-  background-color: azure;
+  background: linear-gradient(to bottom right, azure, rgb(158, 198, 198));
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
 }
 
 .deleteNetworkButton:hover {
@@ -174,13 +175,14 @@ body {
   width: 100%;
   margin: 0;
   display: none;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(375px, 1fr));
   column-gap: 20px;
   justify-items: center;
 }
 
 .container {
-  max-width: 400px;
+  width: calc(375px + (565 - 375) * ((100vw - 552px) / (1872 - 552)));
+  max-width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -196,7 +198,7 @@ body {
 .containerInfo {
   display: flex;
   flex-direction: column;
-  max-width: 400px;
+  width: calc(375px + (565 - 375) * ((100vw - 552px) / (1872 - 552)));
   height: 100%;
   padding: 10px 0px 10px 20px;
   margin-right: 20px;
