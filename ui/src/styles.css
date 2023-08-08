@@ -51,12 +51,55 @@ body {
   border-right: none;
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
   transition: ease-in-out 0.25s;
+  filter: brightness(1.2) contrast(120%);
+}
+
+.containerNetworkFeatures {
+  width: 100%;
+  display: grid;
+  grid-template-columns:  repeat(auto-fit, minmax(100px, 1fr));
+  column-gap: 16px;
+  justify-items: center;
+  align-items: center;
+  font-weight: 500;
+  color: rgba(240, 255, 255, 0.654);
+}
+
+.connectedContainerContainer {
+  width: calc(130px + (220 - 130) * ((100vw - 552px) / (1872 - 552)));
+  height: 40px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 24px;
+  background: linear-gradient(to bottom right, rgba(240, 255, 255, 0.144), rgba(240, 255, 255, 0.065));
+}
+
+.connectedText {
+  text-align: left;
+  font-size: 0.9rem;
+  line-height: 12px;
+  margin: 0 0 0 16px;
+}
+
+
+.divider {
+  margin: 0 calc(10px + (90 - 10) * ((100vw - 552px) / (1872 - 552))) 4px 2px;
+  /* margin-right: ; */
+  font-size: 2rem;
+}
+
+.connectedCount {
+  font-size: 2.2rem;
+  margin: 0 12px 0 0;
 }
 
 .innerButton {
-  font-size: 1rem;
+  width: calc(130px + (220 - 130) * ((100vw - 552px) / (1872 - 552)));
+  font-size: 0.9rem;
   font-weight: 600;
-  padding: 10px 20px;
+  padding: 12px 10px;
+  margin: 0 4px;
   border-radius: 8px;
   background: linear-gradient(to bottom right, azure, rgb(158, 198, 198));
   border-color: rgb(255, 255, 255);
@@ -79,6 +122,33 @@ body {
   transition: ease-in-out 0.2s;
 }
 
+.deleteNetworkButton {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  text-align: center;
+  padding-bottom: 2px;
+  width: 26px;
+  height: 26px;
+  font-weight: bolder;
+  background: linear-gradient(to bottom right, azure, rgb(158, 198, 198));
+  border: none;
+  border-radius: 14px;
+}
+
+.deleteNetworkButton:hover {
+  cursor: pointer;
+  padding: 0 1px 2px 0;
+  transform: scale(1.1) translate(-1px, -1px);
+  background: linear-gradient(to bottom right, #ba9311, #6b5506);
+  border: solid 0.05rem #d1a71d;
+  border-bottom: none;
+  border-right: none;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: ease-in-out 0.2s;
+  color: azure;
+}
+
 .network {
   display: flex;
   flex-direction: column;
@@ -99,6 +169,25 @@ body {
   border-top: solid 0.15rem #4c99a0;
   border-left: solid 0.15rem #4c99a0;
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
+}
+
+#defaultNetwork {
+  background: linear-gradient(
+    to bottom right,
+    #950f76,
+    #8a0e6b,
+    #700951,
+    #6f0751
+  );
+  border-top: solid 0.15rem #c50e88;
+  border-left: solid 0.15rem #c50e88;
+  align-self: center;
+}
+
+#defaultNetwork:hover,
+.network:hover {
+  filter: brightness(1.2) contrast(120%);
+  transition: ease-in-out 0.3s;
 }
 
 .hostContainer {
@@ -141,34 +230,6 @@ body {
 .networkLabel {
   padding: 0 20px;
 }
-
-.deleteNetworkButton {
-  position: absolute;
-  top: 12px;
-  right: 18px;
-  text-align: center;
-  padding-bottom: 2px;
-  width: 26px;
-  height: 26px;
-  font-weight: bolder;
-  background: linear-gradient(to bottom right, azure, rgb(158, 198, 198));
-  border: none;
-  border-radius: 14px;
-}
-
-.deleteNetworkButton:hover {
-  cursor: pointer;
-  padding: 0 1px 2px 0;
-  transform: scale(1.1) translate(-1px, -1px);
-  background: linear-gradient(to bottom right, #ba9311, #6b5506);
-  border: solid 0.05rem #d1a71d;
-  border-bottom: none;
-  border-right: none;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-  transition: ease-in-out 0.2s;
-  color: azure;
-}
-
 
 .containersContainer {
   height: 100%;
