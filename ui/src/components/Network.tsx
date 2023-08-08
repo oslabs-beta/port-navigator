@@ -63,7 +63,7 @@ const Network = (props: {
           <hr />
           <button
             className='deleteNetworkButton'
-            onClick={() => RemoveNetwork(props.network.Name, props.setNetworks)}>
+            onClick={() => RemoveNetwork(props.network, props.setNetworks)}>
             x
           </button>
         </div>
@@ -72,18 +72,6 @@ const Network = (props: {
           className='containersContainer'>
           {networkContainerDisplay}
         </div>
-        <hr />
-        <button
-          className='innerButton'
-          id={`${props.networkIndex}ShowHideNetworksButton`}
-          onClick={() =>
-            HideContainers(
-              `${props.networkIndex}ContainersContainer`,
-              `${props.networkIndex}ShowHideNetworksButton`,
-            )
-          }>
-          Show Containers
-        </button>
         <button
           className='deleteNetworkButton'
           onClick={() => RemoveNetwork(props.network, props.setNetworks)}>
@@ -114,7 +102,7 @@ const Network = (props: {
           </button>
           <button
             className='deleteNetworkButton'
-            onClick={() => RemoveNetwork(props.network.Name, props.setNetworks)}>
+            onClick={() => RemoveNetwork(props.network, props.setNetworks)}>
             x
           </button>
         </div>
