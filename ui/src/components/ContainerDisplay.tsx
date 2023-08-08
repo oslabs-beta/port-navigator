@@ -4,7 +4,7 @@ import {
   setContainers,
   setNetworks,
 } from '../interfaces/interfaces';
-import { DisconnectContainer } from '../functions/functions';
+import { ConnectContainer, DisconnectContainer } from '../functions/functions';
 
 //Component to display Container
 const ContainerDisplay: React.FC<{
@@ -43,7 +43,18 @@ const ContainerDisplay: React.FC<{
             <br /> {props.info.State}
           </p>
           <div className='containerButtons'>
-            {/* <button className= 'button' onClick={() => ConnectContainers(props.info.Name) } >Connect</button>  */}
+            <button
+              className='button'
+              onClick={() =>
+                ConnectContainer(
+                  props.info.Name,
+                  'bridge',
+                  props.setContainers,
+                  props.setNetworks,
+                )
+              }>
+              Connect
+            </button>
             <button
               className='innerButton'
               onClick={() =>
@@ -109,7 +120,18 @@ const ContainerDisplay: React.FC<{
           <br /> {props.info.State}
         </p>
         <div className='containerButtons'>
-          {/* <button className= 'button' onClick={ () => ConnectContainers(props.info.Name)}>Connect</button> */}
+          <button
+            className='button'
+            onClick={() =>
+              ConnectContainer(
+                props.info.Name,
+                'bridge',
+                props.setContainers,
+                props.setNetworks,
+              )
+            }>
+            Connect
+          </button>
           <button
             className='innerButton'
             onClick={() =>
