@@ -120,7 +120,18 @@ const ContainerDisplay: React.FC<{
           <br /> {props.info.State}
         </p>
         <div className='containerButtons'>
-          {/* <button className= 'button' onClick={ () => ConnectContainers(props.info.Name)}>Connect</button> */}
+          <button
+            className='button'
+            onClick={() =>
+              ConnectContainer(
+                props.info.Name,
+                'bridge',
+                props.setContainers,
+                props.setNetworks,
+              )
+            }>
+            Connect
+          </button>
           <button
             className='innerButton'
             onClick={() =>

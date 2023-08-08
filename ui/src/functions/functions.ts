@@ -131,13 +131,12 @@ const ConnectContainer = async (
   networkName: string,
   setContainers: setContainers,
   setNetworks: setNetworks,
-  // alias?: string,
-  // ip?: string,
+  alias?: string,
+  ip?: string,
 ): Promise<void> => {
   const ddClient = useDockerDesktopClient();
-  // const aliasCommand = { alias };
-  // const ipCommand = { ip };
-  // const execOptions: ExecOptions = [aliasCommand, ipCommand];
+  console.log('alias: ', alias);
+  console.log('ip: ', ip);
 
   //gets container info to check if network connection already exists
   const result = await ddClient.docker.cli.exec('inspect', [containerName]);
