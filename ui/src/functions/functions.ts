@@ -44,6 +44,7 @@ const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
       ['--format', '"{{json .}}"'],
     );
     //parsing additional info
+    //TODO: get rid of any!
     const moreInfo: any = result.parseJsonLines()[0];
     //grabbing container names and adding into array
     const networkContainers: any[] = Object.values(moreInfo.Containers);
@@ -136,6 +137,7 @@ const DisconnectContainer = async (
     networkName,
     containerName,
   ]);
+  //TODO: add check that container doesn't have any other connections
   await ddClient.docker.cli.exec('network connect', ['none', containerName]);
   await GetNetworks(setNetworks);
   await GetAllContainers(setContainers);
@@ -166,7 +168,6 @@ export {
 
 /* future functionality
 
-* additional info on each network
 
 ! CLI commands to know
 * prune networks: Remove all unused networks
