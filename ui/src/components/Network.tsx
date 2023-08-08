@@ -49,6 +49,7 @@ const Network = (props: {
   // const bridgeName: string = bridgeContainerDisplay[0].props.info.name;
 
   const networkName = props.network.Name;
+
   // return
   if (!props.network.Containers?.length) {
     return (
@@ -71,6 +72,23 @@ const Network = (props: {
           className='containersContainer'>
           {networkContainerDisplay}
         </div>
+        <hr />
+        <button
+          className='innerButton'
+          id={`${props.networkIndex}ShowHideNetworksButton`}
+          onClick={() =>
+            HideContainers(
+              `${props.networkIndex}ContainersContainer`,
+              `${props.networkIndex}ShowHideNetworksButton`,
+            )
+          }>
+          Show Containers
+        </button>
+        <button
+          className='deleteNetworkButton'
+          onClick={() => RemoveNetwork(props.network, props.setNetworks)}>
+          x
+        </button>
       </div>
     );
   } else {

@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import type { ContainerInfo, NetworkInfo } from './interfaces/interfaces';
-// import Button from '@mui/material/Button';
-// import { Stack, TextField, Typography } from '@mui/material';
 
 import NetworksPage from './pages/NetworksPage';
 import ContainersPage from './pages/ContainersPage';
