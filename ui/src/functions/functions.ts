@@ -125,6 +125,8 @@ const RemoveNetwork = async (
   }
 };
 
+const ConnectContainer = async (): Promise<void> => {};
+
 //disconnects a container from given network when button is clicked
 const DisconnectContainer = async (
   containerName: string,
@@ -133,12 +135,27 @@ const DisconnectContainer = async (
   setNetworks: setNetworks,
 ): Promise<void> => {
   const ddClient = useDockerDesktopClient();
+  let connected = true;
+
+  //disconnect container from network
   await ddClient.docker.cli.exec('network disconnect', [
     networkName,
     containerName,
   ]);
-  //TODO: add check that container doesn't have any other connections
-  await ddClient.docker.cli.exec('network connect', ['none', containerName]);
+
+  //inspect container to find other network connections
+  const result = await ddClient.docker.cli.exec('inspect', [containerName]);
+  const containerInfo: any = result.parseJsonObject();
+  const networks = containerInfo[0].NetworkSettings.Networks;
+
+  //if no other connections exist, set connected to false
+  if (!Object.keys(networks).length) connected = false;
+
+  //assign container to 'none' network if no network connections still exist
+  if (!connected) {
+    await ddClient.docker.cli.exec('network connect', ['none', containerName]);
+  }
+  //rerend networks with updated info
   await GetNetworks(setNetworks);
   await GetAllContainers(setContainers);
 };
@@ -162,6 +179,7 @@ export {
   GetNetworks,
   GetAllContainers,
   RemoveNetwork,
+  ConnectContainer,
   DisconnectContainer,
   HideContainers,
 };
