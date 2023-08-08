@@ -1,6 +1,4 @@
-// import React from 'react';
 import { useNavigate } from 'react-router-dom';
-// import ContainerDisplay from '../components/ContainerDisplay';
 import Network from '../components/Network';
 import {
   ContainerInfo,
@@ -8,7 +6,6 @@ import {
   setContainers,
   setNetworks,
 } from '../interfaces/interfaces';
-// import { StoreContext } from '../dataStore';
 
 const NetworksPage = (props: {
   networks: NetworkInfo[] | [];
@@ -50,7 +47,3 @@ const NetworksPage = (props: {
 };
 
 export default NetworksPage;
-
-// const nav = useNavigate();
-// const { host, setHost, bridges, setBridges, containers, setContainers } =
-//   useContext(StoreContext);
