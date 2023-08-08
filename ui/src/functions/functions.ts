@@ -100,6 +100,26 @@ const GetAllContainers = async (
   }
 };
 
+const AddNetwork = async (
+  networkName: string,
+  networks: NetworkInfo[],
+  setNetworks: setNetworks,
+) => {
+  const ddClient = useDockerDesktopClient();
+  let exists = false;
+  for (const network of networks) {
+    if (network.Name === networkName) exists = true;
+  }
+  if (!exists) {
+    await ddClient.docker.cli.exec('network connect', [networkName]);
+    GetNetworks(setNetworks);
+  } else {
+    ddClient.desktopUI.toast.error(
+      `The ${networkName} network already exists!`,
+    );
+  }
+};
+
 //removes an empty network when button is clicked
 const RemoveNetwork = async (
   network: NetworkInfo,
@@ -222,6 +242,7 @@ const HideContainers = (containerID: string, buttonId: string) => {
 export {
   GetNetworks,
   GetAllContainers,
+  AddNetwork,
   RemoveNetwork,
   ConnectContainer,
   DisconnectContainer,
