@@ -47,41 +47,73 @@ const Network = (props: {
     // );
   }
   // const bridgeName: string = bridgeContainerDisplay[0].props.info.name;
+
   const networkName = props.network.Name;
+
   // return
-  return (
-    // a div containing the bridge name and the array displaying each container
-    <div id={`${props.networkIndex}`} className='network'>
-      <div className='networkContainer'>
-        <div className='networkLabel'>
-          <strong>Name: </strong>
-          {networkName}
+  if (!props.network.Containers?.length) {
+    return (
+      // a div containing the bridge name and the array displaying each container
+      <div id={`${props.networkIndex}`} className='network'>
+        <div className='networkContainer'>
+          <div className='networkLabel'>
+            <strong>Name: </strong>
+            {networkName}
+          </div>
+          <hr />
+          <button
+            className='deleteNetworkButton'
+            onClick={() => RemoveNetwork(props.network, props.setNetworks)}>
+            x
+          </button>
         </div>
-        <hr />
-        <button
-          className='innerButton'
-          id={`${props.networkIndex}ShowHideNetworksButton`}
-          onClick={() =>
-            HideContainers(
-              `${props.networkIndex}ContainersContainer`,
-              `${props.networkIndex}ShowHideNetworksButton`,
-            )
-          }>
-          Show Containers
-        </button>
+        <div
+          id={`${props.networkIndex}ContainersContainer`}
+          className='containersContainer'>
+          {networkContainerDisplay}
+        </div>
         <button
           className='deleteNetworkButton'
-          onClick={() => RemoveNetwork(props.network.Name, props.setNetworks)}>
+          onClick={() => RemoveNetwork(props.network, props.setNetworks)}>
           x
         </button>
       </div>
-      <div
-        id={`${props.networkIndex}ContainersContainer`}
-        className='containersContainer'>
-        {networkContainerDisplay}
+    );
+  } else {
+    return (
+      // a div containing the bridge name and the array displaying each container
+      <div id={`${props.networkIndex}`} className='network'>
+        <div className='networkContainer'>
+          <div className='networkLabel'>
+            <strong>Name: </strong>
+            {networkName}
+          </div>
+          <hr />
+          <button
+            className='innerButton'
+            id={`${props.networkIndex}ShowHideNetworksButton`}
+            onClick={() =>
+              HideContainers(
+                `${props.networkIndex}ContainersContainer`,
+                `${props.networkIndex}ShowHideNetworksButton`,
+              )
+            }>
+            Show Containers
+          </button>
+          <button
+            className='deleteNetworkButton'
+            onClick={() => RemoveNetwork(props.network, props.setNetworks)}>
+            x
+          </button>
+        </div>
+        <div
+          id={`${props.networkIndex}ContainersContainer`}
+          className='containersContainer'>
+          {networkContainerDisplay}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 // ---- exports go here ----
