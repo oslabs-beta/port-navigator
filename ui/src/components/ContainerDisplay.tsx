@@ -124,6 +124,7 @@ const ContainerDisplay: React.FC<{
           </li>
         </ul>
       </div>
+      </div>
     );
   }
   //else return container information without Ports info
