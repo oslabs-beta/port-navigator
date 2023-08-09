@@ -25,6 +25,7 @@ const NetworksPage = (props: {
         containers={props.containers}
         setContainers={props.setContainers}
         setNetworks={props.setNetworks}
+        allNetworks={props.networks}
       />,
     );
   });

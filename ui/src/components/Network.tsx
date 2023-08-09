@@ -15,6 +15,7 @@ const Network = (props: {
   containers: ContainerInfo[] | [];
   setContainers: setContainers;
   setNetworks: setNetworks;
+  allNetworks: NetworkInfo[] | [];
 }) => {
   // declare a variable, bridgeContainerDisplay, and assign it the value of an empty array
   const networkContainerDisplay: JSX.Element[] = [];
@@ -31,6 +32,7 @@ const Network = (props: {
           network={props.network.Name}
           setContainers={props.setContainers}
           setNetworks={props.setNetworks}
+          allNetworks= {props.allNetworks}
         />
       );
       // push the newContainer into the bridgeContainerDisplay
@@ -63,7 +65,7 @@ const Network = (props: {
           <hr />
           <button
             className='deleteNetworkButton'
-            onClick={() => RemoveNetwork(props.network.Name, props.setNetworks)}>
+            onClick={() => RemoveNetwork(props.network, props.setNetworks)}>
             x
           </button>
         </div>
@@ -114,7 +116,7 @@ const Network = (props: {
           </button>
           <button
             className='deleteNetworkButton'
-            onClick={() => RemoveNetwork(props.network.Name, props.setNetworks)}>
+            onClick={() => RemoveNetwork(props.network, props.setNetworks)}>
             x
           </button>
         </div>
