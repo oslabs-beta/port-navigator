@@ -352,7 +352,7 @@ body {
   border-radius: 1px;
 }
 
-.containerform{
+.containerform {
   color: black;
 }
 
@@ -388,60 +388,56 @@ body {
 
 /* Form */
 
-.formOverlay{
+.formOverlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   backdrop-filter: 'blur(4px)';
- /* backgroundColor: 'rgba(0,0,0, .7)'; */
-  
-};
+  /* backgroundColor: 'rgba(0,0,0, .7)'; */
+}
 
-.formModal{
+.formModal {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: linear-gradient(to top left, rgb(46, 87, 120), rgb(47, 54, 71));
   padding: 300ppx;
-  width:50%;
+  width: 50%;
   height: 50%;
   border-radius: 50px;
-   
 }
 
-.form-container{
+.form-container {
   color: white;
   font-weight: bold;
   margin-left: 10%;
-  margin-top: 20%
+  margin-top: 20%;
 }
 
-.form{
-  font-size:20px;
-  font-weight: strong
+.form {
+  font-size: 20px;
+  font-weight: strong;
 }
 
-.form-select{
-  width:100px;
-  padding:3px;
-  color:white;
+.form-select {
+  width: 100px;
+  padding: 3px;
+  color: white;
   font-weight: bold;
-  font-size:20px;
-  background: linear-gradient(to top left, rgb(46, 87, 120), rgb(47, 54, 71))
+  font-size: 20px;
+  background: linear-gradient(to top left, rgb(46, 87, 120), rgb(47, 54, 71));
 }
 
-.form-select:hover, .form-button{
-
+.form-select:hover,
+.form-button {
   cursor: pointer;
-
 }
 
-.form-button{
-
-font-size: 1rem;
+.form-button {
+  font-size: 1rem;
   font-weight: 600;
   padding: 10px 20px;
   border-radius: 8px;
@@ -452,9 +448,12 @@ font-size: 1rem;
   border-radius: 24px;
   color: black;
   border-width: 0.1rem;
-  margin:auto;
-  display:flex; 
-  align-Items:center; 
-  margin-top:50px
+  margin: auto;
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+}
 
+.form-select option {
+  color: black;
 }

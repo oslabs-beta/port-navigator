@@ -1,4 +1,5 @@
 import { createDockerDesktopClient } from '@docker/extension-api-client';
+import { BaseSyntheticEvent, SyntheticEvent } from 'react';
 // import { ExecOptions } from '@docker/extension-api-client-types/dist/v1';
 import type {
   ContainerInfo,
@@ -124,9 +125,14 @@ const AddNetwork = async (
 const RemoveNetwork = async (
   network: NetworkInfo,
   setNetworks: setNetworks,
+  e: BaseSyntheticEvent<any>,
 ): Promise<void> => {
+  //TODO: maybe allowing e.Default will refresh page and we can remove GetNetworks()?
+  e.preventDefault();
+  console.log('e: ', e);
+  //? if Disconnecting.... feature fails, it's probably because the divs got shifted around
+  const parentNetwork = e.nativeEvent.path[1].childNodes[0];
   const ddClient = useDockerDesktopClient();
-  console.log(network.Containers?.length);
   if (
     network.Name === 'bridge' ||
     network.Name === 'host' ||
@@ -140,6 +146,7 @@ const RemoveNetwork = async (
       `You can't delete a Network that has Containers attached to it!`,
     );
   } else {
+    parentNetwork.innerText = 'Disconnecting...';
     await ddClient.docker.cli.exec('network rm', [network.Name]);
     await GetNetworks(setNetworks);
     ddClient.desktopUI.toast.success('Successfully deleted Network!');
@@ -151,17 +158,17 @@ const ConnectContainer = async (
   networkName: string,
   setContainers: setContainers,
   setNetworks: setNetworks,
-  e:React.SyntheticEvent<EventTarget>,
+  e: SyntheticEvent<EventTarget>,
   alias?: string,
   ip?: string,
 ): Promise<void> => {
-  e.preventDefault()
+  e.preventDefault();
   const ddClient = useDockerDesktopClient();
   console.log('alias: ', alias);
   console.log('ip: ', ip);
-  
+
   //gets container info to check if network connection already exists
-  
+
   const result = await ddClient.docker.cli.exec('inspect', [containerName]);
   const containerInfo: any = result.parseJsonObject();
 
@@ -200,11 +207,16 @@ const DisconnectContainer = async (
   networkName: string,
   setContainers: setContainers,
   setNetworks: setNetworks,
+  e: BaseSyntheticEvent<any>,
 ): Promise<void> => {
   const ddClient = useDockerDesktopClient();
   let connected = true;
+  console.log('e: ', e);
+  //? if Disconnecting.... feature fails, it's probably because the divs got shifted around
+  const parentContainer = e.nativeEvent.path[4];
+  parentContainer.innerText = `Disconnecting... ${containerName}`;
 
-  //disconnect container from network
+  //disconnect container from Container
   await ddClient.docker.cli.exec('network disconnect', [
     networkName,
     containerName,
