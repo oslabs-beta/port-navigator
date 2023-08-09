@@ -1,37 +1,57 @@
+import {
+  NetworkInfo,
+  ContainerInfo,
+  setContainers,
+  setNetworks,
+} from '../../interfaces/interfaces';
+import { useState } from 'react';
+import { ConnectContainer } from '../../functions/functions';
+function Form(props: {
+  allNetworks: NetworkInfo[] | [];
+  info: ContainerInfo;
+  setContainers: setContainers;
+  setNetworks: setNetworks;
+}) {
+    //State used to record which network the user chooses
+  const [networkName, setnetworkName] = useState<string>('');
+  
+  
+  return (
+    <div className='form-container'>
+        
+      <form
+        className='form'
+        // Invoking our function to connect container to network from an Event Listener
+        onSubmit={(e) =>
+          ConnectContainer(
+              props.info.Name,
+            networkName,
+            props.setContainers,
+            props.setNetworks,
+           e
+          )
+        }>
+          {/* Container name */}
+        <span>Connect {props.info.Name} to </span>
+        <select
+          className='form-select'
+          value={networkName}
+        //   Recording the user input for network
+          onChange={e => setnetworkName(e.target.value)}>
+            {/* Iterating through all exisisting networks and displaying them as options for SELECT element */}
+          {props.allNetworks.map(network => (
+            <option value={network.Name} key={network.Name}>
+              {network.Name}
+            </option>
+          ))}
+        </select>
+        <span> network?</span>
 
-import {NetworkInfo, ContainerInfo} from '../../interfaces/interfaces'
-import {useState} from 'react'
-function Form(props:{ 
-    allNetworks: NetworkInfo[] | [],
-    info:ContainerInfo;
-    handleClick: (networkName:string, containerName:string)=> void  
-}){
-
-    const[networkName, setnetworkName] = useState<string>('')
-
-return ( 
-<div style={{ color: 'white', fontWeight:'bold',marginLeft:'10%', marginTop:'20%'}}>
-          
-          <form className='form' onSubmit={()=>props.handleClick(networkName, props.info.Name)}>  
-           <span style={{fontSize:'20px'}}>Connect {props.info.Name} to </span>
-           <select className='form-select' value={networkName} onChange={(e)=> setnetworkName(e.target.value)} >
-           { props.allNetworks.map((network)=> (
-             <option 
-             value={network.Name} key={network.Name} >
-               {network.Name} 
-             </option>
-           ))}       
-           </select>
-           <span> network?</span>
-
-           <button className='form-button'>Connect</button>
-           
-          </form> 
-          
-         </div>
-);
-
+        <button className='form-button'>Connect</button>
+      </form>
+    </div>
+  );
 }
 
 export default Form;
-// style={{margin:'auto', display:'flex', alignItems:'center', marginTop:'50px'}}
+

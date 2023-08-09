@@ -33,15 +33,15 @@ interface ModalProps {
   
 }
 
-function Modal({ open, children, onClose }: ModalProps) {
+function FormModal({ open, children, onClose }: ModalProps) {
   if (!open) return null;
   return (
      <>
       <div style={OVERLAY}>
-        {/* <div className='formOverlay'> */}
+        
         <div style={MODAL_STYLES}>
-          {/* <div className='formModal'> */}
-          <button onClick={onClose}>X</button>
+          
+          <button className='deleteNetworkButton' onClick={onClose}>X</button>
         
          <div> {children} </div>
           
@@ -52,4 +52,4 @@ function Modal({ open, children, onClose }: ModalProps) {
   );
 }
 
-export default Modal;
+export default FormModal;

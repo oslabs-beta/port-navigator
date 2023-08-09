@@ -1,15 +1,15 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import {
   ContainerInfo,
   setContainers,
   setNetworks,
-  NetworkInfo
+  NetworkInfo,
 } from '../interfaces/interfaces';
-import { ConnectContainer,DisconnectContainer } from '../functions/functions';
+import {  DisconnectContainer } from '../functions/functions';
 
-import Modal from './container-form/FormModal'
-import Form from './container-form/Form'
+import FormModal from './container-form/FormModal';
+import Form from './container-form/Form';
 
 //Component to display Container
 const ContainerDisplay: React.FC<{
@@ -20,28 +20,14 @@ const ContainerDisplay: React.FC<{
   setNetworks: setNetworks;
   allNetworks: NetworkInfo[] | [];
 }> = props => {
-  const [isOpen, setIsOpen] = useState<Boolean>(false)
-  
-  // const[networkOption, setNetworkOption] = useState<string| null>('')
-  
-  
 
-console.log('network', props.allNetworks[0].Name)
+  // State determining if our FormModal should be displayed or not
+  const [isOpen, setIsOpen] = useState<Boolean>(false);
 
-
-function formClose(){
-
-  setIsOpen(false)
-}
-
-function handleClick(networkName:string, containerName:string){
-   
-   console.log(containerName)
-   console.log(networkName)
-
-   return;
-
-}
+  //onClick functionality to close our FormModal.
+  function formClose() {
+    setIsOpen(false);
+  }
 
   //if the Ports object exist within our props
   if (props.info.Ports) {
@@ -72,8 +58,8 @@ function handleClick(networkName:string, containerName:string){
             <br /> {props.info.State}
           </p>
           <div className='containerButtons'>
-            <button
-              className='button'
+            {/* <button
+              
               onClick={() =>
                 ConnectContainer(
                   props.info.Name,
@@ -83,7 +69,7 @@ function handleClick(networkName:string, containerName:string){
                 )
               }>
               Connect
-            </button>
+            </button> */}
             <button
               className='innerButton'
               onClick={() =>
@@ -97,35 +83,22 @@ function handleClick(networkName:string, containerName:string){
               Disconnect
             </button>
           </div>
-          <div className='containerButtons'>  
-        <button className='innerButton' onClick={()=> setIsOpen(true)}>Connect</button>
-        <Modal open={isOpen} onClose={formClose} >
+          <div className='containerButtons'>
+            <button className='innerButton' onClick={() => setIsOpen(true)}>
+              Connect
+            </button>
 
-          <Form handleClick={handleClick} allNetworks={props.allNetworks} info={props.info}/>
-        {/* <div style={{ color: 'white', fontWeight:'bold',marginLeft:'10%', marginTop:'20%'}}> */}
-          
-           {/* <form >  
-            <span style={{fontSize:'20px'}}>Connect {props.info.Name} to </span>
-            <select style={{width:'100px', padding:'3px', color:'white',fontWeight: 'bold',fontSize:'20px',background: 'linear-gradient(to top left, rgb(46, 87, 120), rgb(47, 54, 71))'}}>
-            { props.allNetworks.map((network)=> (
-              <option 
-              value={network.Name} key={network.Name} >
-                {network.Name} 
-              </option>
-            ))}
-          
-            </select>
-
-            <span style={{fontSize:'20px'}}>  network?</span>
-
-            <button className='innerButton' style={{margin:'auto', display:'flex', alignItems:'center', marginTop:'50px'}}>Connect</button>
-            
-           </form> 
-           
-          </div> */}
-            
-        </Modal>
-          </div> 
+            {/* Display for form modal */}
+            <FormModal open={isOpen} onClose={formClose}>
+              {/* Calling Form component function as child of FormModal */}
+              <Form
+                allNetworks={props.allNetworks}
+                info={props.info}
+                setContainers={props.setContainers}
+                setNetworks={props.setNetworks}
+              />
+            </FormModal>
+          </div>
         </div>
         <ul className='portInfo'>
           {/* Display list of information from Ports*/}
@@ -178,8 +151,8 @@ function handleClick(networkName:string, containerName:string){
           <br /> {props.info.State}
         </p>
         <div className='containerButtons'>
-          <button
-            className='button'
+          {/* <button
+            
             onClick={() =>
               ConnectContainer(
                 props.info.Name,
@@ -189,7 +162,7 @@ function handleClick(networkName:string, containerName:string){
               )
             }>
             Connect
-          </button>
+          </button> */}
           <button
             className='innerButton'
             onClick={() =>
@@ -203,32 +176,17 @@ function handleClick(networkName:string, containerName:string){
             Disconnect
           </button>
         </div>
-        <div className='containerButtons'> 
-        <button onClick={()=> setIsOpen(true)}>Connect</button>
-        <Modal open={isOpen} onClose={formClose}>
-
-        <Form handleClick={handleClick} allNetworks={props.allNetworks} info={props.info}/>
-        {/* <div style={{ color: 'white', fontWeight:'bold', margin: 'auto', width:'50%', zIndex:1005}}>
-          
-          <form>  
-           <span>Container name:</span>
-           <input value={props.info.Name} />
-           <select>
-           { props.allNetworks.map((network)=> (
-             <option 
-             value='Hello there my friend' key={network.Name} >
-             </option>
-           ))}
-           </select>
-
-           
-          </form> 
-         
-         </div>
-           
-          <p>Hello</p> */}
-        </Modal>
-         </div>
+        <div className='containerButtons'>
+          <button className='innerButton' onClick={() => setIsOpen(true)}>Connect</button>
+          <FormModal open={isOpen} onClose={formClose}>
+            <Form
+              allNetworks={props.allNetworks}
+              info={props.info}
+              setContainers={props.setContainers}
+              setNetworks={props.setNetworks}
+            />
+          </FormModal>
+        </div>
       </div>
     </div>
   );

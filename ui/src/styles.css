@@ -347,6 +347,13 @@ body {
    
 }
 
+.form-container{
+  color: white;
+  font-weight: bold;
+  margin-left: 10%;
+  margin-top: 20%
+}
+
 .form{
   font-size:20px;
   font-weight: strong
@@ -359,6 +366,12 @@ body {
   font-weight: bold;
   font-size:20px;
   background: linear-gradient(to top left, rgb(46, 87, 120), rgb(47, 54, 71))
+}
+
+.form-select:hover, .form-button{
+
+  cursor: pointer;
+
 }
 
 .form-button{
