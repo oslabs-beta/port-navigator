@@ -138,9 +138,8 @@ const Network = (props: {
           </button>
           </div>
           <button
-            className="deleteNetworkButton"
-            onClick={() => RemoveNetwork(props.network, props.setNetworks)}
-          >
+            className='deleteNetworkButton'
+            onClick={() => RemoveNetwork(props.network, props.setNetworks)}>
             x
           </button>
         </div>
@@ -259,9 +258,8 @@ const Network = (props: {
           </button>
           </div>
           <button
-            className="deleteNetworkButton"
-            onClick={() => RemoveNetwork(props.network, props.setNetworks)}
-          >
+            className='deleteNetworkButton'
+            onClick={() => RemoveNetwork(props.network, props.setNetworks)}>
             x
           </button>
         </div>

@@ -36,22 +36,23 @@ const ContainerDisplay: React.FC<{
     return (
       <div id={props.id} className='container'>
         {/* Display container information*/}
-        <div className='containerInfo'>
-          <p>
-            {' '}
-            <strong>Name: </strong>
-            <br /> {props.info.Name}
-          </p>
+        <div className='containerInfoContainer'>
+          <div className='containerInfo'>
+            <p>
+              {' '}
+              <strong>Name: </strong>
+              <br /> {props.info.Name}
+            </p>
           <hr />
-          <p>
-            <strong>ContainerID: </strong>
-            <br /> {props.info.Id}
-          </p>
+            <p>
+              <strong>ContainerID: </strong>
+              <br /> {props.info.Id}
+            </p>
           <hr />
-          <p>
-            <strong>Image: </strong>
-            <br /> {props.info.Image}
-          </p>
+            <p>
+              <strong>Image: </strong>
+              <br /> {props.info.Image}
+            </p>
           <hr />
           <p>
             <strong>Activity: </strong>
