@@ -45,7 +45,8 @@ body {
 .button:hover {
   cursor: pointer;
   transform: scale(1.1);
-  background: linear-gradient(to bottom right, #ba9311, #6b5506);
+  background: linear-gradient(to bottom right, #cb9f10, #8d6f06);
+  text-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.582);
   border: solid 0.1rem #d1a71d;
   border-bottom: none;
   border-right: none;
@@ -62,7 +63,7 @@ body {
   justify-items: center;
   align-items: center;
   font-weight: 500;
-  color: rgba(240, 255, 255, 0.654);
+  color: rgba(240, 255, 255, 0.694);
 }
 
 .connectedContainerContainer {
@@ -72,7 +73,7 @@ body {
   justify-content: space-around;
   align-items: center;
   border-radius: 24px;
-  background: linear-gradient(to bottom right, rgba(240, 255, 255, 0.144), rgba(240, 255, 255, 0.065));
+  background: linear-gradient(to bottom right, rgba(240, 255, 255, 0.13), rgba(240, 255, 255, 0.14), rgba(240, 255, 255, 0.12));
 }
 
 .connectedText {
@@ -113,7 +114,8 @@ body {
 .innerButton:hover {
   cursor: pointer;
   transform: scale(1.1);
-  background: linear-gradient(to bottom right, #ba9311, #6b5506);
+  background: linear-gradient(to bottom right, #cb9f10, #8d6f06);
+  text-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.582);
   border: solid 0.1rem #d1a71d;
   border-bottom: none;
   border-right: none;
@@ -140,7 +142,8 @@ body {
   cursor: pointer;
   padding: 0 1px 2px 0;
   transform: scale(1.1) translate(-1px, -1px);
-  background: linear-gradient(to bottom right, #ba9311, #6b5506);
+  background: linear-gradient(to bottom right, #cb9f10, #8d6f06);
+  text-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.582);
   border: solid 0.05rem #d1a71d;
   border-bottom: none;
   border-right: none;
@@ -174,13 +177,13 @@ body {
 #defaultNetwork {
   background: linear-gradient(
     to bottom right,
-    #950f76,
-    #8a0e6b,
-    #700951,
-    #6f0751
+    #b64803d5,
+    #a4500ccc,
+    #914d08c7,
+    #844a07bb
   );
-  border-top: solid 0.15rem #c50e88;
-  border-left: solid 0.15rem #c50e88;
+  border-top: solid 0.15rem #e46414d9;
+  border-left: solid 0.15rem #e46414d3;
   align-self: center;
 }
 
@@ -193,10 +196,9 @@ body {
 .hostContainer {
   background: linear-gradient(
     to bottom right,
-    #3d6c70,
+    #3d6c70fe,
     #3a5d60,
-    #3a5d60,
-    #2c474a
+    #3a5d60
   );
   border-radius: 24px;
   padding: 10px 20px;
