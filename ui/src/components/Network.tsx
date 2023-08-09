@@ -51,33 +51,36 @@ const Network = (props: {
   // return
   return (
     // a div containing the bridge name and the array displaying each container
-    <div id={`${props.networkIndex}`} className='network'>
-      <div className='networkContainer'>
-        <div className='networkLabel'>
+    <div id={`${props.networkIndex}`} className="network">
+      <div className="networkContainer">
+        <div className="networkLabel">
           <strong>Name: </strong>
           {networkName}
         </div>
         <hr />
         <button
-          className='innerButton'
+          className="innerButton"
           id={`${props.networkIndex}ShowHideNetworksButton`}
           onClick={() =>
             HideContainers(
               `${props.networkIndex}ContainersContainer`,
-              `${props.networkIndex}ShowHideNetworksButton`,
+              `${props.networkIndex}ShowHideNetworksButton`
             )
-          }>
+          }
+        >
           Show Containers
         </button>
         <button
-          className='deleteNetworkButton'
-          onClick={() => RemoveNetwork(props.network.Name, props.setNetworks)}>
+          className="deleteNetworkButton"
+          onClick={() => RemoveNetwork(props.network.Name, props.setNetworks)}
+        >
           x
         </button>
       </div>
       <div
         id={`${props.networkIndex}ContainersContainer`}
-        className='containersContainer'>
+        className="containersContainer"
+      >
         {networkContainerDisplay}
       </div>
     </div>

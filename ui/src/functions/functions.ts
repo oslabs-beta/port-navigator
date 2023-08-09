@@ -27,7 +27,7 @@ const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
   const networks = result.parseJsonLines();
 
   //formatting newNetworks to only contain relevant info from networks
-  const newNetworks = networks.map(el => {
+  const newNetworks = networks.map((el) => {
     const network: NetworkInfo = {
       Driver: el.Driver,
       Name: el.Name,
@@ -41,13 +41,13 @@ const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
     //executing comand line to retrieve additional info
     const result = await ddClient.docker.cli.exec(
       `network inspect ${newNetworks[i].Name}`,
-      ['--format', '"{{json .}}"'],
+      ['--format', '"{{json .}}"']
     );
     //parsing additional info
     const moreInfo: any = result.parseJsonLines()[0];
     //grabbing container names and adding into array
     const networkContainers: any[] = Object.values(moreInfo.Containers);
-    const containerNames = networkContainers.map(el => el.Name);
+    const containerNames = networkContainers.map((el) => el.Name);
     //adding aditional info to network object
     const newNetwork: NetworkInfo = {
       ...newNetworks[i],
@@ -69,13 +69,13 @@ const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
 
 //obtains a list of all containers
 const GetAllContainers = async (
-  setContainers: setContainers,
+  setContainers: setContainers
 ): Promise<void> => {
   const ddClient = useDockerDesktopClient();
   // obtain list of all containers on Docker Desktop
   const dockerContainers: [] | unknown = await ddClient.docker.listContainers();
   if (Array.isArray(dockerContainers)) {
-    const newContainers = dockerContainers.map(el => {
+    const newContainers = dockerContainers.map((el) => {
       const newEl: ContainerInfo = {
         Name: el.Names[0].slice(1),
         Id: el.Id,
@@ -100,7 +100,7 @@ const GetAllContainers = async (
 
 const RemoveNetwork = async (
   name: string,
-  setNetworks: setNetworks,
+  setNetworks: setNetworks
 ): Promise<void> => {
   const ddClient = useDockerDesktopClient();
   await ddClient.docker.cli.exec('network rm', [name]);
@@ -111,7 +111,7 @@ const DisconnectContainer = async (
   containerName: string,
   networkName: string,
   setContainers: setContainers,
-  setNetworks: setNetworks,
+  setNetworks: setNetworks
 ): Promise<void> => {
   const ddClient = useDockerDesktopClient();
   await ddClient.docker.cli.exec('network disconnect', [
@@ -136,12 +136,44 @@ const HideContainers = (containerID: string, buttonId: string) => {
   }
 };
 
+const showAddNetworkForm = () => {
+  const addNetworkForm = document.getElementById('addNetworkForm');
+  if (addNetworkForm !== null) {
+    addNetworkForm.style.display = 'flex';
+  }
+};
+
+const hideAddNetworkForm = () => {
+  const addNetworkForm = document.getElementById('addNetworkForm');
+  if (addNetworkForm !== null) {
+    addNetworkForm.style.display = 'none';
+  }
+};
+
+// <div className="addNetworkTextInput">
+// <label htmlFor="gateway" className="addNetworkFormLabel">
+//   Gateway:{' '}
+// </label>
+// <input
+//   type="text"
+//   placeholder="if you wish to include a gateway, type the address here"
+//   name="gateway"
+//   className="addNetworkFormInput"
+// />
+// </div>
+
+// const addGatewayField = () => {
+//   setGateway()
+// };
+
 export {
   GetNetworks,
   GetAllContainers,
   RemoveNetwork,
   DisconnectContainer,
   HideContainers,
+  showAddNetworkForm,
+  hideAddNetworkForm,
 };
 
 /* future functionality
