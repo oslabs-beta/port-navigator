@@ -16,6 +16,7 @@ const Network = (props: {
   setContainers: setContainers;
   setNetworks: setNetworks;
   id?: String;
+  allNetworks: NetworkInfo[] | [];
 }) => {
   // declare a variable, bridgeContainerDisplay, and assign it the value of an empty array
   const networkContainerDisplay: JSX.Element[] = [];
@@ -32,6 +33,7 @@ const Network = (props: {
           network={props.network.Name}
           setContainers={props.setContainers}
           setNetworks={props.setNetworks}
+          allNetworks= {props.allNetworks}
         />
       );
       // push the newContainer into the bridgeContainerDisplay

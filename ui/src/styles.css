@@ -352,6 +352,10 @@ body {
   border-radius: 1px;
 }
 
+.containerform{
+  color: black;
+}
+
 .portInfo {
   display: flex;
   flex-direction: column;
@@ -380,4 +384,77 @@ body {
   background-color: rgba(240, 255, 255, 0.303);
   border: none;
   border-radius: 1px;
+}
+
+/* Form */
+
+.formOverlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backdrop-filter: 'blur(4px)';
+ /* backgroundColor: 'rgba(0,0,0, .7)'; */
+  
+};
+
+.formModal{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(to top left, rgb(46, 87, 120), rgb(47, 54, 71));
+  padding: 300ppx;
+  width:50%;
+  height: 50%;
+  border-radius: 50px;
+   
+}
+
+.form-container{
+  color: white;
+  font-weight: bold;
+  margin-left: 10%;
+  margin-top: 20%
+}
+
+.form{
+  font-size:20px;
+  font-weight: strong
+}
+
+.form-select{
+  width:100px;
+  padding:3px;
+  color:white;
+  font-weight: bold;
+  font-size:20px;
+  background: linear-gradient(to top left, rgb(46, 87, 120), rgb(47, 54, 71))
+}
+
+.form-select:hover, .form-button{
+
+  cursor: pointer;
+
+}
+
+.form-button{
+
+font-size: 1rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: linear-gradient(to bottom right, azure, rgb(158, 198, 198));
+  border-color: rgb(255, 255, 255);
+  border-bottom: none;
+  border-right: none;
+  border-radius: 24px;
+  color: black;
+  border-width: 0.1rem;
+  margin:auto;
+  display:flex; 
+  align-Items:center; 
+  margin-top:50px
+
 }

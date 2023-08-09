@@ -151,14 +151,17 @@ const ConnectContainer = async (
   networkName: string,
   setContainers: setContainers,
   setNetworks: setNetworks,
+  e:React.SyntheticEvent<EventTarget>,
   alias?: string,
   ip?: string,
 ): Promise<void> => {
+  e.preventDefault()
   const ddClient = useDockerDesktopClient();
   console.log('alias: ', alias);
   console.log('ip: ', ip);
-
+  
   //gets container info to check if network connection already exists
+  
   const result = await ddClient.docker.cli.exec('inspect', [containerName]);
   const containerInfo: any = result.parseJsonObject();
 

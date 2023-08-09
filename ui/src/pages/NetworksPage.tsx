@@ -30,7 +30,8 @@ const NetworksPage = (props: {
         setContainers={props.setContainers}
         setNetworks={props.setNetworks}
         id={'defaultNetwork'}
-        />
+          allNetworks={props.networks}
+      />
         );
       }
       else if (network.Name === 'bridge') {
@@ -42,6 +43,7 @@ const NetworksPage = (props: {
           containers={props.containers}
           setContainers={props.setContainers}
           setNetworks={props.setNetworks}
+          allNetworks={props.networks}
           id={'defaultNetwork'}
           />
           );
@@ -55,6 +57,7 @@ const NetworksPage = (props: {
             containers={props.containers}
             setContainers={props.setContainers}
             setNetworks={props.setNetworks}
+            allNetworks={props.networks}
             />
             );
           }
