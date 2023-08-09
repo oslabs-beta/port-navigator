@@ -21,30 +21,55 @@ const ContainerDisplay: React.FC<{
     return (
       <div id={props.id} className='container'>
         {/* Display container information*/}
-        <div className='containerInfo'>
-          <p>
-            {' '}
-            <strong>Name: </strong>
-            <br /> {props.info.Name}
-          </p>
+        <div className='containerInfoContainer'>
+          <div className='containerInfo'>
+            <p>
+              {' '}
+              <strong>Name: </strong>
+              <br /> {props.info.Name}
+            </p>
           <hr />
-          <p>
-            <strong>ContainerID: </strong>
-            <br /> {props.info.Id}
-          </p>
+            <p>
+              <strong>ContainerID: </strong>
+              <br /> {props.info.Id}
+            </p>
           <hr />
-          <p>
-            <strong>Image: </strong>
-            <br /> {props.info.Image}
-          </p>
+            <p>
+              <strong>Image: </strong>
+              <br /> {props.info.Image}
+            </p>
           <hr />
-          <p>
-            <strong>Activity: </strong>
-            <br /> {props.info.State}
-          </p>
+            <p>
+              <strong>Activity: </strong>
+              <br /> {props.info.State}
+            </p>
+          </div>
+          <ul className='portInfo'>
+            {/* Display list of information from Ports*/}
+            <li>
+              <strong>IP: </strong>
+              <br /> {props.info.Ports.IP}{' '}
+            </li>
+            <hr />
+            <li>
+              <strong>PrivatePort: </strong>
+              <br /> {props.info.Ports.PrivatePort}{' '}
+            </li>
+            <hr />
+            <li>
+              <strong>PublicPort: </strong>
+              <br /> {props.info.Ports.PublicPort}{' '}
+            </li>
+            <hr />
+            <li>
+              <strong>Type: </strong>
+              <br /> {props.info.Ports.Type}{' '}
+            </li>
+          </ul>
+        </div>
           <div className='containerButtons'>
             <button
-              className='button'
+              className='innerButton'
               onClick={() =>
                 ConnectContainer(
                   props.info.Name,
@@ -53,7 +78,7 @@ const ContainerDisplay: React.FC<{
                   props.setNetworks,
                 )
               }>
-              Connect
+              Network Connect
             </button>
             <button
               className='innerButton'
@@ -68,29 +93,6 @@ const ContainerDisplay: React.FC<{
               Disconnect
             </button>
           </div>
-        </div>
-        <ul className='portInfo'>
-          {/* Display list of information from Ports*/}
-          <li>
-            <strong>IP: </strong>
-            <br /> {props.info.Ports.IP}{' '}
-          </li>
-          <hr />
-          <li>
-            <strong>PrivatePort: </strong>
-            <br /> {props.info.Ports.PrivatePort}{' '}
-          </li>
-          <hr />
-          <li>
-            <strong>PublicPort: </strong>
-            <br /> {props.info.Ports.PublicPort}{' '}
-          </li>
-          <hr />
-          <li>
-            <strong>Type: </strong>
-            <br /> {props.info.Ports.Type}{' '}
-          </li>
-        </ul>
       </div>
     );
   }

@@ -7,7 +7,8 @@ body {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  color: azure;
+  color: rgba(245, 255, 255, 0.936);
+  text-shadow: 0.25px 0.25px 1px rgba(0, 0, 0, 0.5);
 }
 
 .buttonContainer {
@@ -25,16 +26,29 @@ body {
   width: 100%;
   height: 50px;
   column-gap: 20px;
+  margin: 0 20px 10px 30px;
+}
+
+.containerButtons button {
+  width: calc(130px + (180 - 130) * ((100vw - 552px) / (1872 - 552)));
+  background: linear-gradient(to top left, rgb(52, 113, 163), rgb(53, 70, 111));
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+  border-color: rgb(59, 115, 161);
+  border-bottom: none;
+  border-right: none;
+  border-radius: 24px;
+  color: rgba(245, 255, 255, 0.905);
+  border-width: 0.1rem;
 }
 
 .button {
   font-size: 1rem;
   font-weight: 600;
-  padding: 10px 20px;
+  padding: 12px 22px;
   border-radius: 8px;
-  background: linear-gradient(to top left, rgb(46, 87, 120), rgb(47, 54, 71));
+  background: linear-gradient(to top left, rgb(50, 102, 145), rgb(53, 64, 92));
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
-  border-color: rgb(46, 87, 120);
+  border-color: rgb(56, 108, 151);
   border-bottom: none;
   border-right: none;
   border-radius: 24px;
@@ -58,12 +72,12 @@ body {
 .containerNetworkFeatures {
   width: 100%;
   display: grid;
-  grid-template-columns:  repeat(auto-fit, minmax(100px, 1fr));
-  column-gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  column-gap: 28px;
   justify-items: center;
   align-items: center;
   font-weight: 500;
-  color: rgba(240, 255, 255, 0.694);
+  color: rgba(240, 255, 255, 0.855);
 }
 
 .connectedContainerContainer {
@@ -73,7 +87,13 @@ body {
   justify-content: space-around;
   align-items: center;
   border-radius: 24px;
-  background: linear-gradient(to bottom right, rgba(240, 255, 255, 0.13), rgba(240, 255, 255, 0.14), rgba(240, 255, 255, 0.12));
+  background: linear-gradient(
+    to bottom right,
+    rgba(240, 255, 255, 0.238),
+    rgba(240, 255, 255, 0.172),
+    rgba(240, 255, 255, 0.12)
+  );
+  text-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.2);
 }
 
 .connectedText {
@@ -82,7 +102,6 @@ body {
   line-height: 12px;
   margin: 0 0 0 16px;
 }
-
 
 .divider {
   margin: 0 calc(10px + (90 - 10) * ((100vw - 552px) / (1872 - 552))) 4px 2px;
@@ -102,19 +121,24 @@ body {
   padding: 12px 10px;
   margin: 0 4px;
   border-radius: 8px;
-  background: linear-gradient(to bottom right, azure, rgb(158, 198, 198));
+  background: linear-gradient(
+    to top left,
+    rgb(220, 234, 234),
+    rgb(190, 209, 209),
+    rgb(137, 170, 170)
+  );
   border-color: rgb(255, 255, 255);
   border-bottom: none;
   border-right: none;
   border-radius: 24px;
-  color: black;
+  color: rgba(0, 0, 0, 0.684);
   border-width: 0.1rem;
 }
 
 .innerButton:hover {
   cursor: pointer;
   transform: scale(1.1);
-  background: linear-gradient(to bottom right, #cb9f10, #8d6f06);
+  background: linear-gradient(to bottom right, #cb9f10e8, #8d7006e8);
   text-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.582);
   border: solid 0.1rem #d1a71d;
   border-bottom: none;
@@ -129,12 +153,19 @@ body {
   top: 12px;
   right: 18px;
   text-align: center;
-  padding-bottom: 2px;
+  padding-bottom: 3px;
   width: 26px;
   height: 26px;
   font-weight: bolder;
-  background: linear-gradient(to bottom right, azure, rgb(158, 198, 198));
-  border: none;
+  background: linear-gradient(
+    to top left,
+    rgb(220, 234, 234),
+    rgb(190, 209, 209),
+    rgb(137, 170, 170)
+  );
+  border: solid 0.07rem rgb(255, 255, 255);
+  border-bottom: none;
+  border-right: none;
   border-radius: 14px;
 }
 
@@ -142,7 +173,7 @@ body {
   cursor: pointer;
   padding: 0 1px 2px 0;
   transform: scale(1.1) translate(-1px, -1px);
-  background: linear-gradient(to bottom right, #cb9f10, #8d6f06);
+  background: linear-gradient(to bottom right, #d8a90e, #9c7c06);
   text-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.582);
   border: solid 0.05rem #d1a71d;
   border-bottom: none;
@@ -175,31 +206,49 @@ body {
 }
 
 #defaultNetwork {
+  color: rgb(245, 255, 255);
   background: linear-gradient(
     to bottom right,
-    #b64803d5,
-    #a4500ccc,
-    #914d08c7,
-    #844a07bb
+    #b6b6bd,
+    #a3a3a8,
+    #88868d,
+    #696970
   );
-  border-top: solid 0.15rem #e46414d9;
-  border-left: solid 0.15rem #e46414d3;
+  border-top: solid 0.15rem #dddbeb;
+  border-left: solid 0.15rem #eae8f0;
   align-self: center;
+}
+
+#defaultNetwork .connectedContainerContainer {
+  background: linear-gradient(
+    to bottom right,
+    rgba(33, 35, 35, 0.103),
+    rgba(13, 14, 14, 0.158),
+    rgba(0, 0, 0, 0.205)
+  );
+}
+
+#defaultNetwork:hover .networkLabel {
+  text-shadow: 0.25px 0.25px 2.5px rgba(0, 0, 0, 0.5);
+}
+
+#defaultNetwork:hover .connectedContainerContainer {
+  background: linear-gradient(
+    to bottom right,
+    rgba(33, 35, 35, 0.103),
+    rgba(13, 14, 14, 0.125),
+    rgba(0, 0, 0, 0.142)
+  );
 }
 
 #defaultNetwork:hover,
 .network:hover {
-  filter: brightness(1.2) contrast(120%);
+  filter: brightness(1.1) contrast(120%);
   transition: ease-in-out 0.3s;
 }
 
 .hostContainer {
-  background: linear-gradient(
-    to bottom right,
-    #3d6c70fe,
-    #3a5d60,
-    #3a5d60
-  );
+  background: linear-gradient(to bottom right, #3d6c70fe, #3a5d60, #3a5d60);
   border-radius: 24px;
   padding: 10px 20px;
   border-top: solid 0.15rem #4c99a0;
@@ -221,9 +270,10 @@ body {
 }
 
 .networkContainer hr {
-  width: 97%;
+  width: 100%;
   height: 2px;
-  background-color: rgba(240, 255, 255, 0.298);
+  background-color: rgba(240, 255, 255, 0.35);
+  box-shadow: 0.25px 0.25px 0.5px rgba(0, 0, 0, 0.5);
   border: none;
   border-radius: 2px;
   margin: 6px auto 14px;
@@ -247,15 +297,25 @@ body {
   width: calc(375px + (565 - 375) * ((100vw - 552px) / (1872 - 552)));
   max-width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
   background: linear-gradient(to top left, rgb(46, 87, 120), rgb(47, 54, 71));
   border-radius: 24px;
-  padding: 10px 10px;
+  padding: 10px 10px 0 0;
   margin: 20px;
   border-top: solid 0.15rem #45567e;
   border-left: solid 0.15rem #45567e;
   box-shadow: 4px 4px 6px 1px rgba(0, 0, 0, 0.281);
+}
+
+.containerInfoContainer {
+  width: calc(375px + (565 - 375) * ((100vw - 552px) / (1872 - 552)));
+  max-width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  border-radius: 24px;
 }
 
 .containerInfo {
@@ -267,6 +327,10 @@ body {
   margin-right: 20px;
   overflow: auto;
   text-overflow: ellipsis;
+}
+
+.containerInfo::-webkit-scrollbar-thumb {
+  background: rgba(245, 255, 255, 0.134);
 }
 
 .containerInfo p {
@@ -291,13 +355,14 @@ body {
 .portInfo {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  height: 100%;
+  justify-content: space-between;
+  align-self: flex-start;
+  height: 256px;
   list-style: none;
   background: linear-gradient(to bottom right, #106d75, #105157);
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
   border-radius: 24px;
-  padding: 15px 20px 19px;
+  padding: 20px 20px 12.5px;
   margin: 0;
 }
 
