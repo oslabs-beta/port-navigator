@@ -1,4 +1,5 @@
 import { createDockerDesktopClient } from '@docker/extension-api-client';
+// import { ExecOptions } from '@docker/extension-api-client-types/dist/v1';
 import type {
   ContainerInfo,
   NetworkInfo,
@@ -99,6 +100,26 @@ const GetAllContainers = async (
   }
 };
 
+const AddNetwork = async (
+  networkName: string,
+  networks: NetworkInfo[],
+  setNetworks: setNetworks,
+) => {
+  const ddClient = useDockerDesktopClient();
+  let exists = false;
+  for (const network of networks) {
+    if (network.Name === networkName) exists = true;
+  }
+  if (!exists) {
+    await ddClient.docker.cli.exec('network connect', [networkName]);
+    GetNetworks(setNetworks);
+  } else {
+    ddClient.desktopUI.toast.error(
+      `The ${networkName} network already exists!`,
+    );
+  }
+};
+
 //removes an empty network when button is clicked
 const RemoveNetwork = async (
   network: NetworkInfo,
@@ -125,6 +146,51 @@ const RemoveNetwork = async (
   }
 };
 
+const ConnectContainer = async (
+  containerName: string,
+  networkName: string,
+  setContainers: setContainers,
+  setNetworks: setNetworks,
+  alias?: string,
+  ip?: string,
+): Promise<void> => {
+  const ddClient = useDockerDesktopClient();
+  console.log('alias: ', alias);
+  console.log('ip: ', ip);
+
+  //gets container info to check if network connection already exists
+  const result = await ddClient.docker.cli.exec('inspect', [containerName]);
+  const containerInfo: any = result.parseJsonObject();
+
+  //if network connection doesn't exist, make the connection
+  if (!containerInfo[0].NetworkSettings.Networks[networkName]) {
+    await ddClient.docker.cli.exec('network connect', [
+      networkName,
+      containerName,
+    ]);
+    //rerend networks with updated info
+    await GetNetworks(setNetworks);
+    await GetAllContainers(setContainers);
+    //if connection already exists, display warning message
+  } else {
+    ddClient.desktopUI.toast.warning(
+      `Container ${containerName} is already assigned to the networkS ${networkName}!`,
+    );
+  }
+
+  /*
+*connect a container to a network
+? https://docs.docker.com/engine/reference/commandline/network_connect/
+docker network connect [OPTIONS] <network name> <container name>
+*--alias		Add network-scoped alias for the container
+?--driver-opt		driver options for the network
+*--ip		IPv4 address (e.g., 172.30.100.104)
+--ip6		IPv6 address (e.g., 2001:db8::33)
+--link		Add link to another container
+--link-local-ip		Add a link-local address for the container
+  */
+};
+
 //disconnects a container from given network when button is clicked
 const DisconnectContainer = async (
   containerName: string,
@@ -133,12 +199,27 @@ const DisconnectContainer = async (
   setNetworks: setNetworks,
 ): Promise<void> => {
   const ddClient = useDockerDesktopClient();
+  let connected = true;
+
+  //disconnect container from network
   await ddClient.docker.cli.exec('network disconnect', [
     networkName,
     containerName,
   ]);
-  //TODO: add check that container doesn't have any other connections
-  await ddClient.docker.cli.exec('network connect', ['none', containerName]);
+
+  //inspect container to find other network connections
+  const result = await ddClient.docker.cli.exec('inspect', [containerName]);
+  const containerInfo: any = result.parseJsonObject();
+  const networks = containerInfo[0].NetworkSettings.Networks;
+
+  //if no other connections exist, set connected to false
+  if (!Object.keys(networks).length) connected = false;
+
+  //assign container to 'none' network if no network connections still exist
+  if (!connected) {
+    await ddClient.docker.cli.exec('network connect', ['none', containerName]);
+  }
+  //rerend networks with updated info
   await GetNetworks(setNetworks);
   await GetAllContainers(setContainers);
 };
@@ -161,7 +242,9 @@ const HideContainers = (containerID: string, buttonId: string) => {
 export {
   GetNetworks,
   GetAllContainers,
+  AddNetwork,
   RemoveNetwork,
+  ConnectContainer,
   DisconnectContainer,
   HideContainers,
 };
