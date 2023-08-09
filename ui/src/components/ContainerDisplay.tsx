@@ -6,7 +6,8 @@ import {
   setNetworks,
   NetworkInfo
 } from '../interfaces/interfaces';
-import { DisconnectContainer } from '../functions/functions';
+import { ConnectContainer,DisconnectContainer } from '../functions/functions';
+
 import Modal from './container-form/FormModal'
 import Form from './container-form/Form'
 
@@ -71,7 +72,18 @@ function handleClick(networkName:string, containerName:string){
             <br /> {props.info.State}
           </p>
           <div className='containerButtons'>
-            {/* <button className= 'button' onClick={() => ConnectContainers(props.info.Name) } >Connect</button>  */}
+            <button
+              className='button'
+              onClick={() =>
+                ConnectContainer(
+                  props.info.Name,
+                  'bridge',
+                  props.setContainers,
+                  props.setNetworks,
+                )
+              }>
+              Connect
+            </button>
             <button
               className='innerButton'
               onClick={() =>
@@ -166,7 +178,18 @@ function handleClick(networkName:string, containerName:string){
           <br /> {props.info.State}
         </p>
         <div className='containerButtons'>
-          {/* <button className= 'button' onClick={ () => ConnectContainers(props.info.Name)}>Connect</button> */}
+          <button
+            className='button'
+            onClick={() =>
+              ConnectContainer(
+                props.info.Name,
+                'bridge',
+                props.setContainers,
+                props.setNetworks,
+              )
+            }>
+            Connect
+          </button>
           <button
             className='innerButton'
             onClick={() =>
