@@ -131,6 +131,7 @@ const RemoveNetwork = async (
   e.preventDefault();
   console.log('e: ', e);
   //? if Disconnecting.... feature fails, it's probably because the divs got shifted around
+  //selects network element that is being deleted
   const parentNetwork = e.nativeEvent.path[1].childNodes[0];
   const ddClient = useDockerDesktopClient();
   if (
@@ -146,7 +147,10 @@ const RemoveNetwork = async (
       `You can't delete a Network that has Containers attached to it!`,
     );
   } else {
+    //change network name to Disconnecting during deletion
     parentNetwork.innerText = 'Disconnecting...';
+
+    //removes network only if no containers exist on it
     await ddClient.docker.cli.exec('network rm', [network.Name]);
     await GetNetworks(setNetworks);
     ddClient.desktopUI.toast.success('Successfully deleted Network!');
@@ -211,9 +215,11 @@ const DisconnectContainer = async (
 ): Promise<void> => {
   const ddClient = useDockerDesktopClient();
   let connected = true;
-  console.log('e: ', e);
+
   //? if Disconnecting.... feature fails, it's probably because the divs got shifted around
+  //select parent container element
   const parentContainer = e.nativeEvent.path[4];
+  //overwrite child divs and replace with Disconnecting...
   parentContainer.innerText = `Disconnecting... ${containerName}`;
 
   //disconnect container from Container
