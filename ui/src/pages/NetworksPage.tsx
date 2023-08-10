@@ -1,4 +1,3 @@
-// import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 // import ContainerDisplay from '../components/ContainerDisplay';
@@ -25,49 +24,57 @@ const NetworksPage = (props: {
 }) => {
   const nav = useNavigate();
   const networkEl: JSX.Element[] = [];
+  const hostNone: JSX.Element[] = [];
+  const defaultBridge: JSX.Element[] = [];
+  
   props.networks.forEach((network, i: number) => {
     const networkIndex: String = `network${i}`;
-    networkEl.push(
-      <Network
+    if (network.Name === 'host' || network.Name === 'none') {
+      hostNone.push(
+        <Network
         key={`network${i}`}
         networkIndex={networkIndex}
         network={network}
         containers={props.containers}
         setContainers={props.setContainers}
         setNetworks={props.setNetworks}
-      />
+        id={'defaultNetwork'}
+        allNetworks={props.networks}
+      />,
     );
-  });
-  // const [gateways, setGateways] = useState([]);
-  // const addgateWay = () => {
-  //   setGateways(gateways.push())
-  //   //   const newGatewayField = <AddGateway />;
-  //   //   setGateways(gateways.push(newGatewayField));
-  // };
-
-  // ---- set gateways state ----
-  // use array destructuring to extract gateways and setGateways from useState passing in an empty array
-  // declare a function, addGateway, that accepts one argument, newGateway, a gateway string
-  // invoke setGateways passing in the evaluated result of invoking the push method on gateways passing in newGateway
-
-  // ---- handleClick for addGateway button ----
-  // declare a function, handleAddGateway, that accepts one argument, an event, e
-  // identify the input value using e.target.value
-  // invoke addGateway passing in e.target.value
-
-  // const addGatewayButton = document.getElementById('addGatewayButton');
-
-  // addGatewayButton?.addEventListener('click', () => {
-  //   handleAddGatewayClick();
-  // });
-
-  // const handleAddGatewayClick = () => {
-  //   const newGatewayDiv = document.getElementById('addNetworkFormInput');
-  //   const newGateway = newGatewayDiv.value;
-  //   setGateways(gateways.push(newGateway.value));
-  // };
-
-  // NOTE: DEAL WITH THESE TYPESCRIPT ANY TYPES IN THE FUTURE
+  }
+  else if (network.Name === 'bridge') {
+    defaultBridge.push(
+      <Network
+      key={`network${i}`}
+      networkIndex={networkIndex}
+      network={network}
+      containers={props.containers}
+      setContainers={props.setContainers}
+      setNetworks={props.setNetworks}
+      allNetworks={props.networks}
+      id={'defaultNetwork'}
+      />
+      );
+    } 
+    else {
+      networkEl.push(
+        <Network
+        key={`network${i}`}
+        networkIndex={networkIndex}
+        network={network}
+        containers={props.containers}
+        setContainers={props.setContainers}
+        setNetworks={props.setNetworks}
+        allNetworks={props.networks}
+        />
+        );
+      }
+    });
+    
+    networkEl.push(...hostNone);
+    networkEl.unshift(...defaultBridge);
+    // NOTE: DEAL WITH THESE TYPESCRIPT ANY TYPES IN THE FUTURE
   const [networkName, setNetworkName] = useState<string>('');
   const [gateways, setGateways] = useState<[] | string[]>([]);
   const [subnets, setSubnets] = useState<[] | string[]>([]);
@@ -117,9 +124,6 @@ const NetworksPage = (props: {
       gatewayList.pop();
     }
   };
-
-  // look up if we can change submit button lable to add network
-
   return (
     <div className="mainContainer">
       <div className="buttonContainer">
