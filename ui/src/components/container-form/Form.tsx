@@ -11,33 +11,37 @@ function Form(props: {
   info: ContainerInfo;
   setContainers: setContainers;
   setNetworks: setNetworks;
+  formClose: Function;
 }) {
   //State used to record which network the user chooses
   const [networkName, setnetworkName] = useState<string>('');
 
   return (
-    <div className='form-container'>
+    <div className="form-container">
       <form
-        className='form'
+        className="form"
         // Invoking our function to connect container to network from an Event Listener
-        onSubmit={e =>
+        onSubmit={(e) => {
           ConnectContainer(
             props.info.Name,
             networkName,
             props.setContainers,
             props.setNetworks,
-            e,
-          )
-        }>
+            e
+          );
+          props.formClose();
+        }}
+      >
         {/* Container name */}
         <span>Connect {props.info.Name} to </span>
         <select
-          className='form-select'
+          className="form-select"
           value={networkName}
           //   Recording the user input for network
-          onChange={e => setnetworkName(e.target.value)}>
+          onChange={(e) => setnetworkName(e.target.value)}
+        >
           {/* Iterating through all exisisting networks and displaying them as options for SELECT element */}
-          {props.allNetworks.map(network => (
+          {props.allNetworks.map((network) => (
             <option value={network.Name} key={network.Name}>
               {network.Name}
             </option>
@@ -45,7 +49,7 @@ function Form(props: {
         </select>
         <span> network?</span>
 
-        <button className='form-button'>Connect</button>
+        <button className="form-button">Connect</button>
       </form>
     </div>
   );

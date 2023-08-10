@@ -19,7 +19,7 @@ const ContainerDisplay: React.FC<{
   setContainers: setContainers;
   setNetworks: setNetworks;
   allNetworks: NetworkInfo[] | [];
-}> = props => {
+}> = (props) => {
   // State determining if our FormModal should be displayed or not
   const [isOpen, setIsOpen] = useState<Boolean>(false);
 
@@ -33,10 +33,10 @@ const ContainerDisplay: React.FC<{
     // return container information including Ports info.
 
     return (
-      <div id={props.id} className='container'>
+      <div id={props.id} className="container">
         {/* Display container information*/}
-        <div className='containerInfoContainer'>
-          <div className='containerInfo'>
+        <div className="containerInfoContainer">
+          <div className="containerInfo">
             <p>
               {' '}
               <strong>Name: </strong>
@@ -57,7 +57,7 @@ const ContainerDisplay: React.FC<{
               <strong>Activity: </strong>
               <br /> {props.info.State}
             </p>
-            <div className='containerButtons'>
+            <div className="containerButtons">
               {/* <button
               
               onClick={() =>
@@ -71,21 +71,22 @@ const ContainerDisplay: React.FC<{
               Connect
             </button> */}
               <button
-                className='innerButton'
-                onClick={e =>
+                className="innerButton"
+                onClick={(e) =>
                   DisconnectContainer(
                     props.info.Name,
                     props.network,
                     props.setContainers,
                     props.setNetworks,
-                    e,
+                    e
                   )
-                }>
+                }
+              >
                 Disconnect
               </button>
             </div>
-            <div className='containerButtons'>
-              <button className='innerButton' onClick={() => setIsOpen(true)}>
+            <div className="containerButtons">
+              <button className="innerButton" onClick={() => setIsOpen(true)}>
                 Connect
               </button>
 
@@ -97,11 +98,12 @@ const ContainerDisplay: React.FC<{
                   info={props.info}
                   setContainers={props.setContainers}
                   setNetworks={props.setNetworks}
+                  formClose={formClose}
                 />
               </FormModal>
             </div>
           </div>
-          <ul className='portInfo'>
+          <ul className="portInfo">
             {/* Display list of information from Ports*/}
             <li>
               <strong>IP: </strong>
@@ -129,9 +131,9 @@ const ContainerDisplay: React.FC<{
   }
   //else return container information without Ports info
   return (
-    <div id={props.id} className='container'>
+    <div id={props.id} className="container">
       {/* Display container information*/}
-      <div className='containerInfo'>
+      <div className="containerInfo">
         <p>
           {' '}
           <strong>Name: </strong>
@@ -152,7 +154,7 @@ const ContainerDisplay: React.FC<{
           <strong>Activity: </strong>
           <br /> {props.info.State}
         </p>
-        <div className='containerButtons'>
+        <div className="containerButtons">
           {/* <button
             
             onClick={() =>
@@ -166,21 +168,22 @@ const ContainerDisplay: React.FC<{
             Connect
           </button> */}
           <button
-            className='innerButton'
-            onClick={e =>
+            className="innerButton"
+            onClick={(e) =>
               DisconnectContainer(
                 props.info.Name,
                 props.network,
                 props.setContainers,
                 props.setNetworks,
-                e,
+                e
               )
-            }>
+            }
+          >
             Disconnect
           </button>
         </div>
-        <div className='containerButtons'>
-          <button className='innerButton' onClick={() => setIsOpen(true)}>
+        <div className="containerButtons">
+          <button className="innerButton" onClick={() => setIsOpen(true)}>
             Connect
           </button>
           <FormModal open={isOpen} onClose={formClose}>
@@ -189,6 +192,7 @@ const ContainerDisplay: React.FC<{
               info={props.info}
               setContainers={props.setContainers}
               setNetworks={props.setNetworks}
+              formClose={formClose}
             />
           </FormModal>
         </div>
