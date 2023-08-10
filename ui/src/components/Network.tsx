@@ -62,7 +62,7 @@ const Network = (props: {
       <div id={`${props.id}`} className="network">
         <div className="networkContainer">
           <div className="networkLabel">
-            <strong>Name: </strong>
+            <strong>Network: </strong>
             {networkName}
           </div>
           <hr />
@@ -110,7 +110,7 @@ const Network = (props: {
       <div id={`${props.networkIndex}`} className="network">
         <div className="networkContainer">
           <div className="networkLabel">
-            <strong>Name: </strong>
+            <strong>Network: </strong>
             {networkName}
           </div>
           <hr />
@@ -158,7 +158,7 @@ const Network = (props: {
       <div id={`${props.id}`} className="network">
         <div className="networkContainer">
           <div className="networkLabel">
-            <strong>Name: </strong>
+            <strong>Network: </strong>
             {networkName}
           </div>
           <hr />
@@ -218,7 +218,7 @@ const Network = (props: {
       <div id={`${props.networkIndex}`} className="network">
         <div className="networkContainer">
           <div className="networkLabel">
-            <strong>Name: </strong>
+            <strong>Network: </strong>
             {networkName}
           </div>
           <hr />

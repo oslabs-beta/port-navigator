@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 
 import {
   ContainerInfo,
@@ -28,7 +29,7 @@ const ContainerDisplay: React.FC<{
   function formClose() {
     setIsOpen(false);
   }
-
+  
   //if the Ports object exist within our props
   if (props.info.Ports) {
     // return container information including Ports info.
@@ -90,6 +91,7 @@ const ContainerDisplay: React.FC<{
             </button>
 
             {/* Display for form modal */}
+            {createPortal(
             <FormModal open={isOpen} onClose={formClose}>
               {/* Calling Form component function as child of FormModal */}
               <Form
@@ -98,7 +100,9 @@ const ContainerDisplay: React.FC<{
                 setContainers={props.setContainers}
                 setNetworks={props.setNetworks}
               />
-            </FormModal>
+            </FormModal>,
+           document.body
+          )}
           </div>
         </div>
         <ul className='portInfo'>
@@ -180,6 +184,7 @@ const ContainerDisplay: React.FC<{
         </div>
         <div className='containerButtons'>
           <button className='innerButton' onClick={() => setIsOpen(true)}>Connect</button>
+          {createPortal(
           <FormModal open={isOpen} onClose={formClose}>
             <Form
               allNetworks={props.allNetworks}
@@ -187,7 +192,9 @@ const ContainerDisplay: React.FC<{
               setContainers={props.setContainers}
               setNetworks={props.setNetworks}
             />
-          </FormModal>
+            </FormModal>,
+            document.body
+          )}
         </div>
       </div>
     </div>
