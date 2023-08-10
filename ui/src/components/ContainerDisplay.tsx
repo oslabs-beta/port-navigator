@@ -29,7 +29,7 @@ const ContainerDisplay: React.FC<{
   function formClose() {
     setIsOpen(false);
   }
-  
+
   //if the Ports object exist within our props
   if (props.info.Ports) {
     // return container information including Ports info.
@@ -38,14 +38,14 @@ const ContainerDisplay: React.FC<{
       <div id={props.id} className='container'>
         {/* Display container information*/}
         <div className='containerInfoContainer'>
-          <div className='containerInfo'>
+          <div className='containerInfo withPorts'>
             <p>
               {' '}
               <strong>Name: </strong>
               <br /> {props.info.Name}
             </p>
           <hr />
-            <p>
+            <p className='clipText'>
               <strong>ContainerID: </strong>
               <br /> {props.info.Id}
             </p>
@@ -59,51 +59,6 @@ const ContainerDisplay: React.FC<{
             <strong>Activity: </strong>
             <br /> {props.info.State}
           </p>
-          <div className='containerButtons'>
-            {/* <button
-              
-              onClick={() =>
-                ConnectContainer(
-                  props.info.Name,
-                  'bridge',
-                  props.setContainers,
-                  props.setNetworks,
-                )
-              }>
-              Connect
-            </button> */}
-            <button
-              className='innerButton'
-              onClick={() =>
-                DisconnectContainer(
-                  props.info.Name,
-                  props.network,
-                  props.setContainers,
-                  props.setNetworks,
-                )
-              }>
-              Disconnect
-            </button>
-          </div>
-          <div className='containerButtons'>
-            <button className='innerButton' onClick={() => setIsOpen(true)}>
-              Connect
-            </button>
-
-            {/* Display for form modal */}
-            {createPortal(
-            <FormModal open={isOpen} onClose={formClose}>
-              {/* Calling Form component function as child of FormModal */}
-              <Form
-                allNetworks={props.allNetworks}
-                info={props.info}
-                setContainers={props.setContainers}
-                setNetworks={props.setNetworks}
-              />
-            </FormModal>,
-           document.body
-          )}
-          </div>
         </div>
         <ul className='portInfo'>
           {/* Display list of information from Ports*/}
@@ -128,6 +83,37 @@ const ContainerDisplay: React.FC<{
           </li>
         </ul>
       </div>
+          <div className='containerButtons'>
+            <button
+              className='innerButton'
+              onClick={() =>
+                DisconnectContainer(
+                  props.info.Name,
+                  props.network,
+                  props.setContainers,
+                  props.setNetworks,
+                )
+              }>
+              Disconnect
+            </button>
+            <button className='innerButton' onClick={() => setIsOpen(true)}>
+              Connect
+            </button>
+
+            {/* Display for form modal */}
+            {createPortal(
+            <FormModal open={isOpen} onClose={formClose}>
+              {/* Calling Form component function as child of FormModal */}
+              <Form
+                allNetworks={props.allNetworks}
+                info={props.info}
+                setContainers={props.setContainers}
+                setNetworks={props.setNetworks}
+              />
+            </FormModal>,
+           document.body
+          )}
+          </div>
       </div>
     );
   }
@@ -135,14 +121,14 @@ const ContainerDisplay: React.FC<{
   return (
     <div id={props.id} className='container'>
       {/* Display container information*/}
-      <div className='containerInfo'>
+      <div className='containerInfo noPorts'>
         <p>
           {' '}
           <strong>Name: </strong>
           <br /> {props.info.Name}
         </p>
         <hr />
-        <p>
+        <p className='clipText'>
           <strong>ContainerID: </strong>
           <br /> {props.info.Id}
         </p>
@@ -156,19 +142,8 @@ const ContainerDisplay: React.FC<{
           <strong>Activity: </strong>
           <br /> {props.info.State}
         </p>
+      </div>
         <div className='containerButtons'>
-          {/* <button
-            
-            onClick={() =>
-              ConnectContainer(
-                props.info.Name,
-                'bridge',
-                props.setContainers,
-                props.setNetworks,
-              )
-            }>
-            Connect
-          </button> */}
           <button
             className='innerButton'
             onClick={() =>
@@ -181,8 +156,6 @@ const ContainerDisplay: React.FC<{
             }>
             Disconnect
           </button>
-        </div>
-        <div className='containerButtons'>
           <button className='innerButton' onClick={() => setIsOpen(true)}>Connect</button>
           {createPortal(
           <FormModal open={isOpen} onClose={formClose}>
@@ -196,7 +169,6 @@ const ContainerDisplay: React.FC<{
             document.body
           )}
         </div>
-      </div>
     </div>
   );
 };
