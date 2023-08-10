@@ -143,11 +143,58 @@ const showAddNetworkForm = () => {
   }
 };
 
-const hideAddNetworkForm = () => {
+const hideAddNetworkForm = (
+  setNetworkName: Function,
+  setGatewaysInput: Function,
+  setGateways: Function,
+  setSubnetsInput: Function,
+  setSubnets: Function,
+  setIpRange: Function
+) => {
+  console.log('hideAddNetworkForm invoked');
   const addNetworkForm = document.getElementById('addNetworkForm');
   if (addNetworkForm !== null) {
+    setNetworkName('');
+    setGatewaysInput(['']);
+    setGateways([]);
+    setSubnetsInput('');
+    setSubnets([]);
+    setIpRange('');
     addNetworkForm.style.display = 'none';
   }
+  // const gatewayFormInput = document.getElementById('addGatewayFormInput');
+  // console.log('gatewayFormInput', gatewayFormInput);
+  // // if (gatewayFormInput) console.log(gatewayFormInput.value);
+  // if (gatewayFormInput) {
+  //   console.log('if block entered');
+  //   gatewayFormInput.setAttribute('value', '');
+  // }
+};
+
+const addNetworkTest = (
+  networkName: string,
+  gateways: [] | string[],
+  subnetworks: [] | string[],
+  ipRange: string,
+  setNetworkName: Function,
+  setGatewaysInput: Function,
+  setGateways: Function,
+  setSubnetsInput: Function,
+  setSubnets: Function,
+  setIpRange: Function
+) => {
+  console.log('networkName', networkName);
+  console.log('gateways', gateways);
+  console.log('subnetworks', subnetworks);
+  console.log('ipRange', ipRange);
+  hideAddNetworkForm(
+    setNetworkName,
+    setGatewaysInput,
+    setGateways,
+    setSubnetsInput,
+    setSubnets,
+    setIpRange
+  );
 };
 
 // <div className="addNetworkTextInput">
@@ -174,6 +221,7 @@ export {
   HideContainers,
   showAddNetworkForm,
   hideAddNetworkForm,
+  addNetworkTest,
 };
 
 /* future functionality

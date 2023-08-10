@@ -262,11 +262,12 @@ body {
   z-index: 2;
   padding: 5%;
   width: 60%;
-  height: 60%;
+  height: 70%;
   top: 20%;
   opacity: 95%;
   flex-direction: column;
   justify-content: left;
+  overflow: scroll;
 }
 
 #addNetworkFormTitle {
@@ -279,7 +280,7 @@ body {
 }
 
 .addNetworkTextInput input {
-  width: 65%;
+  width: 60%;
 }
 
 /* .addNetworkFormInput {
@@ -312,12 +313,25 @@ body {
   margin-left: 1%;
 }
 
-#addNetworkSubmitButton {
+#addGatewaySubmitButton,
+#addSubnetSubmitButton,
+#addIPRangeSubmitButton {
   width: 15%;
+  margin-left: 2%;
 }
 
 .listHeader {
   display: flex;
   justify-content: space-between;
   margin-top: 5%;
+}
+
+#submitAddNetworkFormButton {
+  width: 30%;
+}
+
+#containerForAddNetworkFormSubmit {
+  display: flex;
+  justify-content: right;
+  margin-top: 10%;
 }

@@ -11,7 +11,11 @@ import {
   setNetworks,
 } from '../interfaces/interfaces';
 // import { StoreContext } from '../dataStore';
-import { showAddNetworkForm, hideAddNetworkForm } from '../functions/functions';
+import {
+  showAddNetworkForm,
+  hideAddNetworkForm,
+  addNetworkTest,
+} from '../functions/functions';
 
 const NetworksPage = (props: {
   networks: NetworkInfo[] | [];
@@ -64,27 +68,46 @@ const NetworksPage = (props: {
   // };
 
   // NOTE: DEAL WITH THESE TYPESCRIPT ANY TYPES IN THE FUTURE
+  const [networkName, setNetworkName] = useState<string>('');
   const [gateways, setGateways] = useState<[] | string[]>([]);
+  const [subnets, setSubnets] = useState<[] | string[]>([]);
+  const [gatewaysInput, setGatewaysInput] = useState<string>('');
+  const [subnetsInput, setSubnetsInput] = useState<string>('');
+  const [ipRange, setIpRange] = useState<string>('');
 
   const handleAddGatewaySubmit = (e: any) => {
     e.preventDefault();
+    console.log('gateways', gateways);
     if (e.target) {
-      console.log(Array.isArray(gateways));
       const newGateway = [...gateways, e.target[0].value];
 
       if (Array.isArray(gateways)) setGateways(newGateway);
-      console.log('gateways', gateways);
+      setGatewaysInput('');
     }
+  };
+
+  const handleAddSubnetSubmit = (e: any) => {
+    e.preventDefault();
+    console.log(e.target[0].value);
+    if (e.target) {
+      const newSubnet = [...subnets, e.target[0].value];
+
+      if (Array.isArray(subnets)) setSubnets(newSubnet);
+    }
+    setSubnetsInput('');
   };
 
   // FIX THIS ANY
   const gatewayList: any = [];
 
-  let counter = 0;
+  gateways.forEach((currentGateway, i) => {
+    gatewayList.push(<li key={i}>{currentGateway}</li>);
+  });
 
-  gateways.forEach((currentGateway) => {
-    gatewayList.push(<li key={counter}>{currentGateway}</li>);
-    counter++;
+  const subnetList: any = [];
+
+  subnets.forEach((currentSubnet, i) => {
+    subnetList.push(<li key={i}>{currentSubnet}</li>);
   });
 
   const clearNetworks = () => {
@@ -94,6 +117,8 @@ const NetworksPage = (props: {
       gatewayList.pop();
     }
   };
+
+  // look up if we can change submit button lable to add network
 
   return (
     <div className="mainContainer">
@@ -119,7 +144,16 @@ const NetworksPage = (props: {
         <div id="closeAddNetworkFormContainer">
           <button
             id="closeAddNetworkFormButton"
-            onClick={() => hideAddNetworkForm()}
+            onClick={() =>
+              hideAddNetworkForm(
+                setNetworkName,
+                setGatewaysInput,
+                setGateways,
+                setSubnetsInput,
+                setSubnets,
+                setIpRange
+              )
+            }
           >
             X
           </button>
@@ -128,7 +162,42 @@ const NetworksPage = (props: {
           <h1 id="addNetworkFormTitle">Add Network Form</h1>
         </div>
         <br></br>
+        <div id="addNetworkNameForm">
+          <form>
+            <div className="addNetworkTextInput">
+              <label htmlFor="networkName" className="addNetworkFormLabel">
+                Network Name:{' '}
+              </label>
+              <input
+                type="text"
+                placeholder="Add a network name"
+                name="networkName"
+                className="addNetworkFormInput"
+                value={networkName}
+                onChange={(e) => {
+                  setNetworkName(e.target.value);
+                }}
+              />
+            </div>
+          </form>
+        </div>
+        <br></br>
         <div id="addGatewayForm">
+          {/* <form>
+            <div className="addNetworkTextInput">
+              <label htmlFor="gateway" className="addNetworkFormLabel">
+                Gateway:{' '}
+              </label>
+              <input
+                type="text"
+                placeholder="Add a gateway"
+                name="gateway"
+                className="addGatewayFormInput"
+                id="addGatewayFormInput"
+              />
+              <input id="addGatewaySubmitButton" type="submit"></input>
+            </div>
+          </form> */}
           <form onSubmit={handleAddGatewaySubmit}>
             <div className="addNetworkTextInput">
               <label htmlFor="gateway" className="addNetworkFormLabel">
@@ -136,12 +205,18 @@ const NetworksPage = (props: {
               </label>
               <input
                 type="text"
-                placeholder="if you wish to include a gateway, type the address"
+                placeholder="Add a gateway"
                 name="gateway"
-                className="addNetworkFormInput"
-                id="addNetworkFormInput"
+                className="addGatewayFormInput"
+                id="addGatewayFormInput"
+                value={gatewaysInput}
+                onChange={(e) => {
+                  // const newGateways = [];
+                  // newGateways.push(e.target.value);
+                  setGatewaysInput(e.target.value);
+                }}
               />
-              <input id="addNetworkSubmitButton" type="submit"></input>
+              <input id="addGatewaySubmitButton" type="submit"></input>
             </div>
           </form>
           <div className="listHeader">
@@ -153,11 +228,70 @@ const NetworksPage = (props: {
           <ul id="currentlyAddedNetworks">{gatewayList}</ul>
         </div>
         <div id="addSubnetForm">
-          <form></form>
+          <form onSubmit={handleAddSubnetSubmit}>
+            <div className="addNetworkTextInput">
+              <label htmlFor="subnet" className="addNetworkFormLabel">
+                Subnetwork:{' '}
+              </label>
+              <input
+                type="text"
+                placeholder="Add a subnetwork"
+                name="subnet"
+                className="addSubnetFormInput"
+                id="addSubnetFormInput"
+                value={subnetsInput}
+                onChange={(e) => setSubnetsInput(e.target.value)}
+              />
+              <input id="addSubnetSubmitButton" type="submit"></input>
+            </div>
+          </form>
+          <div className="listHeader">
+            <span>Added Subnetworks:</span>
+            <span>
+              <button onClick={clearNetworks}>Clear Subnets</button>
+            </span>
+          </div>
+          <ul id="currentlyAddedNetworks">{subnetList}</ul>
         </div>
-        <div id="addNetworkForm">
-          <li id="addedNetworksList"></li>
-          <form></form>
+        <div id="addIPRangeForm">
+          <form>
+            <div className="addNetworkTextInput">
+              <label htmlFor="ip-range" className="addNetworkFormLabel">
+                IP-Range:{' '}
+              </label>
+              <input
+                type="text"
+                placeholder="Add an IP-Range"
+                name="ip-range"
+                className="addNetworkFormInput"
+                value={ipRange}
+                onChange={(e) => {
+                  setIpRange(e.target.value);
+                }}
+              />
+            </div>
+          </form>
+        </div>
+        <div id="containerForAddNetworkFormSubmit">
+          <button
+            id="submitAddNetworkFormButton"
+            onClick={() => {
+              addNetworkTest(
+                networkName,
+                gateways,
+                subnets,
+                ipRange,
+                setNetworkName,
+                setGatewaysInput,
+                setGateways,
+                setSubnetsInput,
+                setSubnets,
+                setIpRange
+              );
+            }}
+          >
+            Add the Network
+          </button>
         </div>
       </div>
 
