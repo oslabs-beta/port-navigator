@@ -350,13 +350,18 @@ body {
 }
 
 .container hr {
-  width: calc(330px + (520 - 330) * ((100vw - 552px) / (1872 - 552)));
+  width: 100%;
   height: 2px;
   background-color: rgba(240, 255, 255, 0.35);
   box-shadow: 0.25px 0.25px 0.5px rgba(0, 0, 0, 0.5);
   border: none;
   border-radius: 2px;
   margin: 10px auto;
+}
+
+.lastHR {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 #defaultNetwork .containerHeader hr {
@@ -487,8 +492,6 @@ body {
   color: rgba(245, 255, 255, 0.936);
 }
 
-
-
 .form-container {
   font-weight: 600;
 }
@@ -524,10 +527,15 @@ body {
   margin: 10px;
   width: calc(300px + (440 - 300) * ((100vw - 552px) / (1872 - 552)));
   padding: 6px 12px;
-  color: white;
+  /* color: white; */
+  color: rgba(0, 0, 0, 0.732);
   font-weight: 600;
   font-size: 20px;
-  background: linear-gradient(to top left, rgba(75, 122, 157, 0.664), rgba(81, 89, 109, 0.681));
+  background: linear-gradient(
+    to top left,
+    rgba(75, 122, 157, 0.664),
+    rgba(81, 89, 109, 0.681)
+  );
   border-radius: 18px;
   border: none;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);

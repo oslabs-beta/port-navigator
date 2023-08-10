@@ -84,7 +84,7 @@ const ContainerDisplay: React.FC<{
             </li>
           </ul>
         </div>
-        <hr />
+        <hr className='lastHR' />
         <div className='containerButtons'>
           <button
             className='innerButton'
@@ -149,7 +149,7 @@ const ContainerDisplay: React.FC<{
           <br /> {props.info.State}
         </p>
       </div>
-      <hr />
+      <hr className='lastHR' />
       <div className='containerButtons'>
         <button
           className='innerButton'
