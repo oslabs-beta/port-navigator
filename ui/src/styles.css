@@ -11,7 +11,8 @@ body {
   text-shadow: 0.25px 0.25px 1px rgba(0, 0, 0, 0.5);
 }
 
-.buttonContainer {
+.buttonContainer,
+.addNetworkButtonContainer {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -41,7 +42,8 @@ body {
   border-width: 0.1rem;
 }
 
-.button {
+.button,
+.addNetworkButton {
   font-size: 1rem;
   font-weight: 600;
   padding: 12px 22px;
@@ -56,7 +58,8 @@ body {
   border-width: 0.1rem;
 }
 
-.button:hover {
+.button:hover,
+.addNetworkButton:hover {
   cursor: pointer;
   transform: scale(1.1);
   background: linear-gradient(to bottom right, #cb9f10, #8d6f06);
@@ -283,6 +286,33 @@ body {
   padding: 0 20px;
 }
 
+.deleteNetworkButton {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  text-align: center;
+  padding-bottom: 2px;
+  width: 22px;
+  height: 22px;
+  font-weight: bolder;
+  background-color: azure;
+  border: none;
+  border-radius: 12px;
+}
+
+.deleteNetworkButton:hover {
+  cursor: pointer;
+  padding: 0 1px 2px 0;
+  transform: scale(1.1) translate(-1px, -1px);
+  background: linear-gradient(to bottom right, #ba9311, #6b5506);
+  border: solid 0.05rem #d1a71d;
+  border-bottom: none;
+  border-right: none;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: ease-in-out 0.2s;
+  color: azure;
+}
+
 .containersContainer {
   height: 100%;
   width: 100%;
@@ -456,4 +486,86 @@ body {
 
 .form-select option {
   color: black;
+}
+
+#addNetworkForm {
+  display: none;
+  position: absolute;
+  background-color: lightgray;
+  border: 5px solid black;
+  z-index: 2;
+  padding: 5%;
+  width: 60%;
+  height: 70%;
+  top: 20%;
+  opacity: 95%;
+  flex-direction: column;
+  justify-content: left;
+  overflow: scroll;
+}
+
+#addNetworkFormTitle {
+  color: black;
+  text-align: center;
+}
+
+.addNetworkFormLabel {
+  color: black;
+}
+
+.addNetworkTextInput input {
+  width: 60%;
+}
+
+/* .addNetworkFormInput {
+  width: 80%;
+} */
+
+#closeAddNetworkFormContainer {
+  display: flex;
+  justify-content: right;
+}
+
+#closeAddNetworkFormButton:hover {
+  cursor: pointer;
+}
+
+#addAdditionalGatewayOrSubnet {
+  display: flex;
+  justify-content: space-between;
+}
+
+#gatewaysAdded,
+#subnetworksAdded,
+.listHeader,
+#currentlyAddedNetworks {
+  color: black;
+}
+
+#addSubnetButton,
+#addGatewayButton {
+  margin-left: 1%;
+}
+
+#addGatewaySubmitButton,
+#addSubnetSubmitButton,
+#addIPRangeSubmitButton {
+  width: 15%;
+  margin-left: 2%;
+}
+
+.listHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5%;
+}
+
+#submitAddNetworkFormButton {
+  width: 30%;
+}
+
+#containerForAddNetworkFormSubmit {
+  display: flex;
+  justify-content: right;
+  margin-top: 10%;
 }

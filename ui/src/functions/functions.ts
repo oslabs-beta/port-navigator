@@ -29,7 +29,7 @@ const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
   const networks = result.parseJsonLines();
 
   //formatting newNetworks to only contain relevant info from networks
-  const newNetworks = networks.map(el => {
+  const newNetworks = networks.map((el) => {
     const network: NetworkInfo = {
       Driver: el.Driver,
       Name: el.Name,
@@ -43,14 +43,14 @@ const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
     //executing comand line to retrieve additional info
     const result = await ddClient.docker.cli.exec(
       `network inspect ${newNetworks[i].Name}`,
-      ['--format', '"{{json .}}"'],
+      ['--format', '"{{json .}}"']
     );
     //parsing additional info
     //TODO: get rid of any!
     const moreInfo: any = result.parseJsonLines()[0];
     //grabbing container names and adding into array
     const networkContainers: any[] = Object.values(moreInfo.Containers);
-    const containerNames = networkContainers.map(el => el.Name);
+    const containerNames = networkContainers.map((el) => el.Name);
     //adding aditional info to network object
     const newNetwork: NetworkInfo = {
       ...newNetworks[i],
@@ -72,13 +72,13 @@ const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
 
 //obtains a list of all containers
 const GetAllContainers = async (
-  setContainers: setContainers,
+  setContainers: setContainers
 ): Promise<void> => {
   const ddClient = useDockerDesktopClient();
   // obtain list of all containers on Docker Desktop
   const dockerContainers: [] | unknown = await ddClient.docker.listContainers();
   if (Array.isArray(dockerContainers)) {
-    const newContainers = dockerContainers.map(el => {
+    const newContainers = dockerContainers.map((el) => {
       const newEl: ContainerInfo = {
         Name: el.Names[0].slice(1),
         Id: el.Id,
@@ -260,6 +260,83 @@ const HideContainers = (containerID: string, buttonId: string) => {
   }
 };
 
+const showAddNetworkForm = () => {
+  const addNetworkForm = document.getElementById('addNetworkForm');
+  if (addNetworkForm !== null) {
+    addNetworkForm.style.display = 'flex';
+  }
+};
+
+const hideAddNetworkForm = (
+  setNetworkName: Function,
+  setGatewaysInput: Function,
+  setGateways: Function,
+  setSubnetsInput: Function,
+  setSubnets: Function,
+  setIpRange: Function
+) => {
+  console.log('hideAddNetworkForm invoked');
+  const addNetworkForm = document.getElementById('addNetworkForm');
+  if (addNetworkForm !== null) {
+    setNetworkName('');
+    setGatewaysInput(['']);
+    setGateways([]);
+    setSubnetsInput('');
+    setSubnets([]);
+    setIpRange('');
+    addNetworkForm.style.display = 'none';
+  }
+  // const gatewayFormInput = document.getElementById('addGatewayFormInput');
+  // console.log('gatewayFormInput', gatewayFormInput);
+  // // if (gatewayFormInput) console.log(gatewayFormInput.value);
+  // if (gatewayFormInput) {
+  //   console.log('if block entered');
+  //   gatewayFormInput.setAttribute('value', '');
+  // }
+};
+
+const addNetworkTest = (
+  networkName: string,
+  gateways: [] | string[],
+  subnetworks: [] | string[],
+  ipRange: string,
+  setNetworkName: Function,
+  setGatewaysInput: Function,
+  setGateways: Function,
+  setSubnetsInput: Function,
+  setSubnets: Function,
+  setIpRange: Function
+) => {
+  console.log('networkName', networkName);
+  console.log('gateways', gateways);
+  console.log('subnetworks', subnetworks);
+  console.log('ipRange', ipRange);
+  hideAddNetworkForm(
+    setNetworkName,
+    setGatewaysInput,
+    setGateways,
+    setSubnetsInput,
+    setSubnets,
+    setIpRange
+  );
+};
+
+// <div className="addNetworkTextInput">
+// <label htmlFor="gateway" className="addNetworkFormLabel">
+//   Gateway:{' '}
+// </label>
+// <input
+//   type="text"
+//   placeholder="if you wish to include a gateway, type the address here"
+//   name="gateway"
+//   className="addNetworkFormInput"
+// />
+// </div>
+
+// const addGatewayField = () => {
+//   setGateway()
+// };
+
 export {
   GetNetworks,
   GetAllContainers,
@@ -268,6 +345,9 @@ export {
   ConnectContainer,
   DisconnectContainer,
   HideContainers,
+  showAddNetworkForm,
+  hideAddNetworkForm,
+  addNetworkTest,
 };
 
 /* future functionality
