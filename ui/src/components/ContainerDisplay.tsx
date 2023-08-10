@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent, useState } from 'react';
+import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import {
@@ -20,7 +20,6 @@ const ContainerDisplay: React.FC<{
   setContainers: setContainers;
   setNetworks: setNetworks;
   allNetworks: NetworkInfo[] | [];
-  e: BaseSyntheticEvent;
 }> = (props) => {
   // State determining if our FormModal should be displayed or not
   const [isOpen, setIsOpen] = useState<Boolean>(false);
@@ -86,13 +85,13 @@ const ContainerDisplay: React.FC<{
           <div className='containerButtons'>
             <button
               className='innerButton'
-              onClick={() =>
+              onClick={(e) =>
                 DisconnectContainer(
                   props.info.Name,
                   props.network,
                   props.setContainers,
                   props.setNetworks,
-                  props.e
+                  e
                 )
               }>
               Disconnect
