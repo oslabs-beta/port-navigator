@@ -60,10 +60,10 @@ const Network = (props: {
   if (!props.network.Containers?.length && props.id) {
     return (
       // a div containing the bridge name and the array displaying each container
-      <div id={`${props.id}`} className='network'>
-        <div className='networkContainer'>
-          <div className='networkLabel'>
-            <strong>Name: </strong>
+      <div id={`${props.id}`} className="network">
+        <div className="networkContainer">
+          <div className="networkLabel">
+            <strong>Network: </strong>
             {networkName}
           </div>
           <hr />
@@ -107,10 +107,10 @@ const Network = (props: {
   } else if (!props.network.Containers?.length && !props.id) {
     return (
       // a div containing the bridge name and the array displaying each container
-      <div id={`${props.networkIndex}`} className='network'>
-        <div className='networkContainer'>
-          <div className='networkLabel'>
-            <strong>Name: </strong>
+      <div id={`${props.networkIndex}`} className="network">
+        <div className="networkContainer">
+          <div className="networkLabel">
+            <strong>Network: </strong>
             {networkName}
           </div>
           <hr />
@@ -156,10 +156,10 @@ const Network = (props: {
   if (typeof props.network.Containers?.length === 'number' && props.id) {
     return (
       // a div containing the bridge name and the array displaying each container
-      <div id={`${props.id}`} className='network'>
-        <div className='networkContainer'>
-          <div className='networkLabel'>
-            <strong>Name: </strong>
+      <div id={`${props.id}`} className="network">
+        <div className="networkContainer">
+          <div className="networkLabel">
+            <strong>Network: </strong>
             {networkName}
           </div>
           <hr />
@@ -214,10 +214,10 @@ const Network = (props: {
   } else {
     return (
       // a div containing the bridge name and the array displaying each container
-      <div id={`${props.networkIndex}`} className='network'>
-        <div className='networkContainer'>
-          <div className='networkLabel'>
-            <strong>Name: </strong>
+      <div id={`${props.networkIndex}`} className="network">
+        <div className="networkContainer">
+          <div className="networkLabel">
+            <strong>Network: </strong>
             {networkName}
           </div>
           <hr />

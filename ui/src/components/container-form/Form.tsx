@@ -33,10 +33,12 @@ function Form(props: {
         }}
       >
         {/* Container name */}
-        <span>Connect {props.info.Name} to </span>
+        <span>Connect <hr /> <span className='formLabel'>{props.info.Name}</span> <hr /> Container to a Network:</span>
         <select
+
           className="form-select"
           value={networkName}
+
           //   Recording the user input for network
           onChange={(e) => setnetworkName(e.target.value)}
         >
@@ -47,7 +49,7 @@ function Form(props: {
             </option>
           ))}
         </select>
-        <span> network?</span>
+        {/* <span> network?</span> */}
 
         <button className="form-button">Connect</button>
       </form>
