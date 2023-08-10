@@ -29,7 +29,7 @@ const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
   const networks = result.parseJsonLines();
 
   //formatting newNetworks to only contain relevant info from networks
-  const newNetworks = networks.map((el) => {
+  const newNetworks = networks.map(el => {
     const network: NetworkInfo = {
       Driver: el.Driver,
       Name: el.Name,
@@ -43,14 +43,14 @@ const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
     //executing comand line to retrieve additional info
     const result = await ddClient.docker.cli.exec(
       `network inspect ${newNetworks[i].Name}`,
-      ['--format', '"{{json .}}"']
+      ['--format', '"{{json .}}"'],
     );
     //parsing additional info
     //TODO: get rid of any!
     const moreInfo: any = result.parseJsonLines()[0];
     //grabbing container names and adding into array
     const networkContainers: any[] = Object.values(moreInfo.Containers);
-    const containerNames = networkContainers.map((el) => el.Name);
+    const containerNames = networkContainers.map(el => el.Name);
     //adding aditional info to network object
     const newNetwork: NetworkInfo = {
       ...newNetworks[i],
@@ -72,13 +72,13 @@ const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
 
 //obtains a list of all containers
 const GetAllContainers = async (
-  setContainers: setContainers
+  setContainers: setContainers,
 ): Promise<void> => {
   const ddClient = useDockerDesktopClient();
   // obtain list of all containers on Docker Desktop
   const dockerContainers: [] | unknown = await ddClient.docker.listContainers();
   if (Array.isArray(dockerContainers)) {
-    const newContainers = dockerContainers.map((el) => {
+    const newContainers = dockerContainers.map(el => {
       const newEl: ContainerInfo = {
         Name: el.Names[0].slice(1),
         Id: el.Id,
@@ -132,7 +132,8 @@ const RemoveNetwork = async (
   console.log('e: ', e);
   //? if Disconnecting.... feature fails, it's probably because the divs got shifted around
   //selects network element that is being deleted
-  const parentNetwork = e.nativeEvent.path[1].childNodes[0];
+  const parentNetwork = await e.nativeEvent.path[1].childNodes[0];
+  console.log('parentNetwork: ', parentNetwork);
   const ddClient = useDockerDesktopClient();
   if (
     network.Name === 'bridge' ||
@@ -215,10 +216,11 @@ const DisconnectContainer = async (
 ): Promise<void> => {
   const ddClient = useDockerDesktopClient();
   let connected = true;
-
+  e.preventDefault();
+  console.log('e: ', e);
   //? if Disconnecting.... feature fails, it's probably because the divs got shifted around
   //select parent container element
-  const parentContainer = e.nativeEvent.path[4];
+  const parentContainer = await e.nativeEvent.path[2];
   //overwrite child divs and replace with Disconnecting...
   parentContainer.innerText = `Disconnecting... ${containerName}`;
 
@@ -273,7 +275,7 @@ const hideAddNetworkForm = (
   setGateways: Function,
   setSubnetsInput: Function,
   setSubnets: Function,
-  setIpRange: Function
+  setIpRange: Function,
 ) => {
   console.log('hideAddNetworkForm invoked');
   const addNetworkForm = document.getElementById('addNetworkForm');
@@ -305,7 +307,7 @@ const addNetworkTest = (
   setGateways: Function,
   setSubnetsInput: Function,
   setSubnets: Function,
-  setIpRange: Function
+  setIpRange: Function,
 ) => {
   console.log('networkName', networkName);
   console.log('gateways', gateways);
@@ -317,7 +319,7 @@ const addNetworkTest = (
     setGateways,
     setSubnetsInput,
     setSubnets,
-    setIpRange
+    setIpRange,
   );
 };
 
