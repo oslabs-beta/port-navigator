@@ -11,6 +11,7 @@ function Form(props: {
   info: ContainerInfo;
   setContainers: setContainers;
   setNetworks: setNetworks;
+  formClose: Function;
 }) {
   //State used to record which network the user chooses
   const [networkName, setnetworkName] = useState<string>('');
@@ -20,21 +21,24 @@ function Form(props: {
       <form
         className="form"
         // Invoking our function to connect container to network from an Event Listener
-        onSubmit={(e) =>
+        onSubmit={(e) => {
           ConnectContainer(
             props.info.Name,
             networkName,
             props.setContainers,
             props.setNetworks,
             e
-          )
-        }
+          );
+          props.formClose();
+        }}
       >
         {/* Container name */}
         <span>Connect <hr /> <span className='formLabel'>{props.info.Name}</span> <hr /> Container to a Network:</span>
         <select
+
           className="form-select"
           value={networkName}
+
           //   Recording the user input for network
           onChange={(e) => setnetworkName(e.target.value)}
         >

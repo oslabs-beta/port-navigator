@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { BaseSyntheticEvent, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import {
@@ -7,7 +7,7 @@ import {
   setNetworks,
   NetworkInfo,
 } from '../interfaces/interfaces';
-import {  DisconnectContainer } from '../functions/functions';
+import { DisconnectContainer } from '../functions/functions';
 
 import FormModal from './container-form/FormModal';
 import Form from './container-form/Form';
@@ -20,8 +20,8 @@ const ContainerDisplay: React.FC<{
   setContainers: setContainers;
   setNetworks: setNetworks;
   allNetworks: NetworkInfo[] | [];
-}> = props => {
-
+  e: BaseSyntheticEvent;
+}> = (props) => {
   // State determining if our FormModal should be displayed or not
   const [isOpen, setIsOpen] = useState<Boolean>(false);
 
@@ -35,7 +35,7 @@ const ContainerDisplay: React.FC<{
     // return container information including Ports info.
 
     return (
-      <div id={props.id} className='container'>
+      <div id={props.id} className="container">
         {/* Display container information*/}
         <div className='containerInfoContainer'>
           <div className='containerInfo withPorts'>
@@ -49,7 +49,7 @@ const ContainerDisplay: React.FC<{
               <strong>ContainerID: </strong>
               <br /> {props.info.Id}
             </p>
-          <hr />
+            <hr />
             <p>
               <strong>Image: </strong>
               <br /> {props.info.Image}
@@ -92,6 +92,7 @@ const ContainerDisplay: React.FC<{
                   props.network,
                   props.setContainers,
                   props.setNetworks,
+                  props.e
                 )
               }>
               Disconnect
@@ -109,6 +110,7 @@ const ContainerDisplay: React.FC<{
                 info={props.info}
                 setContainers={props.setContainers}
                 setNetworks={props.setNetworks}
+                formClose={formClose}
               />
             </FormModal>,
            document.body
@@ -119,7 +121,7 @@ const ContainerDisplay: React.FC<{
   }
   //else return container information without Ports info
   return (
-    <div id={props.id} className='container'>
+    <div id={props.id} className="container">
       {/* Display container information*/}
       <div className='containerInfo noPorts'>
         <p>
@@ -145,15 +147,17 @@ const ContainerDisplay: React.FC<{
       </div>
         <div className='containerButtons'>
           <button
-            className='innerButton'
-            onClick={() =>
+            className="innerButton"
+            onClick={(e) =>
               DisconnectContainer(
                 props.info.Name,
                 props.network,
                 props.setContainers,
                 props.setNetworks,
+                e
               )
-            }>
+            }
+          >
             Disconnect
           </button>
           <button className='innerButton' onClick={() => setIsOpen(true)}>Connect</button>
@@ -164,6 +168,7 @@ const ContainerDisplay: React.FC<{
               info={props.info}
               setContainers={props.setContainers}
               setNetworks={props.setNetworks}
+              formClose={formClose}
             />
             </FormModal>,
             document.body
