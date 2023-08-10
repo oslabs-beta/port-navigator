@@ -36,14 +36,16 @@ const ContainerDisplay: React.FC<{
     return (
       <div id={props.id} className="container">
         {/* Display container information*/}
-        <div className='containerInfoContainer'>
-          <div className='containerInfo withPorts'>
+          <div className='containerHeader'>
             <p>
               {' '}
               <strong>Name: </strong>
               <br /> {props.info.Name}
             </p>
-          <hr />
+            <hr />
+          </div>
+        <div className='containerInfoContainer'>
+          <div className='containerInfo withPorts'>
             <p className='clipText'>
               <strong>ContainerID: </strong>
               <br /> {props.info.Id}
@@ -82,6 +84,7 @@ const ContainerDisplay: React.FC<{
           </li>
         </ul>
       </div>
+      <hr />
           <div className='containerButtons'>
             <button
               className='innerButton'
@@ -122,13 +125,15 @@ const ContainerDisplay: React.FC<{
   return (
     <div id={props.id} className="container">
       {/* Display container information*/}
+      <div className='containerHeader'>
+            <p>
+              {' '}
+              <strong>Name: </strong>
+              <br /> {props.info.Name}
+            </p>
+            <hr />
+          </div>
       <div className='containerInfo noPorts'>
-        <p>
-          {' '}
-          <strong>Name: </strong>
-          <br /> {props.info.Name}
-        </p>
-        <hr />
         <p className='clipText'>
           <strong>ContainerID: </strong>
           <br /> {props.info.Id}
@@ -144,6 +149,7 @@ const ContainerDisplay: React.FC<{
           <br /> {props.info.State}
         </p>
       </div>
+      <hr />
         <div className='containerButtons'>
           <button
             className="innerButton"

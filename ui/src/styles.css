@@ -20,6 +20,11 @@ body {
   height: 50px;
 }
 
+.buttonContainer button,
+.addNetworkButtonContainer button {
+  width: 140px;
+}
+
 .containerButtons {
   display: flex;
   justify-content: center;
@@ -338,6 +343,38 @@ body {
   box-shadow: 4px 4px 6px 1px rgba(0, 0, 0, 0.281);
 }
 
+.containerHeader {
+  align-self: center;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto 10px 5px;
+  padding: 0 10px 0;
+}
+
+.containerHeader hr {
+  width: 90%;
+  height: 2px;
+  background-color: rgba(240, 255, 255, 0.35);
+  box-shadow: 0.25px 0.25px 0.5px rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 2px;
+  margin: 0 auto 10px;
+}
+
+hr {
+  width: 90%;
+  height: 2px;
+  background-color: rgba(240, 255, 255, 0.35);
+  box-shadow: 0.25px 0.25px 0.5px rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 2px;
+  margin: 10px auto 10px;
+}
+
+#defaultNetwork .containerHeader hr {
+  margin-bottom: 0;
+}
+
 .containerInfoContainer {
   width: calc(375px + (565 - 375) * ((100vw - 552px) / (1872 - 552)));
   max-width: 100%;
@@ -364,9 +401,13 @@ body {
   align-items: flex-start;
   width: 100%;
   margin-left: 10px;
-  padding: 10px 20px 0;
+  padding: 0 20px;
   overflow: auto;
   text-overflow: ellipsis;
+}
+
+.noPorts hr {
+  margin-bottom: 0;
 }
 
 .noPorts .containerButtons {
@@ -385,7 +426,7 @@ body {
 }
 
 .containerInfo p {
-  margin: 10px 0px;
+  margin: 0;
   font-size: 1rem;
   text-overflow: clip;
   padding-right: 100px;
@@ -393,8 +434,12 @@ body {
   /* word-wrap: break-word; */
 }
 
+.containerInfo {
+  margin-bottom: 10px;
+}
+
 .containerInfo hr {
-  margin: 0;
+  margin: 10px auto;
   padding: 0;
   width: 100%;
   height: 1px;
@@ -412,13 +457,13 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-self: flex-start;
-  height: 256px;
+  height: 220px;
   list-style: none;
   background: linear-gradient(to bottom right, #106d75, #105157);
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
   border-radius: 24px;
-  padding: 20px 20px 12.5px;
-  margin: 0;
+  padding: 20px 20px 20px;
+  margin: 6px;
 }
 
 .portInfo li {
@@ -451,7 +496,10 @@ body {
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
   padding: 30px;
   border-radius: 24px;
+  color: rgba(245, 255, 255, 0.936);
 }
+
+
 
 .form-container {
   font-weight: 600;
