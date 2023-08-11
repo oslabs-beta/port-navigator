@@ -177,6 +177,7 @@ const ConnectContainer = async (
   const result = await ddClient.docker.cli.exec('inspect', [containerName]);
   const containerInfo: any = result.parseJsonObject();
 
+  //TODO: check if container is connected to none or host
   //if network connection doesn't exist, make the connection
   if (!containerInfo[0].NetworkSettings.Networks[networkName]) {
     await ddClient.docker.cli.exec('network connect', [
@@ -238,6 +239,7 @@ const DisconnectContainer = async (
   //if no other connections exist, set connected to false
   if (!Object.keys(networks).length) connected = false;
 
+  //TODO: if conneceted to none, remove first then connect to other network
   //assign container to 'none' network if no network connections still exist
   if (!connected) {
     await ddClient.docker.cli.exec('network connect', ['none', containerName]);
@@ -322,22 +324,6 @@ const addNetworkTest = (
     setIpRange,
   );
 };
-
-// <div className="addNetworkTextInput">
-// <label htmlFor="gateway" className="addNetworkFormLabel">
-//   Gateway:{' '}
-// </label>
-// <input
-//   type="text"
-//   placeholder="if you wish to include a gateway, type the address here"
-//   name="gateway"
-//   className="addNetworkFormInput"
-// />
-// </div>
-
-// const addGatewayField = () => {
-//   setGateway()
-// };
 
 export {
   GetNetworks,
