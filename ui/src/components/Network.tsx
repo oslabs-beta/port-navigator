@@ -46,221 +46,80 @@ const Network = (props: {
   console.log('props.network: ', props.network);
   console.log('networkName: ', networkName);
 
-  // return
-  //TODO: can we refactor to not have four different returns?
-  if (!props.network.Containers?.length && props.id) {
-    return (
-      // a div containing the bridge name and the array displaying each container
-      <div id={`${props.id}`} className='network'>
-        <div className='networkContainer'>
-          <div className='networkLabel'>
-            <strong>Network: </strong>
-            {networkName}
-          </div>
-          <hr />
-          <div className='containerNetworkFeatures'>
-            <div className='connectedContainerContainer'>
-              <p className='connectedText'>
-                Connected
-                <br />
-                Containers
-              </p>
-              <p className='divider'>|</p>
-              <p className='connectedCount'>
-                {props.network.Containers?.length}
-              </p>
-            </div>
-            <button
-              className='innerButton'
-              id={`${props.networkIndex}ShowHideNetworksButton`}
-              onClick={() =>
-                HideContainers(
-                  `${props.networkIndex}ContainersContainer`,
-                  `${props.networkIndex}ShowHideNetworksButton`,
-                )
-              }>
-              Add Container
-            </button>
-          </div>
-          <button
-            className='deleteNetworkButton'
-            onClick={e => RemoveNetwork(props.network, props.setNetworks, e)}>
-            x
-          </button>
-        </div>
-        <div
-          id={`${props.networkIndex}ContainersContainer`}
-          className='containersContainer'>
-          {networkContainerDisplay}
-        </div>
-      </div>
-    );
-  } else if (!props.network.Containers?.length && !props.id) {
-    return (
-      // a div containing the bridge name and the array displaying each container
-      <div id={`${props.networkIndex}`} className='network'>
-        <div className='networkContainer'>
-          <div className='networkLabel'>
-            <strong>Network: </strong>
-            {networkName}
-          </div>
-          <hr />
-          <div className='containerNetworkFeatures'>
-            <div className='connectedContainerContainer'>
-              <p className='connectedText'>
-                Connected
-                <br />
-                Containers
-              </p>
-              <p className='divider'>|</p>
-              <p className='connectedCount'>
-                {props.network.Containers?.length}
-              </p>
-            </div>
+  let passedId = true;
+  let passedContainers = true;
 
-            <button
-              className='innerButton'
-              id={`${props.networkIndex}ShowHideNetworksButton`}
-              onClick={() =>
-                HideContainers(
-                  `${props.networkIndex}ContainersContainer`,
-                  `${props.networkIndex}ShowHideNetworksButton`,
-                )
-              }>
-              Add Container
-            </button>
+  if (!props.network.Containers?.length) passedContainers = false;
+  if (!props.id) passedId = false;
+
+  let showContainersButton = (
+    <button
+      className="innerButton"
+      id={`${props.networkIndex}ShowHideNetworksButton`}
+      onClick={() =>
+        HideContainers(
+          `${props.networkIndex}ContainersContainer`,
+          `${props.networkIndex}ShowHideNetworksButton`
+        )
+      }
+    >
+      Show Containers
+    </button>
+  );
+
+  if (!passedContainers) showContainersButton = <div></div>;
+
+  return (
+    // a div containing the bridge name and the array displaying each container
+    <div
+      id={passedId ? `${props.id}` : `${props.networkIndex}`}
+      className="network"
+    >
+      <div className="networkContainer">
+        <div className="networkLabel">
+          <strong>Network: </strong>
+          {networkName}
+        </div>
+        <hr />
+        <div className="containerNetworkFeatures">
+          <div className="connectedContainerContainer">
+            <p className="connectedText">
+              Connected
+              <br />
+              Containers
+            </p>
+            <p className="divider">|</p>
+            <p className="connectedCount">{props.network.Containers?.length}</p>
           </div>
+          {showContainersButton}
           <button
-            className='deleteNetworkButton'
-            onClick={e => RemoveNetwork(props.network, props.setNetworks, e)}>
-            x
+            className="innerButton"
+            id={`${props.networkIndex}ShowHideNetworksButton`}
+            onClick={() =>
+              HideContainers(
+                `${props.networkIndex}ContainersContainer`,
+                `${props.networkIndex}ShowHideNetworksButton`
+              )
+            }
+          >
+            Add Container
           </button>
         </div>
-        <div
-          id={`${props.networkIndex}ContainersContainer`}
-          className='containersContainer'>
-          {networkContainerDisplay}
-        </div>
+        <button
+          className="deleteNetworkButton"
+          onClick={(e) => RemoveNetwork(props.network, props.setNetworks, e)}
+        >
+          x
+        </button>
       </div>
-    );
-  }
-  if (typeof props.network.Containers?.length === 'number' && props.id) {
-    return (
-      // a div containing the bridge name and the array displaying each container
-      <div id={`${props.id}`} className='network'>
-        <div className='networkContainer'>
-          <div className='networkLabel'>
-            <strong>Network: </strong>
-            {networkName}
-          </div>
-          <hr />
-          <div className='containerNetworkFeatures'>
-            <div className='connectedContainerContainer'>
-              <p className='connectedText'>
-                Connected
-                <br />
-                Containers
-              </p>
-              <p className='divider'>|</p>
-              <p className='connectedCount'>
-                {props.network.Containers?.length}
-              </p>
-            </div>
-            <button
-              className='innerButton'
-              id={`${props.networkIndex}ShowHideNetworksButton`}
-              onClick={() =>
-                HideContainers(
-                  `${props.networkIndex}ContainersContainer`,
-                  `${props.networkIndex}ShowHideNetworksButton`,
-                )
-              }>
-              Show Containers
-            </button>
-            <button
-              className='innerButton'
-              id={`${props.networkIndex}ShowHideNetworksButton`}
-              onClick={() =>
-                HideContainers(
-                  `${props.networkIndex}ContainersContainer`,
-                  `${props.networkIndex}ShowHideNetworksButton`,
-                )
-              }>
-              Add Container
-            </button>
-          </div>
-          <button
-            className='deleteNetworkButton'
-            onClick={e => RemoveNetwork(props.network, props.setNetworks, e)}>
-            x
-          </button>
-        </div>
-        <div
-          id={`${props.networkIndex}ContainersContainer`}
-          className='containersContainer'>
-          {networkContainerDisplay}
-        </div>
+      <div
+        id={`${props.networkIndex}ContainersContainer`}
+        className="containersContainer"
+      >
+        {networkContainerDisplay}
       </div>
-    );
-  } else {
-    return (
-      // a div containing the bridge name and the array displaying each container
-      <div id={`${props.networkIndex}`} className='network'>
-        <div className='networkContainer'>
-          <div className='networkLabel'>
-            <strong>Network: </strong>
-            {networkName}
-          </div>
-          <hr />
-          <div className='containerNetworkFeatures'>
-            <div className='connectedContainerContainer'>
-              <p className='connectedText'>
-                Connected
-                <br />
-                Containers
-              </p>
-              <p className='divider'>|</p>
-              <p className='connectedCount'>
-                {props.network.Containers?.length}
-              </p>
-            </div>
-            <button
-              className='innerButton'
-              id={`${props.networkIndex}ShowHideNetworksButton`}
-              onClick={() =>
-                HideContainers(
-                  `${props.networkIndex}ContainersContainer`,
-                  `${props.networkIndex}ShowHideNetworksButton`,
-                )
-              }>
-              Show Containers
-            </button>
-            <button
-              className='innerButton'
-              id={`${props.networkIndex}ShowHideNetworksButton`}
-              onClick={() =>
-                HideContainers(
-                  `${props.networkIndex}ContainersContainer`,
-                  `${props.networkIndex}ShowHideNetworksButton`,
-                )
-              }>
-              Add Container
-            </button>
-          </div>
-          <button
-            className='deleteNetworkButton'
-            onClick={e => RemoveNetwork(props.network, props.setNetworks, e)}>
-            x
-          </button>
-        </div>
-        <div
-          id={`${props.networkIndex}ContainersContainer`}
-          className='containersContainer'>
-          {networkContainerDisplay}
-        </div>
-      </div>
-    );
-  }
+    </div>
+  );
 };
 
 // ---- exports go here ----
