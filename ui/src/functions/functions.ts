@@ -105,6 +105,15 @@ const AddNetwork = async (
   networkName: string,
   networks: NetworkInfo[],
   setNetworks: setNetworks,
+  gateways: [] | string[],
+  subnetworks: [] | string[],
+  ipRange: string,
+  setNetworkName: Function,
+  setGatewaysInput: Function,
+  setGateways: Function,
+  setSubnetsInput: Function,
+  setSubnets: Function,
+  setIpRange: Function,
 ) => {
   const ddClient = useDockerDesktopClient();
   let exists = false;
@@ -112,13 +121,64 @@ const AddNetwork = async (
     if (network.Name === networkName) exists = true;
   }
   if (!exists) {
-    await ddClient.docker.cli.exec('network connect', [networkName]);
+    const gatewaysCommandArray: any = [];
+    const subnetsCommandArray: any = [];
+    gateways.forEach(currentGateway => {
+      gatewaysCommandArray.push(`--gateway=${currentGateway}`);
+    });
+    subnetworks.forEach(currentSubnet => {
+      subnetsCommandArray.push(`--subnet=${currentSubnet}`);
+    });
+    const commandArr = [networkName];
+    gatewaysCommandArray.forEach((currentCommand: string) => {
+      commandArr.push(currentCommand);
+    });
+    subnetsCommandArray.forEach((currentCommand: string) => {
+      commandArr.push(currentCommand);
+    });
+    commandArr.push(`--ip-range=${ipRange}`);
+    // commandArr.push(networkName);
+    await ddClient.docker.cli.exec('network create', commandArr);
     GetNetworks(setNetworks);
   } else {
     ddClient.desktopUI.toast.error(
       `The ${networkName} network already exists!`,
     );
   }
+  hideAddNetworkForm(
+    setNetworkName,
+    setGatewaysInput,
+    setGateways,
+    setSubnetsInput,
+    setSubnets,
+    setIpRange,
+  );
+};
+
+const addNetworkTest = (
+  networkName: string,
+  gateways: [] | string[],
+  subnetworks: [] | string[],
+  ipRange: string,
+  setNetworkName: Function,
+  setGatewaysInput: Function,
+  setGateways: Function,
+  setSubnetsInput: Function,
+  setSubnets: Function,
+  setIpRange: Function,
+) => {
+  console.log('networkName', networkName);
+  console.log('gateways', gateways);
+  console.log('subnetworks', subnetworks);
+  console.log('ipRange', ipRange);
+  hideAddNetworkForm(
+    setNetworkName,
+    setGatewaysInput,
+    setGateways,
+    setSubnetsInput,
+    setSubnets,
+    setIpRange,
+  );
 };
 
 //removes an empty network when button is clicked
@@ -299,31 +359,21 @@ const hideAddNetworkForm = (
   // }
 };
 
-const addNetworkTest = (
-  networkName: string,
-  gateways: [] | string[],
-  subnetworks: [] | string[],
-  ipRange: string,
-  setNetworkName: Function,
-  setGatewaysInput: Function,
-  setGateways: Function,
-  setSubnetsInput: Function,
-  setSubnets: Function,
-  setIpRange: Function,
-) => {
-  console.log('networkName', networkName);
-  console.log('gateways', gateways);
-  console.log('subnetworks', subnetworks);
-  console.log('ipRange', ipRange);
-  hideAddNetworkForm(
-    setNetworkName,
-    setGatewaysInput,
-    setGateways,
-    setSubnetsInput,
-    setSubnets,
-    setIpRange,
-  );
-};
+// <div className="addNetworkTextInput">
+// <label htmlFor="gateway" className="addNetworkFormLabel">
+//   Gateway:{' '}
+// </label>
+// <input
+//   type="text"
+//   placeholder="if you wish to include a gateway, type the address here"
+//   name="gateway"
+//   className="addNetworkFormInput"
+// />
+// </div>
+
+// const addGatewayField = () => {
+//   setGateway()
+// };
 
 export {
   GetNetworks,

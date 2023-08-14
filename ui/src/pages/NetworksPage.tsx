@@ -13,7 +13,7 @@ import {
 import {
   showAddNetworkForm,
   hideAddNetworkForm,
-  addNetworkTest,
+  AddNetwork,
 } from '../functions/functions';
 
 const NetworksPage = (props: {
@@ -210,8 +210,8 @@ const NetworksPage = (props: {
                 id='addGatewayFormInput'
                 value={gatewaysInput}
                 onChange={e => {
-                  // const newGateways = [];
-                  // newGateways.push(e.target.value);
+                  const newGateways = [];
+                  newGateways.push(e.target.value);
                   setGatewaysInput(e.target.value);
                 }}
               />
@@ -275,8 +275,10 @@ const NetworksPage = (props: {
           <button
             id='submitAddNetworkFormButton'
             onClick={() => {
-              addNetworkTest(
+              AddNetwork(
                 networkName,
+                props.networks,
+                props.setNetworks,
                 gateways,
                 subnets,
                 ipRange,
