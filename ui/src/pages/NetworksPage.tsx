@@ -13,7 +13,7 @@ import {
 import {
   showAddNetworkForm,
   hideAddNetworkForm,
-  addNetworkTest,
+  AddNetwork,
 } from '../functions/functions';
 
 const NetworksPage = (props: {
@@ -26,55 +26,53 @@ const NetworksPage = (props: {
   const networkEl: JSX.Element[] = [];
   const hostNone: JSX.Element[] = [];
   const defaultBridge: JSX.Element[] = [];
-  
+
   props.networks.forEach((network, i: number) => {
     const networkIndex: String = `network${i}`;
     if (network.Name === 'host' || network.Name === 'none') {
       hostNone.push(
         <Network
-        key={`network${i}`}
-        networkIndex={networkIndex}
-        network={network}
-        containers={props.containers}
-        setContainers={props.setContainers}
-        setNetworks={props.setNetworks}
-        id={'defaultNetwork'}
-        allNetworks={props.networks}
-      />,
-    );
-  }
-  else if (network.Name === 'bridge') {
-    defaultBridge.push(
-      <Network
-      key={`network${i}`}
-      networkIndex={networkIndex}
-      network={network}
-      containers={props.containers}
-      setContainers={props.setContainers}
-      setNetworks={props.setNetworks}
-      allNetworks={props.networks}
-      id={'defaultNetwork'}
-      />
+          key={`network${i}`}
+          networkIndex={networkIndex}
+          network={network}
+          containers={props.containers}
+          setContainers={props.setContainers}
+          setNetworks={props.setNetworks}
+          id={'defaultNetwork'}
+          allNetworks={props.networks}
+        />
       );
-    } 
-    else {
+    } else if (network.Name === 'bridge') {
+      defaultBridge.push(
+        <Network
+          key={`network${i}`}
+          networkIndex={networkIndex}
+          network={network}
+          containers={props.containers}
+          setContainers={props.setContainers}
+          setNetworks={props.setNetworks}
+          allNetworks={props.networks}
+          id={'defaultNetwork'}
+        />
+      );
+    } else {
       networkEl.push(
         <Network
-        key={`network${i}`}
-        networkIndex={networkIndex}
-        network={network}
-        containers={props.containers}
-        setContainers={props.setContainers}
-        setNetworks={props.setNetworks}
-        allNetworks={props.networks}
+          key={`network${i}`}
+          networkIndex={networkIndex}
+          network={network}
+          containers={props.containers}
+          setContainers={props.setContainers}
+          setNetworks={props.setNetworks}
+          allNetworks={props.networks}
         />
-        );
-      }
-    });
-    
-    networkEl.push(...hostNone);
-    networkEl.unshift(...defaultBridge);
-    // NOTE: DEAL WITH THESE TYPESCRIPT ANY TYPES IN THE FUTURE
+      );
+    }
+  });
+
+  networkEl.push(...hostNone);
+  networkEl.unshift(...defaultBridge);
+  // NOTE: DEAL WITH THESE TYPESCRIPT ANY TYPES IN THE FUTURE
   const [networkName, setNetworkName] = useState<string>('');
   const [gateways, setGateways] = useState<[] | string[]>([]);
   const [subnets, setSubnets] = useState<[] | string[]>([]);
@@ -215,8 +213,8 @@ const NetworksPage = (props: {
                 id="addGatewayFormInput"
                 value={gatewaysInput}
                 onChange={(e) => {
-                  // const newGateways = [];
-                  // newGateways.push(e.target.value);
+                  const newGateways = [];
+                  newGateways.push(e.target.value);
                   setGatewaysInput(e.target.value);
                 }}
               />
@@ -280,8 +278,10 @@ const NetworksPage = (props: {
           <button
             id="submitAddNetworkFormButton"
             onClick={() => {
-              addNetworkTest(
+              AddNetwork(
                 networkName,
+                props.networks,
+                props.setNetworks,
                 gateways,
                 subnets,
                 ipRange,

@@ -29,7 +29,7 @@ const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
   const networks = result.parseJsonLines();
 
   //formatting newNetworks to only contain relevant info from networks
-  const newNetworks = networks.map(el => {
+  const newNetworks = networks.map((el) => {
     const network: NetworkInfo = {
       Driver: el.Driver,
       Name: el.Name,
@@ -43,14 +43,14 @@ const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
     //executing comand line to retrieve additional info
     const result = await ddClient.docker.cli.exec(
       `network inspect ${newNetworks[i].Name}`,
-      ['--format', '"{{json .}}"'],
+      ['--format', '"{{json .}}"']
     );
     //parsing additional info
     //TODO: get rid of any!
     const moreInfo: any = result.parseJsonLines()[0];
     //grabbing container names and adding into array
     const networkContainers: any[] = Object.values(moreInfo.Containers);
-    const containerNames = networkContainers.map(el => el.Name);
+    const containerNames = networkContainers.map((el) => el.Name);
     //adding aditional info to network object
     const newNetwork: NetworkInfo = {
       ...newNetworks[i],
@@ -72,13 +72,13 @@ const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
 
 //obtains a list of all containers
 const GetAllContainers = async (
-  setContainers: setContainers,
+  setContainers: setContainers
 ): Promise<void> => {
   const ddClient = useDockerDesktopClient();
   // obtain list of all containers on Docker Desktop
   const dockerContainers: [] | unknown = await ddClient.docker.listContainers();
   if (Array.isArray(dockerContainers)) {
-    const newContainers = dockerContainers.map(el => {
+    const newContainers = dockerContainers.map((el) => {
       const newEl: ContainerInfo = {
         Name: el.Names[0].slice(1),
         Id: el.Id,
@@ -105,6 +105,15 @@ const AddNetwork = async (
   networkName: string,
   networks: NetworkInfo[],
   setNetworks: setNetworks,
+  gateways: [] | string[],
+  subnetworks: [] | string[],
+  ipRange: string,
+  setNetworkName: Function,
+  setGatewaysInput: Function,
+  setGateways: Function,
+  setSubnetsInput: Function,
+  setSubnets: Function,
+  setIpRange: Function
 ) => {
   const ddClient = useDockerDesktopClient();
   let exists = false;
@@ -112,20 +121,71 @@ const AddNetwork = async (
     if (network.Name === networkName) exists = true;
   }
   if (!exists) {
-    await ddClient.docker.cli.exec('network connect', [networkName]);
+    const gatewaysCommandArray: any = [];
+    const subnetsCommandArray: any = [];
+    gateways.forEach((currentGateway) => {
+      gatewaysCommandArray.push(`--gateway=${currentGateway}`);
+    });
+    subnetworks.forEach((currentSubnet) => {
+      subnetsCommandArray.push(`--subnet=${currentSubnet}`);
+    });
+    const commandArr = [networkName];
+    gatewaysCommandArray.forEach((currentCommand: string) => {
+      commandArr.push(currentCommand);
+    });
+    subnetsCommandArray.forEach((currentCommand: string) => {
+      commandArr.push(currentCommand);
+    });
+    commandArr.push(`--ip-range=${ipRange}`);
+    // commandArr.push(networkName);
+    await ddClient.docker.cli.exec('network create', commandArr);
     GetNetworks(setNetworks);
   } else {
     ddClient.desktopUI.toast.error(
-      `The ${networkName} network already exists!`,
+      `The ${networkName} network already exists!`
     );
   }
+  hideAddNetworkForm(
+    setNetworkName,
+    setGatewaysInput,
+    setGateways,
+    setSubnetsInput,
+    setSubnets,
+    setIpRange
+  );
+};
+
+const addNetworkTest = (
+  networkName: string,
+  gateways: [] | string[],
+  subnetworks: [] | string[],
+  ipRange: string,
+  setNetworkName: Function,
+  setGatewaysInput: Function,
+  setGateways: Function,
+  setSubnetsInput: Function,
+  setSubnets: Function,
+  setIpRange: Function
+) => {
+  console.log('networkName', networkName);
+  console.log('gateways', gateways);
+  console.log('subnetworks', subnetworks);
+  console.log('ipRange', ipRange);
+  hideAddNetworkForm(
+    setNetworkName,
+    setGatewaysInput,
+    setGateways,
+    setSubnetsInput,
+    setSubnets,
+    setIpRange
+  );
 };
 
 //removes an empty network when button is clicked
 const RemoveNetwork = async (
   network: NetworkInfo,
   setNetworks: setNetworks,
-  e: BaseSyntheticEvent<any>,
+  e: BaseSyntheticEvent<any>
 ): Promise<void> => {
   //TODO: maybe allowing e.Default will refresh page and we can remove GetNetworks()?
   e.preventDefault();
@@ -141,11 +201,11 @@ const RemoveNetwork = async (
     network.Name === 'none'
   ) {
     ddClient.desktopUI.toast.error(
-      `You can't delete the ${network.Name} network!`,
+      `You can't delete the ${network.Name} network!`
     );
   } else if (network.Containers?.length !== 0) {
     ddClient.desktopUI.toast.error(
-      `You can't delete a Network that has Containers attached to it!`,
+      `You can't delete a Network that has Containers attached to it!`
     );
   } else {
     //change network name to Disconnecting during deletion
@@ -165,7 +225,7 @@ const ConnectContainer = async (
   setNetworks: setNetworks,
   e: SyntheticEvent<EventTarget>,
   alias?: string,
-  ip?: string,
+  ip?: string
 ): Promise<void> => {
   e.preventDefault();
   const ddClient = useDockerDesktopClient();
@@ -189,7 +249,7 @@ const ConnectContainer = async (
     //if connection already exists, display warning message
   } else {
     ddClient.desktopUI.toast.warning(
-      `Container ${containerName} is already assigned to the networkS ${networkName}!`,
+      `Container ${containerName} is already assigned to the networkS ${networkName}!`
     );
   }
 
@@ -212,7 +272,7 @@ const DisconnectContainer = async (
   networkName: string,
   setContainers: setContainers,
   setNetworks: setNetworks,
-  e: BaseSyntheticEvent<any>,
+  e: BaseSyntheticEvent<any>
 ): Promise<void> => {
   const ddClient = useDockerDesktopClient();
   let connected = true;
@@ -275,7 +335,7 @@ const hideAddNetworkForm = (
   setGateways: Function,
   setSubnetsInput: Function,
   setSubnets: Function,
-  setIpRange: Function,
+  setIpRange: Function
 ) => {
   console.log('hideAddNetworkForm invoked');
   const addNetworkForm = document.getElementById('addNetworkForm');
@@ -295,32 +355,6 @@ const hideAddNetworkForm = (
   //   console.log('if block entered');
   //   gatewayFormInput.setAttribute('value', '');
   // }
-};
-
-const addNetworkTest = (
-  networkName: string,
-  gateways: [] | string[],
-  subnetworks: [] | string[],
-  ipRange: string,
-  setNetworkName: Function,
-  setGatewaysInput: Function,
-  setGateways: Function,
-  setSubnetsInput: Function,
-  setSubnets: Function,
-  setIpRange: Function,
-) => {
-  console.log('networkName', networkName);
-  console.log('gateways', gateways);
-  console.log('subnetworks', subnetworks);
-  console.log('ipRange', ipRange);
-  hideAddNetworkForm(
-    setNetworkName,
-    setGatewaysInput,
-    setGateways,
-    setSubnetsInput,
-    setSubnets,
-    setIpRange,
-  );
 };
 
 // <div className="addNetworkTextInput">
