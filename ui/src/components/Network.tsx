@@ -41,15 +41,6 @@ const Network = (props: {
     }
   });
 
-  // TO DO: extract the bridge name from the bridge props
-  // console.log('network: ', props.network);
-  // console.log('networkContainerDisplay: ', networkContainerDisplay);
-  // if (networkContainerDisplay[0]) {
-  //   console.log(
-  //     'networkContainerDisplay[0].props.network: ',
-  //     networkContainerDisplay[0].props.network
-  //   );
-  // }
   // const bridgeName: string = bridgeContainerDisplay[0].props.info.name;
   const networkName = props.network.Name;
   console.log('props.network: ', props.network);
@@ -60,9 +51,9 @@ const Network = (props: {
   if (!props.network.Containers?.length && props.id) {
     return (
       // a div containing the bridge name and the array displaying each container
-      <div id={`${props.id}`} className="network">
-        <div className="networkContainer">
-          <div className="networkLabel">
+      <div id={`${props.id}`} className='network'>
+        <div className='networkContainer'>
+          <div className='networkLabel'>
             <strong>Network: </strong>
             {networkName}
           </div>
@@ -107,9 +98,9 @@ const Network = (props: {
   } else if (!props.network.Containers?.length && !props.id) {
     return (
       // a div containing the bridge name and the array displaying each container
-      <div id={`${props.networkIndex}`} className="network">
-        <div className="networkContainer">
-          <div className="networkLabel">
+      <div id={`${props.networkIndex}`} className='network'>
+        <div className='networkContainer'>
+          <div className='networkLabel'>
             <strong>Network: </strong>
             {networkName}
           </div>
@@ -156,9 +147,9 @@ const Network = (props: {
   if (typeof props.network.Containers?.length === 'number' && props.id) {
     return (
       // a div containing the bridge name and the array displaying each container
-      <div id={`${props.id}`} className="network">
-        <div className="networkContainer">
-          <div className="networkLabel">
+      <div id={`${props.id}`} className='network'>
+        <div className='networkContainer'>
+          <div className='networkLabel'>
             <strong>Network: </strong>
             {networkName}
           </div>
@@ -214,9 +205,9 @@ const Network = (props: {
   } else {
     return (
       // a div containing the bridge name and the array displaying each container
-      <div id={`${props.networkIndex}`} className="network">
-        <div className="networkContainer">
-          <div className="networkLabel">
+      <div id={`${props.networkIndex}`} className='network'>
+        <div className='networkContainer'>
+          <div className='networkLabel'>
             <strong>Network: </strong>
             {networkName}
           </div>
