@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import {
-  ContainerInfo,
-  setContainers,
-  setNetworks,
-  NetworkInfo,
-} from '../interfaces/interfaces';
+import { ContainerInfo } from '../interfaces/interfaces';
 import { DisconnectContainer } from '../functions/functions';
 
 import FormModal from './container-form/FormModal';
@@ -17,10 +12,7 @@ const ContainerDisplay: React.FC<{
   id: string;
   info: ContainerInfo;
   network: string;
-  setContainers: setContainers;
-  setNetworks: setNetworks;
-  allNetworks: NetworkInfo[] | [];
-}> = (props) => {
+}> = props => {
   // State determining if our FormModal should be displayed or not
   const [isOpen, setIsOpen] = useState<Boolean>(false);
 
@@ -36,7 +28,7 @@ const ContainerDisplay: React.FC<{
 
   if (props.info.Ports)
     portsUnorderedList = (
-      <ul className="portInfo">
+      <ul className='portInfo'>
         {/* Display list of information from Ports*/}
         <li>
           <strong>IP: </strong>
@@ -61,9 +53,9 @@ const ContainerDisplay: React.FC<{
     );
 
   return (
-    <div id={props.id} className="container">
+    <div id={props.id} className='container'>
       {/* Display container information*/}
-      <div className="containerHeader">
+      <div className='containerHeader'>
         <p>
           {' '}
           <strong>Container: </strong>
@@ -71,13 +63,12 @@ const ContainerDisplay: React.FC<{
         </p>
         <hr />
       </div>
-      <div className="containerInfoContainer">
+      <div className='containerInfoContainer'>
         <div
           className={
             passedPorts ? 'containerInfo withPorts' : 'containerInfo noPorts'
-          }
-        >
-          <p className="clipText">
+          }>
+          <p className='clipText'>
             <strong>ContainerID: </strong>
             <br /> {props.info.Id}
           </p>
@@ -94,23 +85,14 @@ const ContainerDisplay: React.FC<{
         </div>
         {portsUnorderedList}
       </div>
-      <hr className="lastHR" />
-      <div className="containerButtons">
+      <hr className='lastHR' />
+      <div className='containerButtons'>
         <button
-          className="innerButton"
-          onClick={(e) =>
-            DisconnectContainer(
-              props.info.Name,
-              props.network,
-              props.setContainers,
-              props.setNetworks,
-              e
-            )
-          }
-        >
+          className='innerButton'
+          onClick={e => DisconnectContainer(props.info.Name, props.network, e)}>
           Disconnect
         </button>
-        <button className="innerButton" onClick={() => setIsOpen(true)}>
+        <button className='innerButton' onClick={() => setIsOpen(true)}>
           Connect
         </button>
 
@@ -118,15 +100,9 @@ const ContainerDisplay: React.FC<{
         {createPortal(
           <FormModal open={isOpen} onClose={formClose}>
             {/* Calling Form component function as child of FormModal */}
-            <Form
-              allNetworks={props.allNetworks}
-              info={props.info}
-              setContainers={props.setContainers}
-              setNetworks={props.setNetworks}
-              formClose={formClose}
-            />
+            <Form info={props.info} formClose={formClose} />
           </FormModal>,
-          document.body
+          document.body,
         )}
       </div>
     </div>
