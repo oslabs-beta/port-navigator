@@ -16,6 +16,8 @@ interface AppState {
   setContainers: (containers: ContainerInfo[] | []) => void;
   networks: NetworkInfo[] | [];
   setNetworks: (networks: NetworkInfo[] | []) => void;
+  force: number;
+  incForce: () => void;
 }
 
 export const useAppStore = create<AppState>()(set => {
@@ -26,5 +28,9 @@ export const useAppStore = create<AppState>()(set => {
     setContainers: (containers: ContainerInfo[] | []) => set({ containers }),
     networks: [],
     setNetworks: (networks: NetworkInfo[] | []) => set({ networks }),
+    force: 0,
+    incForce: () => set(state => ({ force: state.force + 1 })),
   };
 });
+
+// incrCounter: () => set((state) => ({ counter: state.counter + 1 }))

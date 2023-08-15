@@ -1,12 +1,49 @@
 import { ContainerInfo } from '../../interfaces/interfaces';
-import { useState } from 'react';
-import { ConnectContainer } from '../../functions/functions';
+import { useState, SyntheticEvent } from 'react';
 import { useAppStore } from '../../store';
 
 function Form(props: { info: ContainerInfo; formClose: Function }) {
   //State used to record which network the user chooses
   const [networkName, setnetworkName] = useState<string>('');
-  const { networks } = useAppStore(store => store);
+  const { ddClient, networks, incForce } = useAppStore(store => {
+    return {
+      ddClient: store.ddClient,
+      networks: store.networks,
+      incForce: store.incForce,
+    };
+  });
+
+  const ConnectContainer = async (
+    containerName: string,
+    networkName: string,
+    e: SyntheticEvent<EventTarget>,
+    alias?: string,
+    ip?: string,
+  ): Promise<void> => {
+    e.preventDefault();
+    console.log('alias: ', alias);
+    console.log('ip: ', ip);
+
+    //gets container info to check if network connection already exists
+    const result = await ddClient.docker.cli.exec('inspect', [containerName]);
+    const containerInfo: any = result.parseJsonObject();
+
+    //TODO: check if container is connected to none or host
+    //if network connection doesn't exist, make the connection
+    if (!containerInfo[0].NetworkSettings.Networks[networkName]) {
+      await ddClient.docker.cli.exec('network connect', [
+        networkName,
+        containerName,
+      ]);
+      incForce();
+      //rerend networks with updated info
+      //if connection already exists, display warning message
+    } else {
+      ddClient.desktopUI.toast.warning(
+        `Container ${containerName} is already assigned to the networkS ${networkName}!`,
+      );
+    }
+  };
 
   return (
     <div className='form-container'>

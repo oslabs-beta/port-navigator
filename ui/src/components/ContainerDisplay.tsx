@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, BaseSyntheticEvent } from 'react';
 import { createPortal } from 'react-dom';
 
 import { ContainerInfo } from '../interfaces/interfaces';
-import { DisconnectContainer } from '../functions/functions';
+import { useAppStore } from '../store';
 
 import FormModal from './container-form/FormModal';
 import Form from './container-form/Form';
@@ -15,11 +15,54 @@ const ContainerDisplay: React.FC<{
 }> = props => {
   // State determining if our FormModal should be displayed or not
   const [isOpen, setIsOpen] = useState<Boolean>(false);
-
+  const { ddClient, incForce } = useAppStore(store => {
+    return { ddClient: store.ddClient, incForce: store.incForce };
+  });
   //onClick functionality to close our FormModal.
   function formClose() {
     setIsOpen(false);
   }
+
+  //disconnects a container from given network when button is clicked
+  const DisconnectContainer = async (
+    containerName: string,
+    networkName: string,
+    e: BaseSyntheticEvent<any>,
+  ): Promise<void> => {
+    let connected = true;
+    e.preventDefault();
+    console.log('e: ', e);
+    //? if Disconnecting.... feature fails, it's probably because the divs got shifted around
+    //select parent container element
+    const parentContainer = await e.nativeEvent.path[2];
+    //overwrite child divs and replace with Disconnecting...
+    parentContainer.innerText = `Disconnecting... ${containerName}`;
+
+    //disconnect container from Container
+    await ddClient.docker.cli.exec('network disconnect', [
+      networkName,
+      containerName,
+    ]);
+
+    //inspect container to find other network connections
+    const result = await ddClient.docker.cli.exec('inspect', [containerName]);
+    const containerInfo: any = result.parseJsonObject();
+    const networks = containerInfo[0].NetworkSettings.Networks;
+
+    //if no other connections exist, set connected to false
+    if (!Object.keys(networks).length) connected = false;
+
+    //TODO: if conneceted to none, remove first then connect to other network
+    //assign container to 'none' network if no network connections still exist
+    if (!connected) {
+      await ddClient.docker.cli.exec('network connect', [
+        'none',
+        containerName,
+      ]);
+    }
+    incForce();
+    //rerend networks with updated info
+  };
 
   let passedPorts = true;
   if (!props.info.Ports) passedPorts = false;

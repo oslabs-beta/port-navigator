@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { createDockerDesktopClient } from '@docker/extension-api-client';
-import type { NetworkInfo } from '../interfaces/interfaces';
+// import type { NetworkInfo } from '../interfaces/interfaces';
 import { useAppStore } from '../store';
 const client = createDockerDesktopClient();
 
@@ -15,10 +15,10 @@ const NetworkForm = () => {
   const [ipRange, setIpRange] = useState<string>('');
   const [disabled, setDisabled] = useState<boolean>(true);
 
-  const { networks, setNetworks } = useAppStore(store => {
+  const { networks, incForce } = useAppStore(store => {
     return {
       networks: store.networks,
-      setNetworks: store.setNetworks,
+      incForce: store.incForce,
     };
   });
 
@@ -44,30 +44,10 @@ const NetworkForm = () => {
       commandArr.push(`--subnet=${subnet}`);
       commandArr.push(`--gateway=${gateway}`);
       commandArr.push(`--ip-range=${ipRange}`);
+
       await ddClient.docker.cli.exec('network create', commandArr);
-      const result = await ddClient.docker.cli.exec(
-        `network inspect ${networkName}`,
-        ['--format', '"{{json .}}"'],
-      );
-      //parsing additional info
-      //TODO: get rid of any!
-      const moreInfo: any = result.parseJsonLines()[0];
-      //grabbing container names and adding into array
-      //adding aditional info to network object
-      const newNetwork: NetworkInfo = {
-        Driver: 'bridge',
-        Name: networkName,
-        ID: moreInfo.Id,
-        Containers: [],
-        Gateway: moreInfo.IPAM.Config.length
-          ? moreInfo.IPAM.Config[0].Gateway
-          : null,
-        Subnet: moreInfo.IPAM.Config.length
-          ? moreInfo.IPAM.Config[0].Subnet
-          : null,
-        Scope: moreInfo.Scope,
-      };
-      setNetworks([...networks, newNetwork]);
+
+      incForce();
     } else {
       ddClient.desktopUI.toast.error(
         `The ${networkName} network already exists!`,

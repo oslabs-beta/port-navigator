@@ -7,7 +7,7 @@ import ContainersPage from './pages/ContainersPage';
 import { useAppStore } from './store';
 
 export function App() {
-  const { ddClient, networks, containers, setNetworks, setContainers } =
+  const { ddClient, networks, containers, setNetworks, setContainers, force } =
     useAppStore(store => {
       return {
         ddClient: store.ddClient,
@@ -15,6 +15,7 @@ export function App() {
         containers: store.containers,
         setNetworks: store.setNetworks,
         setContainers: store.setContainers,
+        force: store.force,
       };
     });
 
@@ -104,7 +105,7 @@ export function App() {
   useEffect(() => {
     GetNetworks();
     GetAllContainers();
-  }, []);
+  }, [force]);
 
   return (
     <Routes>

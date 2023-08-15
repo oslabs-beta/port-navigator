@@ -37,8 +37,11 @@ const Network = (props: {
       );
     } else {
       //change network name to Disconnecting during deletion
-      parentNetwork.innerText = `Disconnecting... ${props.network}`;
-      setTimeout(() => parentNetwork.remove(), 1000);
+      parentNetwork.innerText = `Disconnecting... ${props.network.Name}`;
+      setTimeout(() => {
+        parentNetwork.remove();
+        // incForce();
+      }, 1000);
 
       //removes network only if no containers exist on it
       await ddClient.docker.cli.exec('network rm', [props.network.Name]);
