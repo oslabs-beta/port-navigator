@@ -11,6 +11,7 @@ const Network = (props: {
   id?: String;
   allNetworks: NetworkInfo[] | [];
 }) => {
+  //importing ddClient for use in functions
   const ddClient = useAppStore(store => store.ddClient);
 
   //removes an empty network when button is clicked

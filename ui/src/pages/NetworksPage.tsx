@@ -12,6 +12,7 @@ const NetworksPage = (props: {
   const hostNone: JSX.Element[] = [];
   const defaultBridge: JSX.Element[] = [];
 
+  //function to display 'Add Network' popup
   const showAddNetworkForm = () => {
     const addNetworkForm = document.getElementById('addNetworkForm');
     if (addNetworkForm !== null) {
@@ -19,43 +20,34 @@ const NetworksPage = (props: {
     }
   };
 
+  //iterates through networks and creates a container for each
   props.networks.forEach((network, i: number) => {
     const networkIndex: String = `network${i}`;
+    const newEl = (
+      <Network
+        key={`network${i}`}
+        networkIndex={networkIndex}
+        network={network}
+        containers={props.containers}
+        id={
+          network.Driver !== 'bridge' || network.Name === 'bridge'
+            ? 'defaultNetwork'
+            : 'userNetwork'
+        }
+        allNetworks={props.networks}
+      />
+    );
+    //pushes new element into specified array
     if (network.Name === 'host' || network.Name === 'none') {
-      hostNone.push(
-        <Network
-          key={`network${i}`}
-          networkIndex={networkIndex}
-          network={network}
-          containers={props.containers}
-          id={'defaultNetwork'}
-          allNetworks={props.networks}
-        />,
-      );
+      hostNone.push(newEl);
     } else if (network.Name === 'bridge') {
-      defaultBridge.push(
-        <Network
-          key={`network${i}`}
-          networkIndex={networkIndex}
-          network={network}
-          containers={props.containers}
-          allNetworks={props.networks}
-          id={'defaultNetwork'}
-        />,
-      );
+      defaultBridge.push(newEl);
     } else {
-      networkEl.push(
-        <Network
-          key={`network${i}`}
-          networkIndex={networkIndex}
-          network={network}
-          containers={props.containers}
-          allNetworks={props.networks}
-        />,
-      );
+      networkEl.push(newEl);
     }
   });
 
+  //combine arrays in desired order
   networkEl.push(...hostNone);
   networkEl.unshift(...defaultBridge);
 

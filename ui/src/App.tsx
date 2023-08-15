@@ -18,6 +18,7 @@ export function App() {
       };
     });
 
+  //obtains an array of all networks
   const GetNetworks = async (): Promise<void> => {
     // obtain list of all networks on Docker Desktop
     const result = await ddClient.docker.cli.exec('network ls', [
@@ -70,7 +71,7 @@ export function App() {
     setNetworks(newNetworks);
   };
 
-  //obtains a list of all containers
+  //obtains an array of all containers
   const GetAllContainers = async (): Promise<void> => {
     // obtain list of all containers on Docker Desktop
     const dockerContainers: [] | unknown =
@@ -99,8 +100,8 @@ export function App() {
     }
   };
 
+  // obtain basic network info
   useEffect(() => {
-    // obtain basic network info
     GetNetworks();
     GetAllContainers();
   }, []);
