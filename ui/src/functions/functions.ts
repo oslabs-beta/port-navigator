@@ -105,15 +105,14 @@ const AddNetwork = async (
   networkName: string,
   networks: NetworkInfo[],
   setNetworks: setNetworks,
-  gateways: [] | string[],
-  subnetworks: [] | string[],
+  gateway: string,
+  subnetworksInput: string,
   ipRange: string,
   setNetworkName: Function,
-  setGatewaysInput: Function,
-  setGateways: Function,
-  setSubnetsInput: Function,
-  setSubnets: Function,
+  setGateway: Function,
+  setSubnet: Function,
   setIpRange: Function,
+  setDisabled: Function,
 ) => {
   const ddClient = useDockerDesktopClient();
   let exists = false;
@@ -121,21 +120,9 @@ const AddNetwork = async (
     if (network.Name === networkName) exists = true;
   }
   if (!exists) {
-    const gatewaysCommandArray: any = [];
-    const subnetsCommandArray: any = [];
-    gateways.forEach(currentGateway => {
-      gatewaysCommandArray.push(`--gateway=${currentGateway}`);
-    });
-    subnetworks.forEach(currentSubnet => {
-      subnetsCommandArray.push(`--subnet=${currentSubnet}`);
-    });
     const commandArr = [networkName];
-    gatewaysCommandArray.forEach((currentCommand: string) => {
-      commandArr.push(currentCommand);
-    });
-    subnetsCommandArray.forEach((currentCommand: string) => {
-      commandArr.push(currentCommand);
-    });
+    commandArr.push(`--subnet=${subnetworksInput}`);
+    commandArr.push(`--gateway=${gateway}`);
     commandArr.push(`--ip-range=${ipRange}`);
     // commandArr.push(networkName);
     await ddClient.docker.cli.exec('network create', commandArr);
@@ -147,37 +134,10 @@ const AddNetwork = async (
   }
   hideAddNetworkForm(
     setNetworkName,
-    setGatewaysInput,
-    setGateways,
-    setSubnetsInput,
-    setSubnets,
+    setGateway,
+    setSubnet,
     setIpRange,
-  );
-};
-
-const addNetworkTest = (
-  networkName: string,
-  gateways: [] | string[],
-  subnetworks: [] | string[],
-  ipRange: string,
-  setNetworkName: Function,
-  setGatewaysInput: Function,
-  setGateways: Function,
-  setSubnetsInput: Function,
-  setSubnets: Function,
-  setIpRange: Function,
-) => {
-  console.log('networkName', networkName);
-  console.log('gateways', gateways);
-  console.log('subnetworks', subnetworks);
-  console.log('ipRange', ipRange);
-  hideAddNetworkForm(
-    setNetworkName,
-    setGatewaysInput,
-    setGateways,
-    setSubnetsInput,
-    setSubnets,
-    setIpRange,
+    setDisabled,
   );
 };
 
@@ -253,18 +213,6 @@ const ConnectContainer = async (
       `Container ${containerName} is already assigned to the networkS ${networkName}!`,
     );
   }
-
-  /*
-*connect a container to a network
-? https://docs.docker.com/engine/reference/commandline/network_connect/
-docker network connect [OPTIONS] <network name> <container name>
-*--alias		Add network-scoped alias for the container
-?--driver-opt		driver options for the network
-*--ip		IPv4 address (e.g., 172.30.100.104)
---ip6		IPv6 address (e.g., 2001:db8::33)
---link		Add link to another container
---link-local-ip		Add a link-local address for the container
-  */
 };
 
 //disconnects a container from given network when button is clicked
@@ -333,21 +281,19 @@ const showAddNetworkForm = () => {
 
 const hideAddNetworkForm = (
   setNetworkName: Function,
-  setGatewaysInput: Function,
-  setGateways: Function,
-  setSubnetsInput: Function,
-  setSubnets: Function,
+  setGateway: Function,
+  setSubnet: Function,
   setIpRange: Function,
+  setDisabled: Function,
 ) => {
   console.log('hideAddNetworkForm invoked');
   const addNetworkForm = document.getElementById('addNetworkForm');
   if (addNetworkForm !== null) {
     setNetworkName('');
-    setGatewaysInput(['']);
-    setGateways([]);
-    setSubnetsInput('');
-    setSubnets([]);
+    setGateway(['']);
+    setSubnet('');
     setIpRange('');
+    setDisabled(true);
     addNetworkForm.style.display = 'none';
   }
   // const gatewayFormInput = document.getElementById('addGatewayFormInput');
@@ -385,7 +331,6 @@ export {
   HideContainers,
   showAddNetworkForm,
   hideAddNetworkForm,
-  addNetworkTest,
 };
 
 /* future functionality

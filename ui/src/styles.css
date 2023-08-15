@@ -574,8 +574,24 @@ body {
   color: black;
 }
 
+.addNetworkTextInput {
+  display: flex;
+}
+
 .addNetworkTextInput input {
+  order: 2;
   width: 60%;
+}
+
+.addNetworkTextInput label {
+  order: 1;
+  padding-right: 3%;
+  text-align: right;
+  width: 30%;
+}
+
+.addNetworkTextInput input[disabled] + label {
+  color: rgb(145, 145, 145);
 }
 
 /* .addNetworkFormInput {
