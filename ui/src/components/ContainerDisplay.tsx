@@ -3,7 +3,6 @@ import { createPortal } from 'react-dom';
 
 import { ContainerInfo } from '../interfaces/interfaces';
 import { useAppStore } from '../store';
-
 import FormModal from './container-form/FormModal';
 import Form from './container-form/Form';
 
@@ -18,7 +17,10 @@ const ContainerDisplay: React.FC<{
   const { ddClient, incForce } = useAppStore(store => {
     return { ddClient: store.ddClient, incForce: store.incForce };
   });
+
+  //establish useRef variable
   const container = useRef<HTMLDivElement>(null);
+
   //onClick functionality to close our FormModal.
   function formClose() {
     setIsOpen(false);
@@ -33,8 +35,6 @@ const ContainerDisplay: React.FC<{
     let connected = true;
     e.preventDefault();
     console.log('e: ', e);
-    //? if Disconnecting.... feature fails, it's probably because the divs got shifted around
-    //select parent container element
     //overwrite child divs and replace with Disconnecting...
     if (container.current)
       container.current.innerText = `Disconnecting... ${containerName}`;

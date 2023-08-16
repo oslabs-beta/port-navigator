@@ -1,7 +1,7 @@
 // ---- imports go here ----
 import ContainerDisplay from './ContainerDisplay';
 import type { ContainerInfo, NetworkInfo } from '../interfaces/interfaces';
-import { BaseSyntheticEvent, useRef } from 'react';
+import { BaseSyntheticEvent } from 'react';
 import { useAppStore } from '../store';
 
 const Network = (props: {
@@ -11,7 +11,7 @@ const Network = (props: {
   id?: String;
   allNetworks: NetworkInfo[] | [];
 }) => {
-  //importing ddClient for use in functions
+  //importing ddClient & state for use in functions
   const { ddClient, networks, setNetworks, incForce } = useAppStore(store => {
     return {
       ddClient: store.ddClient,
@@ -21,7 +21,6 @@ const Network = (props: {
     };
   });
 
-  const networkLabel = useRef<HTMLDivElement>(null);
   //removes an empty network when button is clicked
   const RemoveNetwork = async (e: BaseSyntheticEvent<any>): Promise<void> => {
     //TODO: maybe allowing e.Default will refresh page and we can remove GetNetworks()?
@@ -42,17 +41,14 @@ const Network = (props: {
         `You can't delete a Network that has Containers attached to it!`,
       );
     } else {
-      //change network name to Disconnecting during deletion
-      // if (networkLabel.current) {
-      //   console.log('networkLabel.current: ', networkLabel.current);
-      //   networkLabel.current.innerText = `Disconnecting ${props.network.Name}....`;
-      // }
+      //update name to read "Disconnecting...." until removal completes
       const newNetworks = [...networks];
       newNetworks[props.networkIndex] = {
         ...props.network,
         Name: `Disconnecting ${props.network.Name}....`,
       };
       setNetworks(newNetworks);
+
       //removes network only if no containers exist on it
       await ddClient.docker.cli.exec('network rm', [props.network.Name]);
       ddClient.desktopUI.toast.success('Successfully deleted Network!');
@@ -89,8 +85,8 @@ const Network = (props: {
     if (props.network.Containers?.includes(currentContainer.Name)) {
       const newContainer = (
         <ContainerDisplay
-          id={`${props.networkIndex}_container${i}`}
-          key={`${props.networkIndex}_container${i}`}
+          id={`network${props.networkIndex}_container${i}`}
+          key={`network${props.networkIndex}_container${i}`}
           info={currentContainer}
           network={props.network.Name}
         />
@@ -133,7 +129,7 @@ const Network = (props: {
       id={passedId ? `${props.id}` : `${props.networkIndex}`}
       className='network'>
       <div className='networkContainer'>
-        <div className='networkLabel' ref={networkLabel}>
+        <div className='networkLabel'>
           <strong>Network: </strong>
           {networkName}
         </div>

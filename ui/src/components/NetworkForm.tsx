@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { createDockerDesktopClient } from '@docker/extension-api-client';
-// import type { NetworkInfo } from '../interfaces/interfaces';
 import { useAppStore } from '../store';
 const client = createDockerDesktopClient();
 
