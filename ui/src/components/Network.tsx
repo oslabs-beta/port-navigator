@@ -1,19 +1,27 @@
 // ---- imports go here ----
 import ContainerDisplay from './ContainerDisplay';
 import type { ContainerInfo, NetworkInfo } from '../interfaces/interfaces';
-import { BaseSyntheticEvent } from 'react';
+import { BaseSyntheticEvent, useRef } from 'react';
 import { useAppStore } from '../store';
 
 const Network = (props: {
   network: NetworkInfo;
-  networkIndex: String;
+  networkIndex: number;
   containers: ContainerInfo[] | [];
   id?: String;
   allNetworks: NetworkInfo[] | [];
 }) => {
   //importing ddClient for use in functions
-  const ddClient = useAppStore(store => store.ddClient);
+  const { ddClient, networks, setNetworks, incForce } = useAppStore(store => {
+    return {
+      ddClient: store.ddClient,
+      networks: store.networks,
+      setNetworks: store.setNetworks,
+      incForce: store.incForce,
+    };
+  });
 
+  const networkLabel = useRef<HTMLDivElement>(null);
   //removes an empty network when button is clicked
   const RemoveNetwork = async (e: BaseSyntheticEvent<any>): Promise<void> => {
     //TODO: maybe allowing e.Default will refresh page and we can remove GetNetworks()?
@@ -21,8 +29,6 @@ const Network = (props: {
     console.log('e: ', e);
     //? if Disconnecting.... feature fails, it's probably because the divs got shifted around
     //selects network element that is being deleted
-    const parentNetwork = await e.nativeEvent.path[2];
-    console.log('parentNetwork: ', parentNetwork);
     if (
       props.network.Name === 'bridge' ||
       props.network.Name === 'host' ||
@@ -37,15 +43,24 @@ const Network = (props: {
       );
     } else {
       //change network name to Disconnecting during deletion
-      parentNetwork.innerText = `Disconnecting... ${props.network.Name}`;
-      setTimeout(() => {
-        parentNetwork.remove();
-        // incForce();
-      }, 1000);
-
+      // if (networkLabel.current) {
+      //   console.log('networkLabel.current: ', networkLabel.current);
+      //   networkLabel.current.innerText = `Disconnecting ${props.network.Name}....`;
+      // }
+      const newNetworks = [...networks];
+      newNetworks[props.networkIndex] = {
+        ...props.network,
+        Name: `Disconnecting ${props.network.Name}....`,
+      };
+      setNetworks(newNetworks);
       //removes network only if no containers exist on it
       await ddClient.docker.cli.exec('network rm', [props.network.Name]);
       ddClient.desktopUI.toast.success('Successfully deleted Network!');
+      setTimeout(() => {
+        // networkLabel.current?.parentElement?.parentElement?.remove();
+        incForce();
+        // parentNetwork.remove();
+      }, 1000);
     }
   };
 
@@ -118,7 +133,7 @@ const Network = (props: {
       id={passedId ? `${props.id}` : `${props.networkIndex}`}
       className='network'>
       <div className='networkContainer'>
-        <div className='networkLabel'>
+        <div className='networkLabel' ref={networkLabel}>
           <strong>Network: </strong>
           {networkName}
         </div>

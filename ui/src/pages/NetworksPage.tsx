@@ -22,11 +22,10 @@ const NetworksPage = (props: {
 
   //iterates through networks and creates a container for each
   props.networks.forEach((network, i: number) => {
-    const networkIndex: String = `network${i}`;
     const newEl = (
       <Network
         key={`network${i}`}
-        networkIndex={networkIndex}
+        networkIndex={i}
         network={network}
         containers={props.containers}
         id={

@@ -1,4 +1,4 @@
-import React, { useState, BaseSyntheticEvent } from 'react';
+import React, { useState, useRef, BaseSyntheticEvent } from 'react';
 import { createPortal } from 'react-dom';
 
 import { ContainerInfo } from '../interfaces/interfaces';
@@ -18,6 +18,7 @@ const ContainerDisplay: React.FC<{
   const { ddClient, incForce } = useAppStore(store => {
     return { ddClient: store.ddClient, incForce: store.incForce };
   });
+  const container = useRef<HTMLDivElement>(null);
   //onClick functionality to close our FormModal.
   function formClose() {
     setIsOpen(false);
@@ -34,9 +35,9 @@ const ContainerDisplay: React.FC<{
     console.log('e: ', e);
     //? if Disconnecting.... feature fails, it's probably because the divs got shifted around
     //select parent container element
-    const parentContainer = await e.nativeEvent.path[2];
     //overwrite child divs and replace with Disconnecting...
-    parentContainer.innerText = `Disconnecting... ${containerName}`;
+    if (container.current)
+      container.current.innerText = `Disconnecting... ${containerName}`;
 
     //disconnect container from Container
     await ddClient.docker.cli.exec('network disconnect', [
@@ -96,7 +97,7 @@ const ContainerDisplay: React.FC<{
     );
 
   return (
-    <div id={props.id} className='container'>
+    <div id={props.id} className='container' ref={container}>
       {/* Display container information*/}
       <div className='containerHeader'>
         <p>
