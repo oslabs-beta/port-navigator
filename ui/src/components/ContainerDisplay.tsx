@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import { ContainerInfo } from '../interfaces/interfaces';
 import { useAppStore } from '../store';
 import FormModal from './container-form/FormModal';
-import Form from './container-form/Form';
+import Form from './container-form/ConnectContainer';
 
 //Component to display Container
 const ContainerDisplay: React.FC<{
