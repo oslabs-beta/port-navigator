@@ -7,6 +7,10 @@ import type {
   setNetworks,
 } from '../interfaces/interfaces';
 import { RemoveNetwork, HideContainers } from '../functions/functions';
+import FormModal from './container-form/FormModal';
+import { createPortal } from 'react-dom';
+import { useState } from 'react';
+import AddContainer from './container-form/AddContainer';
 
 // TO DO: typing will need to be more specific here once the exact contents of bridge and container are known
 const Network = (props: {
@@ -69,6 +73,12 @@ const Network = (props: {
 
   if (!passedContainers) showContainersButton = <div></div>;
 
+  const [displayAddContainerForm, setDisplayAddContainerForm] = useState(false);
+
+  const closeAddContainerForm = () => {
+    setDisplayAddContainerForm(false);
+  };
+
   return (
     // a div containing the bridge name and the array displaying each container
     <div
@@ -95,15 +105,25 @@ const Network = (props: {
           <button
             className="innerButton"
             id={`${props.networkIndex}ShowHideNetworksButton`}
-            onClick={() =>
-              HideContainers(
-                `${props.networkIndex}ContainersContainer`,
-                `${props.networkIndex}ShowHideNetworksButton`
-              )
-            }
+            onClick={() => setDisplayAddContainerForm(true)}
           >
             Add Container
           </button>
+          {createPortal(
+            <FormModal
+              open={displayAddContainerForm}
+              onClose={closeAddContainerForm}
+            >
+              <AddContainer
+                network={props.network}
+                containerList={props.containers}
+                setContainers={props.setContainers}
+                setNetworks={props.setNetworks}
+                closeAddContainerForm={closeAddContainerForm}
+              />
+            </FormModal>,
+            document.body
+          )}
         </div>
         <button
           className="deleteNetworkButton"
