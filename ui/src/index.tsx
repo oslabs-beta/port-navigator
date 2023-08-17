@@ -19,6 +19,7 @@ ReactDOM.render(
         <App />
       </BrowserRouter>
     </DockerMuiThemeProvider>
+    ,
   </React.StrictMode>,
   document.getElementById('root'),
 );

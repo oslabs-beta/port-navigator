@@ -33,12 +33,13 @@ function Form(props: {
         }}
       >
         {/* Container name */}
-        <span>Connect <hr /> <span className='formLabel'>{props.info.Name}</span> <hr /> Container to a Network:</span>
+        <span>
+          Connect <hr /> <span className="formLabel">{props.info.Name}</span>{' '}
+          <hr /> Container to a Network:
+        </span>
         <select
-
           className="form-select"
           value={networkName}
-
           //   Recording the user input for network
           onChange={(e) => setnetworkName(e.target.value)}
         >
