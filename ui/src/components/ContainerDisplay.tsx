@@ -129,8 +129,9 @@ const ContainerDisplay: React.FC<{
         </div>
         {portsUnorderedList}
       </div>
-      <hr className='lastHR' />
-      <div className='containerButtons'>
+      <div className='footerContainer'>
+      <hr className="lastHR" />
+      <div className="containerButtons">
         <button
           className='innerButton'
           onClick={e => DisconnectContainer(props.info.Name, props.network, e)}>
@@ -148,6 +149,8 @@ const ContainerDisplay: React.FC<{
           </FormModal>,
           document.body,
         )}
+      </div>
+
       </div>
     </div>
   );
