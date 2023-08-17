@@ -34,7 +34,7 @@ const ContainerDisplay: React.FC<{
   ): Promise<void> => {
     let connected = true;
     e.preventDefault();
-    console.log('e: ', e);
+
     //overwrite child divs and replace with Disconnecting...
     if (container.current)
       container.current.innerText = `Disconnecting... ${containerName}`;
@@ -130,27 +130,28 @@ const ContainerDisplay: React.FC<{
         {portsUnorderedList}
       </div>
       <div className='footerContainer'>
-      <hr className="lastHR" />
-      <div className="containerButtons">
-        <button
-          className='innerButton'
-          onClick={e => DisconnectContainer(props.info.Name, props.network, e)}>
-          Disconnect
-        </button>
-        <button className='innerButton' onClick={() => setIsOpen(true)}>
-          Connect
-        </button>
+        <hr className='lastHR' />
+        <div className='containerButtons'>
+          <button
+            className='innerButton'
+            onClick={e =>
+              DisconnectContainer(props.info.Name, props.network, e)
+            }>
+            Disconnect
+          </button>
+          <button className='innerButton' onClick={() => setIsOpen(true)}>
+            Connect
+          </button>
 
-        {/* Display for form modal */}
-        {createPortal(
-          <FormModal open={isOpen} onClose={formClose}>
-            {/* Calling Form component function as child of FormModal */}
-            <Form info={props.info} formClose={formClose} />
-          </FormModal>,
-          document.body,
-        )}
-      </div>
-
+          {/* Display for form modal */}
+          {createPortal(
+            <FormModal open={isOpen} onClose={formClose}>
+              {/* Calling Form component function as child of FormModal */}
+              <Form info={props.info} formClose={formClose} />
+            </FormModal>,
+            document.body,
+          )}
+        </div>
       </div>
     </div>
   );

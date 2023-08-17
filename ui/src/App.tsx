@@ -39,7 +39,7 @@ export function App() {
       };
       return network;
     });
-    console.log('newNetworks1: ', newNetworks);
+
     // iterating through newNetworks to add additional info
     for (let i = 0; i < newNetworks.length; i++) {
       //executing comand line to retrieve additional info
@@ -68,7 +68,7 @@ export function App() {
       //reassigning new network obj to newNetworks array
       newNetworks[i] = newNetwork;
     }
-    console.log('newNetworks2: ', newNetworks);
+
     setNetworks(newNetworks);
   };
 
@@ -96,7 +96,7 @@ export function App() {
         };
         return newEl;
       });
-      console.log('newContainers: ', newContainers);
+
       setContainers(newContainers);
     }
   };

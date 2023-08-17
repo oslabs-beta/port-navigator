@@ -37,7 +37,7 @@ const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
     };
     return network;
   });
-  console.log('newNetworks1: ', newNetworks);
+
   // iterating through newNetworks to add additional info
   for (let i = 0; i < newNetworks.length; i++) {
     //executing comand line to retrieve additional info
@@ -66,7 +66,7 @@ const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
     //reassigning new network obj to newNetworks array
     newNetworks[i] = newNetwork;
   }
-  console.log('newNetworks2: ', newNetworks);
+
   setNetworks(newNetworks);
 };
 
@@ -96,7 +96,7 @@ const GetAllContainers = async (
       };
       return newEl;
     });
-    console.log('newContainers: ', newContainers);
+
     setContainers(newContainers);
   }
 };
@@ -149,11 +149,11 @@ const RemoveNetwork = async (
 ): Promise<void> => {
   //TODO: maybe allowing e.Default will refresh page and we can remove GetNetworks()?
   e.preventDefault();
-  console.log('e: ', e);
+
   //? if Disconnecting.... feature fails, it's probably because the divs got shifted around
   //selects network element that is being deleted
   const parentNetwork = await e.nativeEvent.path[1].childNodes[0];
-  console.log('parentNetwork: ', parentNetwork);
+
   const ddClient = useDockerDesktopClient();
   if (
     network.Name === 'bridge' ||
@@ -190,11 +190,11 @@ const AddContainer = async (
   const ddClient = useDockerDesktopClient();
   let alreadyAdded = false;
   if (network.Containers?.includes(containerName)) alreadyAdded = true;
-  console.log('network.Containers', network.Containers);
+
   const commandArr: string[] = [];
   commandArr.push(network.Name);
   commandArr.push(containerName);
-  console.log('commandArr', commandArr);
+
   if (alreadyAdded) {
     ddClient.desktopUI.toast.warning(
       `Container ${containerName} is already assigned to the network ${network.Name}!`,
@@ -219,8 +219,6 @@ const ConnectContainer = async (
 ): Promise<void> => {
   e.preventDefault();
   const ddClient = useDockerDesktopClient();
-  console.log('alias: ', alias);
-  console.log('ip: ', ip);
 
   //gets container info to check if network connection already exists
 
@@ -263,7 +261,7 @@ const DisconnectContainer = async (
   const ddClient = useDockerDesktopClient();
   let connected = true;
   e.preventDefault();
-  console.log('e: ', e);
+
   //? if Disconnecting.... feature fails, it's probably because the divs got shifted around
   //select parent container element
   const parentContainer = await e.nativeEvent.path[2];
@@ -323,7 +321,6 @@ const hideAddNetworkForm = (
   setIpRange: Function,
   setDisabled: Function,
 ) => {
-  console.log('hideAddNetworkForm invoked');
   const addNetworkForm = document.getElementById('addNetworkForm');
   if (addNetworkForm !== null) {
     setNetworkName('');
@@ -334,10 +331,10 @@ const hideAddNetworkForm = (
     addNetworkForm.style.display = 'none';
   }
   // const gatewayFormInput = document.getElementById('addGatewayFormInput');
-  // console.log('gatewayFormInput', gatewayFormInput);
-  // // if (gatewayFormInput) console.log(gatewayFormInput.value);
+  //
+  // // if (gatewayFormInput)
   // if (gatewayFormInput) {
-  //   console.log('if block entered');
+  //
   //   gatewayFormInput.setAttribute('value', '');
   // }
 };

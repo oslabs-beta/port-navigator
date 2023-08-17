@@ -195,7 +195,7 @@ body {
   color: azure;
 }
 
-.network {
+.userNetwork {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -218,7 +218,16 @@ body {
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
 }
 
-#defaultNetwork {
+.defaultNetwork {
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 24px;
+  padding: 20px;
+  margin: 40px;
+  min-width: 80vw;
+  position: relative;
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
   color: rgb(245, 255, 255);
   background: linear-gradient(
     to bottom right,
@@ -233,7 +242,7 @@ body {
   align-self: center;
 }
 
-#defaultNetwork .connectedContainerContainer {
+.defaultNetwork .connectedContainerContainer {
   background: linear-gradient(
     to bottom right,
     rgba(33, 35, 35, 0.103),
@@ -242,11 +251,11 @@ body {
   );
 }
 
-#defaultNetwork:hover .networkLabel {
+.defaultNetwork:hover .networkLabel {
   text-shadow: 0.25px 0.25px 2.5px rgba(0, 0, 0, 0.5);
 }
 
-#defaultNetwork:hover .connectedContainerContainer {
+.defaultNetwork:hover .connectedContainerContainer {
   background: linear-gradient(
     to bottom right,
     rgba(33, 35, 35, 0.103),
@@ -255,7 +264,7 @@ body {
   );
 }
 
-#defaultNetwork:hover,
+.defaultNetwork:hover,
 .network:hover {
   filter: brightness(1.1) contrast(120%);
   transition: ease-in-out 0.3s;
@@ -280,6 +289,7 @@ body {
   text-align: center;
   font-size: 1.5rem;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -385,7 +395,7 @@ body {
   margin-right: 10px;
 }
 
-#defaultNetwork .containerHeader hr {
+.defaultNetwork .containerHeader hr {
   margin: 0 6px 10px 0;
 }
 
@@ -667,4 +677,11 @@ body {
   display: flex;
   justify-content: right;
   margin-top: 10%;
+}
+
+.networkInfo {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 75%;
 }
