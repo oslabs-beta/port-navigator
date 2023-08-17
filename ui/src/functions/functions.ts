@@ -104,7 +104,15 @@ const GetAllContainers = async (
 const AddNetwork = async (
   networkName: string,
   networks: NetworkInfo[],
-  setNetworks: setNetworks
+  setNetworks: setNetworks,
+  gateway: string,
+  subnetworksInput: string,
+  ipRange: string,
+  setNetworkName: Function,
+  setGateway: Function,
+  setSubnet: Function,
+  setIpRange: Function,
+  setDisabled: Function,
 ) => {
   const ddClient = useDockerDesktopClient();
   let exists = false;
@@ -112,13 +120,25 @@ const AddNetwork = async (
     if (network.Name === networkName) exists = true;
   }
   if (!exists) {
-    await ddClient.docker.cli.exec('network connect', [networkName]);
+    const commandArr = [networkName];
+    commandArr.push(`--subnet=${subnetworksInput}`);
+    commandArr.push(`--gateway=${gateway}`);
+    commandArr.push(`--ip-range=${ipRange}`);
+    // commandArr.push(networkName);
+    await ddClient.docker.cli.exec('network create', commandArr);
     GetNetworks(setNetworks);
   } else {
     ddClient.desktopUI.toast.error(
       `The ${networkName} network already exists!`
     );
   }
+  hideAddNetworkForm(
+    setNetworkName,
+    setGateway,
+    setSubnet,
+    setIpRange,
+    setDisabled,
+  );
 };
 
 //removes an empty network when button is clicked
@@ -132,8 +152,8 @@ const RemoveNetwork = async (
   console.log('e: ', e);
   //? if Disconnecting.... feature fails, it's probably because the divs got shifted around
   //selects network element that is being deleted
-  const parentNetwork = await e.nativeEvent.path[1].childNodes[0];
-  console.log('parentNetwork: ', parentNetwork);
+   const parentNetwork = await e.nativeEvent.path[1].childNodes[0];                             
+  console.log('parentNetwork: ', parentNetwork);                                             
   const ddClient = useDockerDesktopClient();
   if (
     network.Name === 'bridge' ||
@@ -149,7 +169,7 @@ const RemoveNetwork = async (
     );
   } else {
     //change network name to Disconnecting during deletion
-    parentNetwork.innerText = 'Disconnecting...';
+     parentNetwork.innerText = 'Disconnecting...';                                         
 
     //removes network only if no containers exist on it
     await ddClient.docker.cli.exec('network rm', [network.Name]);
@@ -207,7 +227,15 @@ const ConnectContainer = async (
   const result = await ddClient.docker.cli.exec('inspect', [containerName]);
   const containerInfo: any = result.parseJsonObject();
 
-  //TODO: check if container is connected to none or host
+  // check if container is connected to none or host
+  if (containerInfo[0].NetworkSettings.Networks.none) {
+    await ddClient.docker.cli.exec('network disconnect', [
+      'none',
+      containerName,
+    ]);
+  }
+  
+  
   //if network connection doesn't exist, make the connection
   if (!containerInfo[0].NetworkSettings.Networks[networkName]) {
     await ddClient.docker.cli.exec('network connect', [
@@ -223,18 +251,6 @@ const ConnectContainer = async (
       `Container ${containerName} is already assigned to the network ${networkName}!`
     );
   }
-
-  /*
-*connect a container to a network
-? https://docs.docker.com/engine/reference/commandline/network_connect/
-docker network connect [OPTIONS] <network name> <container name>
-*--alias		Add network-scoped alias for the container
-?--driver-opt		driver options for the network
-*--ip		IPv4 address (e.g., 172.30.100.104)
---ip6		IPv6 address (e.g., 2001:db8::33)
---link		Add link to another container
---link-local-ip		Add a link-local address for the container
-  */
 };
 
 //disconnects a container from given network when button is clicked
@@ -251,9 +267,9 @@ const DisconnectContainer = async (
   console.log('e: ', e);
   //? if Disconnecting.... feature fails, it's probably because the divs got shifted around
   //select parent container element
-  const parentContainer = await e.nativeEvent.path[2];
+   const parentContainer = await e.nativeEvent.path[2];                                                
   //overwrite child divs and replace with Disconnecting...
-  parentContainer.innerText = `Disconnecting... ${containerName}`;
+   parentContainer.innerText = `Disconnecting... ${containerName}`;                                     
 
   //disconnect container from Container
   await ddClient.docker.cli.exec('network disconnect', [
@@ -303,21 +319,19 @@ const showAddNetworkForm = () => {
 
 const hideAddNetworkForm = (
   setNetworkName: Function,
-  setGatewaysInput: Function,
-  setGateways: Function,
-  setSubnetsInput: Function,
-  setSubnets: Function,
-  setIpRange: Function
+  setGateway: Function,
+  setSubnet: Function,
+  setIpRange: Function,
+  setDisabled: Function,
 ) => {
   console.log('hideAddNetworkForm invoked');
   const addNetworkForm = document.getElementById('addNetworkForm');
   if (addNetworkForm !== null) {
     setNetworkName('');
-    setGatewaysInput(['']);
-    setGateways([]);
-    setSubnetsInput('');
-    setSubnets([]);
+    setGateway(['']);
+    setSubnet('');
     setIpRange('');
+    setDisabled(true);
     addNetworkForm.style.display = 'none';
   }
   // const gatewayFormInput = document.getElementById('addGatewayFormInput');
@@ -354,6 +368,7 @@ const addNetworkTest = (
     setIpRange
   );
 };
+
 
 export {
   GetNetworks,
