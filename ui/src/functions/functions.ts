@@ -152,8 +152,8 @@ const RemoveNetwork = async (
   console.log('e: ', e);
   //? if Disconnecting.... feature fails, it's probably because the divs got shifted around
   //selects network element that is being deleted
-  const parentNetwork = await e.nativeEvent.path[1].childNodes[0];
-  console.log('parentNetwork: ', parentNetwork);
+   const parentNetwork = await e.nativeEvent.path[1].childNodes[0];                             
+  console.log('parentNetwork: ', parentNetwork);                                             
   const ddClient = useDockerDesktopClient();
   if (
     network.Name === 'bridge' ||
@@ -169,7 +169,7 @@ const RemoveNetwork = async (
     );
   } else {
     //change network name to Disconnecting during deletion
-    parentNetwork.innerText = 'Disconnecting...';
+     parentNetwork.innerText = 'Disconnecting...';                                         
 
     //removes network only if no containers exist on it
     await ddClient.docker.cli.exec('network rm', [network.Name]);
@@ -197,7 +197,15 @@ const ConnectContainer = async (
   const result = await ddClient.docker.cli.exec('inspect', [containerName]);
   const containerInfo: any = result.parseJsonObject();
 
-  //TODO: check if container is connected to none or host
+  // check if container is connected to none or host
+  if (containerInfo[0].NetworkSettings.Networks.none) {
+    await ddClient.docker.cli.exec('network disconnect', [
+      'none',
+      containerName,
+    ]);
+  }
+  
+  
   //if network connection doesn't exist, make the connection
   if (!containerInfo[0].NetworkSettings.Networks[networkName]) {
     await ddClient.docker.cli.exec('network connect', [
@@ -229,9 +237,9 @@ const DisconnectContainer = async (
   console.log('e: ', e);
   //? if Disconnecting.... feature fails, it's probably because the divs got shifted around
   //select parent container element
-  const parentContainer = await e.nativeEvent.path[2];
+   const parentContainer = await e.nativeEvent.path[2];                                                
   //overwrite child divs and replace with Disconnecting...
-  parentContainer.innerText = `Disconnecting... ${containerName}`;
+   parentContainer.innerText = `Disconnecting... ${containerName}`;                                     
 
   //disconnect container from Container
   await ddClient.docker.cli.exec('network disconnect', [
