@@ -13,7 +13,6 @@ const NetworkForm = () => {
   const [subnet, setSubnet] = useState<string>('');
   const [ipRange, setIpRange] = useState<string>('');
   const [disabled, setDisabled] = useState<boolean>(true);
-
   const { networks, incForce } = useAppStore(store => {
     return {
       networks: store.networks,
