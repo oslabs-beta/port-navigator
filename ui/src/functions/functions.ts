@@ -191,7 +191,7 @@ const AddContainer = async (
   let alreadyAdded = false;
   if (network.Containers?.includes(containerName)) alreadyAdded = true;
   console.log('network.Containers', network.Containers);
-  const commandArr = [];
+  const commandArr: string[] = [];
   commandArr.push(network.Name);
   commandArr.push(containerName);
   console.log('commandArr', commandArr);
