@@ -3,7 +3,7 @@ import { NetworkInfo } from '../../interfaces/interfaces';
 import { useState, SyntheticEvent } from 'react';
 import { useAppStore } from '../../store';
 
-function Form(props: {
+function AddContainer(props: {
   network: NetworkInfo;
   containerList: ContainerInfo[] | [];
   closeAddContainerForm: Function;
@@ -82,4 +82,4 @@ function Form(props: {
   );
 }
 
-export default Form;
+export default AddContainer;

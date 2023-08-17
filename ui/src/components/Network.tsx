@@ -55,11 +55,7 @@ const Network = (props: {
       //removes network only if no containers exist on it
       await ddClient.docker.cli.exec('network rm', [props.network.Name]);
       ddClient.desktopUI.toast.success('Successfully deleted Network!');
-      setTimeout(() => {
-        // networkLabel.current?.parentElement?.parentElement?.remove();
-        incForce();
-        // parentNetwork.remove();
-      }, 1000);
+      incForce();
     }
   };
 

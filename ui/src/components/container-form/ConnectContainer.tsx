@@ -1,7 +1,8 @@
 import { ContainerInfo } from '../../interfaces/interfaces';
 import { useState, SyntheticEvent } from 'react';
 import { useAppStore } from '../../store';
-function Form(props: { info: ContainerInfo; formClose: Function }) {
+
+function ConnectContainer(props: { info: ContainerInfo; formClose: Function }) {
   //State used to record which network the user chooses
   const [networkName, setnetworkName] = useState<string>('');
   const { ddClient, networks, incForce } = useAppStore(store => {
@@ -86,4 +87,4 @@ function Form(props: { info: ContainerInfo; formClose: Function }) {
   );
 }
 
-export default Form;
+export default ConnectContainer;
