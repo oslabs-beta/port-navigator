@@ -31,12 +31,13 @@ body {
   align-items: center;
   width: 100%;
   height: 50px;
-  column-gap: 20px;
-  margin: 0 20px 10px 30px;
+  column-gap: 16px;
+  margin: 0 20px 10px 20px;
 }
 
 .containerButtons button {
-  width: calc(130px + (180 - 130) * ((100vw - 552px) / (1872 - 552)));
+  width: 130px;
+  /* calc(130px + (180 - 130) * ((100vw - 552px) / (1872 - 552))); */
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   border-bottom: none;
   border-right: none;
@@ -76,17 +77,19 @@ body {
 
 .containerNetworkFeatures {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  column-gap: 28px;
-  justify-items: center;
+  display: flex;
+  column-gap: 16px;
+  /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  column-gap: 28px; */
+  justify-content: center;
   align-items: center;
   font-weight: 500;
   color: rgba(240, 255, 255, 0.855);
 }
 
 .connectedContainerContainer {
-  width: calc(130px + (220 - 130) * ((100vw - 552px) / (1872 - 552)));
+  width: 130px;
+  /* calc(130px + (180 - 130) * ((100vw - 552px) / (1872 - 552))); */
   height: 40px;
   display: flex;
   justify-content: space-around;
@@ -109,7 +112,8 @@ body {
 }
 
 .divider {
-  margin: 0 calc(10px + (90 - 10) * ((100vw - 552px) / (1872 - 552))) 4px 2px;
+  margin: 0 10px 4px 2px;
+  /* calc(10px + (90 - 10) * ((100vw - 552px) / (1872 - 552))) */
   /* margin-right: ; */
   font-size: 2rem;
 }
@@ -121,7 +125,8 @@ body {
 
 .innerButton,
 .form-button {
-  width: calc(130px + (220 - 130) * ((100vw - 552px) / (1872 - 552)));
+  width: 130px;
+  /* calc(130px + (180 - 130) * ((100vw - 552px) / (1872 - 552))); */
   font-size: 0.9rem;
   font-weight: 600;
   padding: 12px 10px;
@@ -209,6 +214,7 @@ body {
   position: relative;
   border-top: solid 0.15rem #4c99a0;
   border-left: solid 0.15rem #4c99a0;
+  border-width: 0.1rem;
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
 }
 
@@ -223,6 +229,7 @@ body {
   );
   border-top: solid 0.15rem #dddbeb;
   border-left: solid 0.15rem #eae8f0;
+  border-width: 0.1rem;
   align-self: center;
 }
 
@@ -260,6 +267,7 @@ body {
   padding: 10px 20px;
   border-top: solid 0.15rem #4c99a0;
   border-left: solid 0.15rem #4c99a0;
+  border-width: 0.1rem;
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
 }
 
@@ -295,12 +303,12 @@ body {
   top: 12px;
   right: 18px;
   text-align: center;
-  padding-bottom: 2px;
+  padding-bottom: 3px;
   width: 22px;
   height: 22px;
   font-weight: bolder;
   background-color: azure;
-  border: none;
+  border-width: 0.05rem;
   border-radius: 12px;
 }
 
@@ -337,8 +345,9 @@ body {
   background: linear-gradient(to top left, rgb(46, 87, 120), rgb(47, 54, 71));
   border-radius: 24px;
   margin: 20px;
-  border-top: solid 0.15rem #45567e;
-  border-left: solid 0.15rem #45567e;
+  border-top: solid 0.15rem #546795;
+  border-left: solid 0.15rem #5f719b;
+  border-width: 0.1rem;
   box-shadow: 4px 4px 6px 1px rgba(0, 0, 0, 0.281);
 }
 
@@ -349,17 +358,29 @@ body {
   font-size: 1.1rem;
 }
 
+.footerContainer {
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .container hr {
   width: 100%;
   height: 2px;
-  background-color: rgba(240, 255, 255, 0.35);
+  background-color: rgba(240, 255, 255, 0.2);
   box-shadow: 0.25px 0.25px 0.5px rgba(0, 0, 0, 0.5);
   border: none;
   border-radius: 2px;
   margin: 10px auto;
 }
 
-.lastHR {
+.containerButtons hr {
+  justify-self: center;
+  align-self: start;
+  width: 90%;
   margin-left: 10px;
   margin-right: 10px;
 }
@@ -390,6 +411,7 @@ body {
 }
 
 .noPorts {
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -436,7 +458,7 @@ body {
   padding: 0;
   width: 100%;
   height: 1px;
-  background-color: rgba(240, 255, 255, 0.303);
+  background-color: rgba(240, 255, 255, 0.2);
   border: none;
   border-radius: 1px;
 }
@@ -470,7 +492,7 @@ body {
   padding: 0;
   width: 100%;
   height: 1px;
-  background-color: rgba(240, 255, 255, 0.303);
+  background-color: rgba(240, 255, 255, 0.2);
   border: none;
   border-radius: 1px;
 }

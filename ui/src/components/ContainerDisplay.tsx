@@ -84,6 +84,7 @@ const ContainerDisplay: React.FC<{
             </li>
           </ul>
         </div>
+        <div className='footerContainer'>
         <hr className='lastHR' />
         <div className='containerButtons'>
           <button
@@ -118,6 +119,8 @@ const ContainerDisplay: React.FC<{
             document.body,
           )}
         </div>
+
+        </div>
       </div>
     );
   }
@@ -149,7 +152,8 @@ const ContainerDisplay: React.FC<{
           <br /> {props.info.State}
         </p>
       </div>
-      <hr className='lastHR' />
+      <div className='footerContainer'>
+      <hr />
       <div className='containerButtons'>
         <button
           className='innerButton'
@@ -179,6 +183,8 @@ const ContainerDisplay: React.FC<{
           </FormModal>,
           document.body,
         )}
+      </div>
+
       </div>
     </div>
   );
