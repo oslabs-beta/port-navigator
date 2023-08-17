@@ -1,18 +1,28 @@
 import { useState } from 'react';
-import { hideAddNetworkForm, AddNetwork } from '../functions/functions';
-import { NetworkInfo, setNetworks } from '../interfaces/interfaces';
+import { createDockerDesktopClient } from '@docker/extension-api-client';
+import { useAppStore } from '../store';
+const client = createDockerDesktopClient();
 
-const NetworkForm = (props: {
-  networks: NetworkInfo[] | [];
-  setNetworks: setNetworks;
-}) => {
+function useDockerDesktopClient() {
+  return client;
+}
+
+const NetworkForm = () => {
   const [networkName, setNetworkName] = useState<string>('');
   const [gateway, setGateway] = useState<string>('');
   const [subnet, setSubnet] = useState<string>('');
   const [ipRange, setIpRange] = useState<string>('');
   const [disabled, setDisabled] = useState<boolean>(true);
+  const { networks, incForce } = useAppStore(store => {
+    return {
+      networks: store.networks,
+      incForce: store.incForce,
+    };
+  });
 
-  function handleCheck(): void {
+  const ddClient = useDockerDesktopClient();
+
+  const handleCheck = (): void => {
     if (disabled) setDisabled(false);
     else {
       setDisabled(true);
@@ -20,23 +30,48 @@ const NetworkForm = (props: {
       setSubnet('');
       setIpRange('');
     }
-  }
+  };
 
-  //TODO: clear might not be working?
+  const AddNetwork = async () => {
+    let exists = false;
+    for (const network of networks) {
+      if (network.Name === networkName) exists = true;
+    }
+    if (!exists) {
+      const commandArr = [networkName];
+      commandArr.push(`--subnet=${subnet}`);
+      commandArr.push(`--gateway=${gateway}`);
+      commandArr.push(`--ip-range=${ipRange}`);
+
+      await ddClient.docker.cli.exec('network create', commandArr);
+
+      incForce();
+    } else {
+      ddClient.desktopUI.toast.error(
+        `The ${networkName} network already exists!`,
+      );
+    }
+    hideAddNetworkForm();
+  };
+
+  const hideAddNetworkForm = () => {
+    const addNetworkForm = document.getElementById('addNetworkForm');
+    if (addNetworkForm !== null) {
+      setNetworkName('');
+      setGateway('');
+      setSubnet('');
+      setIpRange('');
+      setDisabled(true);
+      addNetworkForm.style.display = 'none';
+    }
+  };
+
   return (
     <div id='addNetworkForm'>
       <div id='closeAddNetworkFormContainer'>
         <button
           id='closeAddNetworkFormButton'
-          onClick={() =>
-            hideAddNetworkForm(
-              setNetworkName,
-              setGateway,
-              setSubnet,
-              setIpRange,
-              setDisabled,
-            )
-          }>
+          onClick={() => hideAddNetworkForm()}>
           X
         </button>
       </div>
@@ -133,19 +168,7 @@ const NetworkForm = (props: {
         <button
           id='submitAddNetworkFormButton'
           onClick={() => {
-            AddNetwork(
-              networkName,
-              props.networks,
-              props.setNetworks,
-              gateway,
-              subnet,
-              ipRange,
-              setNetworkName,
-              setGateway,
-              setSubnet,
-              setIpRange,
-              setDisabled,
-            );
+            AddNetwork();
           }}>
           Create Network
         </button>
