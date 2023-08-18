@@ -7,7 +7,6 @@ const OVERLAY: CSSProperties = {
   right: 0,
   bottom: 0,
   backdropFilter: 'blur(4px)',
-  //   backgroundColor: 'rgba(0,0,0, .7)',
   zIndex: 1000,
   overflow: 'hidden',
   display: 'flex',
@@ -26,7 +25,7 @@ function FormModal({ open, children, onClose }: ModalProps) {
   return (
     <>
       <div style={OVERLAY} className='blur'>
-        <div /*style={MODAL_STYLES}*/ className='modalContainer'>
+        <div className='modalContainer'>
           <button className='deleteNetworkButton' onClick={onClose}>
             x
           </button>

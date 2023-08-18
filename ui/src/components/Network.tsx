@@ -179,7 +179,8 @@ const Network = (props: {
       </div>
       <div
         id={`${props.networkIndex}ContainersContainer`}
-        className='containersContainer'>
+        className='containersContainer'
+        style={{ display: 'none' }}>
         {networkContainerDisplay}
       </div>
     </div>

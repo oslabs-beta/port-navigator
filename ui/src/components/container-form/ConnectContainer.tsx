@@ -4,7 +4,7 @@ import { useAppStore } from '../../store';
 
 function ConnectContainer(props: { info: ContainerInfo; formClose: Function }) {
   //State used to record which network the user chooses
-  const [networkName, setnetworkName] = useState<string>('');
+  const [networkName, setnetworkName] = useState<string>('bridge');
   const { ddClient, networks, incForce } = useAppStore(store => {
     return {
       ddClient: store.ddClient,
@@ -75,7 +75,6 @@ function ConnectContainer(props: { info: ContainerInfo; formClose: Function }) {
             setnetworkName(e.target.value);
           }}>
           {/* Iterating through all exisisting networks and displaying them as options for SELECT element */}
-          <option value=' ' key=' '></option>
           {networks.map(network =>
             network.Name !== 'none' ? (
               <option value={network.Name} key={network.Name}>

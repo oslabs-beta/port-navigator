@@ -53,7 +53,6 @@ const ContainerDisplay: React.FC<{
     //if no other connections exist, set connected to false
     if (!Object.keys(networks).length) connected = false;
 
-    //TODO: if conneceted to none, remove first then connect to other network
     //assign container to 'none' network if no network connections still exist
     if (!connected) {
       await ddClient.docker.cli.exec('network connect', [
@@ -132,13 +131,15 @@ const ContainerDisplay: React.FC<{
       <div className='footerContainer'>
         <hr className='lastHR' />
         <div className='containerButtons'>
-          <button
-            className='innerButton'
-            onClick={e =>
-              DisconnectContainer(props.info.Name, props.network, e)
-            }>
-            Disconnect
-          </button>
+          {props.network !== 'none' ? (
+            <button
+              className='innerButton'
+              onClick={e =>
+                DisconnectContainer(props.info.Name, props.network, e)
+              }>
+              Disconnect
+            </button>
+          ) : null}
           <button className='innerButton' onClick={() => setIsOpen(true)}>
             Connect
           </button>

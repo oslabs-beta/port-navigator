@@ -1,6 +1,9 @@
+import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import Network from '../components/Network';
 import NetworkForm from '../components/NetworkForm';
+import FormModal from '../components/container-form/FormModal';
 import { ContainerInfo, NetworkInfo } from '../interfaces/interfaces';
 
 const NetworksPage = (props: {
@@ -13,11 +16,17 @@ const NetworksPage = (props: {
   const defaultBridge: JSX.Element[] = [];
 
   //function to display 'Add Network' popup
-  const showAddNetworkForm = () => {
-    const addNetworkForm = document.getElementById('addNetworkForm');
-    if (addNetworkForm !== null) {
-      addNetworkForm.style.display = 'flex';
-    }
+  // const showAddNetworkForm = () => {
+  //   const addNetworkForm = document.getElementById('addNetworkForm');
+  //   if (addNetworkForm !== null) {
+  //     addNetworkForm.style.display = 'flex';
+  //   }
+  // };
+
+  const [displayAddNetworkForm, setDisplayAddNetworkForm] = useState(false);
+
+  const closeAddNetworkForm = () => {
+    setDisplayAddNetworkForm(false);
   };
 
   //iterates through networks and creates a container for each
@@ -63,15 +72,20 @@ const NetworksPage = (props: {
       <div className='addNetworkButtonContainer'>
         <button
           className='addNetworkButton'
-          onClick={() => showAddNetworkForm()}>
+          onClick={() => setDisplayAddNetworkForm(true)}>
           Add Network
         </button>
+        {createPortal(
+          <FormModal open={displayAddNetworkForm} onClose={closeAddNetworkForm}>
+            <NetworkForm closeAddNetworkForm={closeAddNetworkForm} />
+          </FormModal>,
+          document.body,
+        )}
       </div>
       <div className='hostContainer'>
         <h1>Host</h1>
       </div>
       <div className='networksContainer'>{networkEl}</div>
-      <NetworkForm />
     </div>
   );
 };

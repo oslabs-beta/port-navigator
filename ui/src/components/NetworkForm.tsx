@@ -7,7 +7,7 @@ function useDockerDesktopClient() {
   return client;
 }
 
-const NetworkForm = () => {
+const NetworkForm = (props: { closeAddNetworkForm: Function }) => {
   const [networkName, setNetworkName] = useState<string>('');
   const [gateway, setGateway] = useState<string>('');
   const [subnet, setSubnet] = useState<string>('');
@@ -32,7 +32,7 @@ const NetworkForm = () => {
     }
   };
 
-  const AddNetwork = async () => {
+  const AddNetwork = async (closeAddNetworkForm: Function) => {
     let exists = false;
     for (const network of networks) {
       if (network.Name === networkName) exists = true;
@@ -52,6 +52,7 @@ const NetworkForm = () => {
       );
     }
     hideAddNetworkForm();
+    closeAddNetworkForm();
   };
 
   const hideAddNetworkForm = () => {
@@ -68,21 +69,11 @@ const NetworkForm = () => {
 
   return (
     <div id='addNetworkForm'>
-      <div id='closeAddNetworkFormContainer'>
-        <button
-          id='closeAddNetworkFormButton'
-          onClick={() => hideAddNetworkForm()}>
-          X
-        </button>
-      </div>
-      <div>
-        <h1 id='addNetworkFormTitle'>Create Network Form</h1>
-      </div>
-      <br></br>
       <div id='addNetworkNameForm'>
+        <h2 id='addNetworkFormTitle'>Add Network</h2>
         <div className='addNetworkTextInput'>
           <label htmlFor='networkName' className='addNetworkFormLabel'>
-            Network Name:{' '}
+            Name:{' '}
           </label>
           <input
             type='text'
@@ -168,7 +159,7 @@ const NetworkForm = () => {
         <button
           id='submitAddNetworkFormButton'
           onClick={() => {
-            AddNetwork();
+            AddNetwork(props.closeAddNetworkForm);
           }}>
           Create Network
         </button>
