@@ -28,7 +28,7 @@ const Network = (props: {
   const RemoveNetwork = async (e: BaseSyntheticEvent<any>): Promise<void> => {
     //TODO: maybe allowing e.Default will refresh page and we can remove GetNetworks()?
     e.preventDefault();
-    console.log('e: ', e);
+
     //? if Disconnecting.... feature fails, it's probably because the divs got shifted around
     //selects network element that is being deleted
     if (
@@ -97,14 +97,6 @@ const Network = (props: {
 
   // const bridgeName: string = bridgeContainerDisplay[0].props.info.name;
   const networkName = props.network.Name;
-  console.log('props.network: ', props.network);
-  console.log('networkName: ', networkName);
-
-  let passedId = true;
-  let passedContainers = true;
-
-  if (!props.network.Containers?.length) passedContainers = false;
-  if (!props.id) passedId = false;
 
   let showContainersButton = (
     <button
@@ -120,7 +112,7 @@ const Network = (props: {
     </button>
   );
 
-  if (!passedContainers) showContainersButton = <div></div>;
+  if (!props.network.Containers?.length) showContainersButton = <div></div>;
 
   const [displayAddContainerForm, setDisplayAddContainerForm] = useState(false);
 
@@ -130,13 +122,25 @@ const Network = (props: {
 
   return (
     // a div containing the bridge name and the array displaying each container
-    <div
-      id={passedId ? `${props.id}` : `${props.networkIndex}`}
-      className='network'>
+    <div className={props.id ? `${props.id}` : 'userNetwork'}>
       <div className='networkContainer'>
         <div className='networkLabel'>
           <strong>Network: </strong>
           {networkName}
+        </div>
+        <div className='networkInfo'>
+          <div className='Driver'>
+            <strong>Driver: </strong>
+            {props.network.Driver ? props.network.Driver : 'null'}
+          </div>
+          <div className='Gateway'>
+            <strong>Gateway: </strong>
+            {props.network.Gateway ? props.network.Gateway : 'null'}
+          </div>
+          <div className='Subnet'>
+            <strong>Subnet: </strong>
+            {props.network.Subnet ? props.network.Subnet : 'null'}
+          </div>
         </div>
         <hr />
         <div className='containerNetworkFeatures'>
@@ -175,7 +179,8 @@ const Network = (props: {
       </div>
       <div
         id={`${props.networkIndex}ContainersContainer`}
-        className='containersContainer'>
+        className='containersContainer'
+        style={{ display: 'none' }}>
         {networkContainerDisplay}
       </div>
     </div>

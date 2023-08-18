@@ -81,7 +81,7 @@ body {
   column-gap: 16px;
   /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   column-gap: 28px; */
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   font-weight: 500;
   color: rgba(240, 255, 255, 0.855);
@@ -195,7 +195,7 @@ body {
   color: azure;
 }
 
-.network {
+.userNetwork {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -218,7 +218,16 @@ body {
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
 }
 
-#defaultNetwork {
+.defaultNetwork {
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 24px;
+  padding: 20px;
+  margin: 40px;
+  min-width: 80vw;
+  position: relative;
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
   color: rgb(245, 255, 255);
   background: linear-gradient(
     to bottom right,
@@ -233,7 +242,7 @@ body {
   align-self: center;
 }
 
-#defaultNetwork .connectedContainerContainer {
+.defaultNetwork .connectedContainerContainer {
   background: linear-gradient(
     to bottom right,
     rgba(33, 35, 35, 0.103),
@@ -242,11 +251,11 @@ body {
   );
 }
 
-#defaultNetwork:hover .networkLabel {
+.defaultNetwork:hover .networkLabel {
   text-shadow: 0.25px 0.25px 2.5px rgba(0, 0, 0, 0.5);
 }
 
-#defaultNetwork:hover .connectedContainerContainer {
+.defaultNetwork:hover .connectedContainerContainer {
   background: linear-gradient(
     to bottom right,
     rgba(33, 35, 35, 0.103),
@@ -255,7 +264,7 @@ body {
   );
 }
 
-#defaultNetwork:hover,
+.defaultNetwork:hover,
 .network:hover {
   filter: brightness(1.1) contrast(120%);
   transition: ease-in-out 0.3s;
@@ -280,6 +289,7 @@ body {
   text-align: center;
   font-size: 1.5rem;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -329,7 +339,6 @@ body {
   height: 100%;
   width: 100%;
   margin: 0;
-  display: none;
   grid-template-columns: repeat(auto-fit, minmax(375px, 1fr));
   column-gap: 20px;
   justify-items: center;
@@ -385,7 +394,7 @@ body {
   margin-right: 10px;
 }
 
-#defaultNetwork .containerHeader hr {
+.defaultNetwork .containerHeader hr {
   margin: 0 6px 10px 0;
 }
 
@@ -550,7 +559,7 @@ body {
   width: calc(300px + (440 - 300) * ((100vw - 552px) / (1872 - 552)));
   padding: 6px 12px;
   /* color: white; */
-  color: rgba(0, 0, 0, 0.732);
+  color: #ffffff;
   font-weight: 600;
   font-size: 20px;
   background: linear-gradient(
@@ -563,6 +572,10 @@ body {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
+.form-select option {
+  color: black;
+}
+
 .form-select:hover {
   cursor: pointer;
 }
@@ -572,28 +585,25 @@ body {
 }
 
 #addNetworkForm {
-  display: none;
-  position: absolute;
-  background-color: lightgray;
-  border: 5px solid black;
+  display: flex;
+  /* position: absolute; */
   z-index: 2;
-  padding: 5%;
-  width: 60%;
+  /* padding: 5%; */
+  width: 90%;
   height: 45%;
   top: 20%;
   opacity: 95%;
   flex-direction: column;
   justify-content: left;
-  overflow: scroll;
 }
 
 #addNetworkFormTitle {
-  color: black;
+  color: #ffffff;
   text-align: center;
 }
 
 .addNetworkFormLabel {
-  color: black;
+  color: #ffffff;
 }
 
 .addNetworkTextInput {
@@ -602,7 +612,7 @@ body {
 
 .addNetworkTextInput input {
   order: 2;
-  width: 60%;
+  width: 65%;
 }
 
 .addNetworkTextInput label {
@@ -634,25 +644,6 @@ body {
   justify-content: space-between;
 }
 
-#gatewaysAdded,
-#subnetworksAdded,
-.listHeader,
-#currentlyAddedNetworks {
-  color: black;
-}
-
-#addSubnetButton,
-#addGatewayButton {
-  margin-left: 1%;
-}
-
-#addGatewaySubmitButton,
-#addSubnetSubmitButton,
-#addIPRangeSubmitButton {
-  width: 15%;
-  margin-left: 2%;
-}
-
 .listHeader {
   display: flex;
   justify-content: space-between;
@@ -660,11 +651,20 @@ body {
 }
 
 #submitAddNetworkFormButton {
-  width: 30%;
+  width: 40%;
+  align-self: center;
+  margin-right: 5%;
 }
 
 #containerForAddNetworkFormSubmit {
   display: flex;
   justify-content: right;
   margin-top: 10%;
+}
+
+.networkInfo {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 85%;
 }

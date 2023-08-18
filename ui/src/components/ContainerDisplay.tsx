@@ -34,7 +34,7 @@ const ContainerDisplay: React.FC<{
   ): Promise<void> => {
     let connected = true;
     e.preventDefault();
-    console.log('e: ', e);
+
     //overwrite child divs and replace with Disconnecting...
     if (container.current)
       container.current.innerText = `Disconnecting... ${containerName}`;
@@ -53,7 +53,6 @@ const ContainerDisplay: React.FC<{
     //if no other connections exist, set connected to false
     if (!Object.keys(networks).length) connected = false;
 
-    //TODO: if conneceted to none, remove first then connect to other network
     //assign container to 'none' network if no network connections still exist
     if (!connected) {
       await ddClient.docker.cli.exec('network connect', [
@@ -130,27 +129,30 @@ const ContainerDisplay: React.FC<{
         {portsUnorderedList}
       </div>
       <div className='footerContainer'>
-      <hr className="lastHR" />
-      <div className="containerButtons">
-        <button
-          className='innerButton'
-          onClick={e => DisconnectContainer(props.info.Name, props.network, e)}>
-          Disconnect
-        </button>
-        <button className='innerButton' onClick={() => setIsOpen(true)}>
-          Connect
-        </button>
+        <hr className='lastHR' />
+        <div className='containerButtons'>
+          {props.network !== 'none' ? (
+            <button
+              className='innerButton'
+              onClick={e =>
+                DisconnectContainer(props.info.Name, props.network, e)
+              }>
+              Disconnect
+            </button>
+          ) : null}
+          <button className='innerButton' onClick={() => setIsOpen(true)}>
+            Connect
+          </button>
 
-        {/* Display for form modal */}
-        {createPortal(
-          <FormModal open={isOpen} onClose={formClose}>
-            {/* Calling Form component function as child of FormModal */}
-            <Form info={props.info} formClose={formClose} />
-          </FormModal>,
-          document.body,
-        )}
-      </div>
-
+          {/* Display for form modal */}
+          {createPortal(
+            <FormModal open={isOpen} onClose={formClose}>
+              {/* Calling Form component function as child of FormModal */}
+              <Form info={props.info} formClose={formClose} />
+            </FormModal>,
+            document.body,
+          )}
+        </div>
       </div>
     </div>
   );

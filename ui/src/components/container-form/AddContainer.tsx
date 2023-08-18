@@ -9,8 +9,6 @@ function AddContainer(props: {
   closeAddContainerForm: Function;
 }) {
   const [containerName, setContainerName] = useState<string>('');
-  console.log('containerList', props.containerList);
-  console.log('network info', props.network);
 
   const { ddClient, incForce } = useAppStore(store => {
     return {
@@ -30,16 +28,26 @@ function AddContainer(props: {
     e.preventDefault();
     let alreadyAdded = false;
     if (network.Containers?.includes(containerName)) alreadyAdded = true;
-    console.log('network.Containers', network.Containers);
+
     const commandArr = [];
     commandArr.push(network.Name);
     commandArr.push(containerName);
-    console.log('commandArr', commandArr);
+
     if (alreadyAdded) {
       ddClient.desktopUI.toast.warning(
         `Container ${containerName} is already assigned to the network ${network.Name}!`,
       );
     } else {
+      const result = await ddClient.docker.cli.exec('inspect', [containerName]);
+      const containerInfo: any = result.parseJsonObject();
+
+      // check if container is connected to none or host
+      if (containerInfo[0].NetworkSettings.Networks.none) {
+        await ddClient.docker.cli.exec('network disconnect', [
+          'none',
+          containerName,
+        ]);
+      }
       await ddClient.docker.cli.exec(`network connect`, commandArr);
       //rerend networks with updated info
       incForce();

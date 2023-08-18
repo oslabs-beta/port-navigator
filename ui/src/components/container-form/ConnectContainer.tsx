@@ -4,7 +4,7 @@ import { useAppStore } from '../../store';
 
 function ConnectContainer(props: { info: ContainerInfo; formClose: Function }) {
   //State used to record which network the user chooses
-  const [networkName, setnetworkName] = useState<string>('');
+  const [networkName, setnetworkName] = useState<string>('bridge');
   const { ddClient, networks, incForce } = useAppStore(store => {
     return {
       ddClient: store.ddClient,
@@ -21,8 +21,8 @@ function ConnectContainer(props: { info: ContainerInfo; formClose: Function }) {
     ip?: string,
   ): Promise<void> => {
     e.preventDefault();
-    console.log('alias: ', alias);
     console.log('ip: ', ip);
+    console.log('alias: ', alias);
 
     //gets container info to check if network connection already exists
 
@@ -71,13 +71,17 @@ function ConnectContainer(props: { info: ContainerInfo; formClose: Function }) {
           className='form-select'
           value={networkName}
           //   Recording the user input for network
-          onChange={e => setnetworkName(e.target.value)}>
+          onChange={e => {
+            setnetworkName(e.target.value);
+          }}>
           {/* Iterating through all exisisting networks and displaying them as options for SELECT element */}
-          {networks.map(network => (
-            <option value={network.Name} key={network.Name}>
-              {network.Name}
-            </option>
-          ))}
+          {networks.map(network =>
+            network.Name !== 'none' ? (
+              <option value={network.Name} key={network.Name}>
+                {network.Name}
+              </option>
+            ) : null,
+          )}
         </select>
         {/* <span> network?</span> */}
 
