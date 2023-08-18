@@ -47,11 +47,13 @@ export function App() {
         `network inspect ${newNetworks[i].Name}`,
         ['--format', '"{{json .}}"'],
       );
+
       //parsing additional info
-      //TODO: get rid of any!
-      const moreInfo: any = result.parseJsonLines()[0];
+      const moreInfo = result.parseJsonLines()[0];
       //grabbing container names and adding into array
-      const networkContainers: any[] = Object.values(moreInfo.Containers);
+      const networkContainers: NetworkInfo[] = Object.values(
+        moreInfo.Containers,
+      );
       const containerNames = networkContainers.map(el => el.Name);
       //adding aditional info to network object
       const newNetwork: NetworkInfo = {
