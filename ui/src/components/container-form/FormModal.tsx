@@ -1,19 +1,4 @@
-import { ReactNode, CSSProperties} from 'react';
-
-
-const MODAL_STYLES: CSSProperties = {
-  position: 'fixed',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  background: 'linear-gradient(to top left, rgb(46, 87, 120), rgb(47, 54, 71))',
-  padding: '300ppx',
-  width:'50%',
-  height: '50%',
-  borderRadius: '50px'
-  
-//   zIndex: 1001,
-};
+import { ReactNode, CSSProperties } from 'react';
 
 const OVERLAY: CSSProperties = {
   position: 'fixed',
@@ -22,33 +7,33 @@ const OVERLAY: CSSProperties = {
   right: 0,
   bottom: 0,
   backdropFilter: 'blur(4px)',
-//   backgroundColor: 'rgba(0,0,0, .7)',
   zIndex: 1000,
+  overflow: 'hidden',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 };
 
 interface ModalProps {
   children: ReactNode;
   open: Boolean;
   onClose: React.MouseEventHandler<HTMLButtonElement>;
-  
 }
 
 function FormModal({ open, children, onClose }: ModalProps) {
   if (!open) return null;
   return (
-     <>
-      <div style={OVERLAY}>
-        
-        <div style={MODAL_STYLES}>
-          
-          <button className='deleteNetworkButton' onClick={onClose}>X</button>
-        
-         <div> {children} </div>
-          
-          
+    <>
+      <div style={OVERLAY} className='blur'>
+        <div className='modalContainer'>
+          <button className='deleteNetworkButton' onClick={onClose}>
+            x
+          </button>
+
+          {children}
         </div>
       </div>
-     </>
+    </>
   );
 }
 

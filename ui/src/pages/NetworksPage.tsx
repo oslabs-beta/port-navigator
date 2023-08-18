@@ -1,86 +1,91 @@
+import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import Network from '../components/Network';
-import {
-  ContainerInfo,
-  NetworkInfo,
-  setContainers,
-  setNetworks,
-} from '../interfaces/interfaces';
+import NetworkForm from '../components/NetworkForm';
+import FormModal from '../components/container-form/FormModal';
+import { ContainerInfo, NetworkInfo } from '../interfaces/interfaces';
 
 const NetworksPage = (props: {
   networks: NetworkInfo[] | [];
   containers: ContainerInfo[] | [];
-  setContainers: setContainers;
-  setNetworks: setNetworks;
 }) => {
   const nav = useNavigate();
   const networkEl: JSX.Element[] = [];
   const hostNone: JSX.Element[] = [];
   const defaultBridge: JSX.Element[] = [];
-  
+
+  //function to display 'Add Network' popup
+  // const showAddNetworkForm = () => {
+  //   const addNetworkForm = document.getElementById('addNetworkForm');
+  //   if (addNetworkForm !== null) {
+  //     addNetworkForm.style.display = 'flex';
+  //   }
+  // };
+
+  const [displayAddNetworkForm, setDisplayAddNetworkForm] = useState(false);
+
+  const closeAddNetworkForm = () => {
+    setDisplayAddNetworkForm(false);
+  };
+
+  //iterates through networks and creates a container for each
   props.networks.forEach((network, i: number) => {
-    const networkIndex: String = `network${i}`;
-    if (network.Name === 'host' || network.Name === 'none') {
-      hostNone.push(
-        <Network
+    const newEl = (
+      <Network
         key={`network${i}`}
-        networkIndex={networkIndex}
+        networkIndex={i}
         network={network}
         containers={props.containers}
-        setContainers={props.setContainers}
-        setNetworks={props.setNetworks}
-        id={'defaultNetwork'}
-          allNetworks={props.networks}
+        id={
+          network.Driver !== 'bridge' || network.Name === 'bridge'
+            ? 'defaultNetwork'
+            : 'userNetwork'
+        }
+        allNetworks={props.networks}
       />
-        );
-      }
-      else if (network.Name === 'bridge') {
-        defaultBridge.push(
-          <Network
-          key={`network${i}`}
-          networkIndex={networkIndex}
-          network={network}
-          containers={props.containers}
-          setContainers={props.setContainers}
-          setNetworks={props.setNetworks}
-          allNetworks={props.networks}
-          id={'defaultNetwork'}
-          />
-          );
-        } 
-        else {
-          networkEl.push(
-            <Network
-            key={`network${i}`}
-            networkIndex={networkIndex}
-            network={network}
-            containers={props.containers}
-            setContainers={props.setContainers}
-            setNetworks={props.setNetworks}
-            allNetworks={props.networks}
-            />
-            );
-          }
-        });
-        
-        networkEl.push(...hostNone);
-        networkEl.unshift(...defaultBridge);
-        
-        return (
-          <div className="mainContainer">
-      <div className="buttonContainer">
+    );
+    //pushes new element into specified array
+    if (network.Name === 'host' || network.Name === 'none') {
+      hostNone.push(newEl);
+    } else if (network.Name === 'bridge') {
+      defaultBridge.push(newEl);
+    } else {
+      networkEl.push(newEl);
+    }
+  });
+
+  //combine arrays in desired order
+  networkEl.push(...hostNone);
+  networkEl.unshift(...defaultBridge);
+
+  return (
+    <div className='mainContainer'>
+      <div className='buttonContainer'>
         <button
-          className="button"
-          title="Containers"
-          onClick={() => nav('containers')}
-        >
+          className='button'
+          title='Containers'
+          onClick={() => nav('containers')}>
           Containers
         </button>
       </div>
-      <div className="hostContainer">
+      <div className='addNetworkButtonContainer'>
+        <button
+          className='addNetworkButton'
+          onClick={() => setDisplayAddNetworkForm(true)}>
+          Add Network
+        </button>
+        {createPortal(
+          <FormModal open={displayAddNetworkForm} onClose={closeAddNetworkForm}>
+            <NetworkForm closeAddNetworkForm={closeAddNetworkForm} />
+          </FormModal>,
+          document.body,
+        )}
+      </div>
+      <div className='hostContainer'>
         <h1>Host</h1>
       </div>
-      <div className="networksContainer">{networkEl}</div>
+      <div className='networksContainer'>{networkEl}</div>
     </div>
   );
 };

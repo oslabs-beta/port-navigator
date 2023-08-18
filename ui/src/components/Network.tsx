@@ -1,23 +1,80 @@
 // ---- imports go here ----
 import ContainerDisplay from './ContainerDisplay';
-import type {
-  ContainerInfo,
-  NetworkInfo,
-  setContainers,
-  setNetworks,
-} from '../interfaces/interfaces';
-import { RemoveNetwork, HideContainers } from '../functions/functions';
+import type { ContainerInfo, NetworkInfo } from '../interfaces/interfaces';
+import { useState, BaseSyntheticEvent } from 'react';
+import { useAppStore } from '../store';
+import FormModal from './container-form/FormModal';
+import { createPortal } from 'react-dom';
+import AddContainer from './container-form/AddContainer';
 
-// TO DO: typing will need to be more specific here once the exact contents of bridge and container are known
 const Network = (props: {
   network: NetworkInfo;
-  networkIndex: String;
+  networkIndex: number;
   containers: ContainerInfo[] | [];
-  setContainers: setContainers;
-  setNetworks: setNetworks;
   id?: String;
   allNetworks: NetworkInfo[] | [];
 }) => {
+  //importing ddClient & state for use in functions
+  const { ddClient, networks, setNetworks, incForce } = useAppStore(store => {
+    return {
+      ddClient: store.ddClient,
+      networks: store.networks,
+      setNetworks: store.setNetworks,
+      incForce: store.incForce,
+    };
+  });
+
+  //removes an empty network when button is clicked
+  const RemoveNetwork = async (e: BaseSyntheticEvent<any>): Promise<void> => {
+    //TODO: maybe allowing e.Default will refresh page and we can remove GetNetworks()?
+    e.preventDefault();
+
+    //? if Disconnecting.... feature fails, it's probably because the divs got shifted around
+    //selects network element that is being deleted
+    if (
+      props.network.Name === 'bridge' ||
+      props.network.Name === 'host' ||
+      props.network.Name === 'none'
+    ) {
+      ddClient.desktopUI.toast.error(
+        `You can't delete the ${props.network.Name} network!`,
+      );
+    } else if (props.network.Containers?.length !== 0) {
+      ddClient.desktopUI.toast.error(
+        `You can't delete a Network that has Containers attached to it!`,
+      );
+    } else {
+      //update name to read "Disconnecting...." until removal completes
+      const newNetworks = [...networks];
+      newNetworks[props.networkIndex] = {
+        ...props.network,
+        Name: `Disconnecting ${props.network.Name}....`,
+      };
+      setNetworks(newNetworks);
+
+      //removes network only if no containers exist on it
+      await ddClient.docker.cli.exec('network rm', [props.network.Name]);
+      ddClient.desktopUI.toast.success('Successfully deleted Network!');
+      incForce();
+    }
+  };
+
+  //hides containers that appear on networks
+  const HideContainers = (containerID: string, buttonId: string) => {
+    const divToHide: HTMLElement | null = document.getElementById(containerID);
+    const showHideButton: HTMLElement | null =
+      document.getElementById(buttonId);
+    if (divToHide !== null && showHideButton !== null) {
+      if (divToHide.style.display === 'none') {
+        divToHide.style.display = 'grid';
+        showHideButton.innerText = 'Hide Containers';
+      } else {
+        divToHide.style.display = 'none';
+        showHideButton.innerText = 'Show Containers';
+      }
+    }
+  };
+
   // declare a variable, bridgeContainerDisplay, and assign it the value of an empty array
   const networkContainerDisplay: JSX.Element[] = [];
   // for each of the container objects passed down in the containerDisplay through props
@@ -27,13 +84,10 @@ const Network = (props: {
     if (props.network.Containers?.includes(currentContainer.Name)) {
       const newContainer = (
         <ContainerDisplay
-          id={`${props.networkIndex}_container${i}`}
-          key={`${props.networkIndex}_container${i}`}
+          id={`network${props.networkIndex}_container${i}`}
+          key={`network${props.networkIndex}_container${i}`}
           info={currentContainer}
           network={props.network.Name}
-          setContainers={props.setContainers}
-          setNetworks={props.setNetworks}
-          allNetworks= {props.allNetworks}
         />
       );
       // push the newContainer into the bridgeContainerDisplay
@@ -41,237 +95,96 @@ const Network = (props: {
     }
   });
 
-  // TO DO: extract the bridge name from the bridge props
-  // console.log('network: ', props.network);
-  // console.log('networkContainerDisplay: ', networkContainerDisplay);
-  // if (networkContainerDisplay[0]) {
-  //   console.log(
-  //     'networkContainerDisplay[0].props.network: ',
-  //     networkContainerDisplay[0].props.network
-  //   );
-  // }
   // const bridgeName: string = bridgeContainerDisplay[0].props.info.name;
   const networkName = props.network.Name;
-  console.log('props.network: ', props.network);
-  console.log('networkName: ', networkName);
 
-  // return
-  if (!props.network.Containers?.length && props.id) {
-    return (
-      // a div containing the bridge name and the array displaying each container
-      <div id={`${props.id}`} className="network">
-        <div className="networkContainer">
-          <div className="networkLabel">
-            <strong>Name: </strong>
-            {networkName}
-          </div>
-          <hr />
-          <div className="containerNetworkFeatures">
-            <div className="connectedContainerContainer">
-              <p className='connectedText'>
-                Connected<br />Containers
-              </p>
-              <p className='divider'>|</p>
-              <p className="connectedCount">
-                {props.network.Containers?.length}
-              </p>
-            </div>
-            <button
-            className="innerButton"
-            id={`${props.networkIndex}ShowHideNetworksButton`}
-            onClick={() =>
-              HideContainers(
-                `${props.networkIndex}ContainersContainer`,
-                `${props.networkIndex}ShowHideNetworksButton`
-              )
-            }
-          >
-            Add Container
-          </button>
-          </div>
-          <button
+  let showContainersButton = (
+    <button
+      className='innerButton'
+      id={`${props.networkIndex}ShowHideNetworksButton`}
+      onClick={() =>
+        HideContainers(
+          `${props.networkIndex}ContainersContainer`,
+          `${props.networkIndex}ShowHideNetworksButton`,
+        )
+      }>
+      Show Containers
+    </button>
+  );
 
-            className='deleteNetworkButton'
-            onClick={() => RemoveNetwork(props.network, props.setNetworks)}>
-            x
-          </button>
+  if (!props.network.Containers?.length) showContainersButton = <div></div>;
+
+  const [displayAddContainerForm, setDisplayAddContainerForm] = useState(false);
+
+  const closeAddContainerForm = () => {
+    setDisplayAddContainerForm(false);
+  };
+
+  return (
+    // a div containing the bridge name and the array displaying each container
+    <div className={props.id ? `${props.id}` : 'userNetwork'}>
+      <div className='networkContainer'>
+        <div className='networkLabel'>
+          <strong>Network: </strong>
+          {networkName}
         </div>
-        <div
-          id={`${props.networkIndex}ContainersContainer`}
-          className="containersContainer"
-        >
-          {networkContainerDisplay}
-        </div>
-      </div>
-    );
-  } else if (!props.network.Containers?.length && !props.id) {
-    return (
-      // a div containing the bridge name and the array displaying each container
-      <div id={`${props.networkIndex}`} className="network">
-        <div className="networkContainer">
-          <div className="networkLabel">
-            <strong>Name: </strong>
-            {networkName}
+        <div className='networkInfo'>
+          <div className='Driver'>
+            <strong>Driver: </strong>
+            {props.network.Driver ? props.network.Driver : 'null'}
           </div>
-          <hr />
-          <div className="containerNetworkFeatures">
-            <div className="connectedContainerContainer">
-              <p className='connectedText'>
-                Connected<br />Containers
-              </p>
-              <p className='divider'>|</p>
-              <p className="connectedCount">
-                {props.network.Containers?.length}
-              </p>
-            </div>
-            <button
-            className="innerButton"
+          <div className='Gateway'>
+            <strong>Gateway: </strong>
+            {props.network.Gateway ? props.network.Gateway : 'null'}
+          </div>
+          <div className='Subnet'>
+            <strong>Subnet: </strong>
+            {props.network.Subnet ? props.network.Subnet : 'null'}
+          </div>
+        </div>
+        <hr />
+        <div className='containerNetworkFeatures'>
+          <div className='connectedContainerContainer'>
+            <p className='connectedText'>
+              Connected
+              <br />
+              Containers
+            </p>
+            <p className='divider'>|</p>
+            <p className='connectedCount'>{props.network.Containers?.length}</p>
+          </div>
+          {showContainersButton}
+          <button
+            className='innerButton'
             id={`${props.networkIndex}ShowHideNetworksButton`}
-            onClick={() =>
-              HideContainers(
-                `${props.networkIndex}ContainersContainer`,
-                `${props.networkIndex}ShowHideNetworksButton`
-              )
-            }
-          >
+            onClick={() => setDisplayAddContainerForm(true)}>
             Add Container
           </button>
-          </div>
-          <button
-            className='deleteNetworkButton'
-            onClick={() => RemoveNetwork(props.network, props.setNetworks)}>
-            x
-          </button>
+          {createPortal(
+            <FormModal
+              open={displayAddContainerForm}
+              onClose={closeAddContainerForm}>
+              <AddContainer
+                network={props.network}
+                containerList={props.containers}
+                closeAddContainerForm={closeAddContainerForm}
+              />
+            </FormModal>,
+            document.body,
+          )}
         </div>
-        <div
-          id={`${props.networkIndex}ContainersContainer`}
-          className="containersContainer"
-        >
-          {networkContainerDisplay}
-        </div>
+        <button className='deleteNetworkButton' onClick={e => RemoveNetwork(e)}>
+          x
+        </button>
       </div>
-    );
-  }
-  if (typeof props.network.Containers?.length === 'number' && props.id) {
-    return (
-      // a div containing the bridge name and the array displaying each container
-      <div id={`${props.id}`} className="network">
-        <div className="networkContainer">
-          <div className="networkLabel">
-            <strong>Name: </strong>
-            {networkName}
-          </div>
-          <hr />
-          <div className="containerNetworkFeatures">
-            <div className="connectedContainerContainer">
-              <p className='connectedText'>
-                Connected<br />Containers
-              </p>
-              <p className='divider'>|</p>
-              <p className="connectedCount">
-                {props.network.Containers?.length}
-              </p>
-            </div>
-          <button
-            className="innerButton"
-            id={`${props.networkIndex}ShowHideNetworksButton`}
-            onClick={() =>
-              HideContainers(
-                `${props.networkIndex}ContainersContainer`,
-                `${props.networkIndex}ShowHideNetworksButton`
-              )
-            }
-          >
-            Show Containers
-          </button>
-          <button
-            className="innerButton"
-            id={`${props.networkIndex}ShowHideNetworksButton`}
-            onClick={() =>
-              HideContainers(
-                `${props.networkIndex}ContainersContainer`,
-                `${props.networkIndex}ShowHideNetworksButton`
-              )
-            }
-          >
-            Add Container
-          </button>
-          </div>
-          <button
-            className="deleteNetworkButton"
-            onClick={() => RemoveNetwork(props.network, props.setNetworks)}
-          >
-            x
-          </button>
-        </div>
-        <div
-          id={`${props.networkIndex}ContainersContainer`}
-          className="containersContainer"
-        >
-          {networkContainerDisplay}
-        </div>
+      <div
+        id={`${props.networkIndex}ContainersContainer`}
+        className='containersContainer'
+        style={{ display: 'none' }}>
+        {networkContainerDisplay}
       </div>
-    );
-  } else {
-    return (
-      // a div containing the bridge name and the array displaying each container
-      <div id={`${props.networkIndex}`} className="network">
-        <div className="networkContainer">
-          <div className="networkLabel">
-            <strong>Name: </strong>
-            {networkName}
-          </div>
-          <hr />
-          <div className="containerNetworkFeatures">
-            <div className="connectedContainerContainer">
-              <p className='connectedText'>
-                Connected<br />Containers
-              </p>
-              <p className='divider'>|</p>
-              <p className="connectedCount">
-                {props.network.Containers?.length}
-              </p>
-            </div>
-            <button
-              className="innerButton"
-              id={`${props.networkIndex}ShowHideNetworksButton`}
-              onClick={() =>
-                HideContainers(
-                  `${props.networkIndex}ContainersContainer`,
-                  `${props.networkIndex}ShowHideNetworksButton`
-                )
-              }
-            >
-              Show Containers
-            </button>
-            <button
-            className="innerButton"
-            id={`${props.networkIndex}ShowHideNetworksButton`}
-            onClick={() =>
-              HideContainers(
-                `${props.networkIndex}ContainersContainer`,
-                `${props.networkIndex}ShowHideNetworksButton`
-              )
-            }
-          >
-            Add Container
-          </button>
-          </div>
-          <button
-            className='deleteNetworkButton'
-            onClick={() => RemoveNetwork(props.network, props.setNetworks)}>
-            x
-          </button>
-        </div>
-        <div
-          id={`${props.networkIndex}ContainersContainer`}
-          className="containersContainer"
-        >
-          {networkContainerDisplay}
-        </div>
-      </div>
-    );
-  }
+    </div>
+  );
 };
 
 // ---- exports go here ----

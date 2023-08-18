@@ -4,6 +4,8 @@
   "private": true,
   "homepage": ".",
   "dependencies": {
+    "@babel/core": "^7.22.10",
+    "@babel/preset-react": "^7.22.5",
     "@docker/docker-mui-theme": "<0.1.0",
     "@docker/extension-api-client": "0.3.4",
     "@emotion/react": "^11.9.0",
@@ -12,11 +14,13 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.14.2",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "ts-loader": "^9.4.4",
+    "zustand": "^4.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "NODE_ENV=development webpack-dev-server",
+    "build": "NODE_ENV=production webpack && tsc",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -27,12 +31,21 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.22.10",
     "@docker/extension-api-client-types": "0.3.4",
     "@types/jest": "^29.0.3",
     "@types/node": "^18.7.18",
     "@types/react-dom": "^17.0.2",
-    "typescript": "^4.8.3"
-
+    "babel-loader": "^9.1.3",
+    "css-loader": "^6.8.1",
+    "sass": "^1.64.2",
+    "sass-loader": "^13.3.2",
+    "scss-loader": "^0.0.1",
+    "style-loader": "^3.3.3",
+    "typescript": "^4.8.3",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
   },
   "browserslist": {
     "production": [

@@ -1,4 +1,5 @@
 import { createDockerDesktopClient } from '@docker/extension-api-client';
+import { BaseSyntheticEvent, SyntheticEvent } from 'react';
 // import { ExecOptions } from '@docker/extension-api-client-types/dist/v1';
 import type {
   ContainerInfo,
@@ -36,7 +37,7 @@ const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
     };
     return network;
   });
-  console.log('newNetworks1: ', newNetworks);
+
   // iterating through newNetworks to add additional info
   for (let i = 0; i < newNetworks.length; i++) {
     //executing comand line to retrieve additional info
@@ -65,7 +66,7 @@ const GetNetworks = async (setNetworks: setNetworks): Promise<void> => {
     //reassigning new network obj to newNetworks array
     newNetworks[i] = newNetwork;
   }
-  console.log('newNetworks2: ', newNetworks);
+
   setNetworks(newNetworks);
 };
 
@@ -95,7 +96,7 @@ const GetAllContainers = async (
       };
       return newEl;
     });
-    console.log('newContainers: ', newContainers);
+
     setContainers(newContainers);
   }
 };
@@ -104,6 +105,14 @@ const AddNetwork = async (
   networkName: string,
   networks: NetworkInfo[],
   setNetworks: setNetworks,
+  gateway: string,
+  subnetworksInput: string,
+  ipRange: string,
+  setNetworkName: Function,
+  setGateway: Function,
+  setSubnet: Function,
+  setIpRange: Function,
+  setDisabled: Function,
 ) => {
   const ddClient = useDockerDesktopClient();
   let exists = false;
@@ -111,22 +120,41 @@ const AddNetwork = async (
     if (network.Name === networkName) exists = true;
   }
   if (!exists) {
-    await ddClient.docker.cli.exec('network connect', [networkName]);
+    const commandArr = [networkName];
+    commandArr.push(`--subnet=${subnetworksInput}`);
+    commandArr.push(`--gateway=${gateway}`);
+    commandArr.push(`--ip-range=${ipRange}`);
+    // commandArr.push(networkName);
+    await ddClient.docker.cli.exec('network create', commandArr);
     GetNetworks(setNetworks);
   } else {
     ddClient.desktopUI.toast.error(
       `The ${networkName} network already exists!`,
     );
   }
+  hideAddNetworkForm(
+    setNetworkName,
+    setGateway,
+    setSubnet,
+    setIpRange,
+    setDisabled,
+  );
 };
 
 //removes an empty network when button is clicked
 const RemoveNetwork = async (
   network: NetworkInfo,
   setNetworks: setNetworks,
+  e: BaseSyntheticEvent<any>,
 ): Promise<void> => {
+  //TODO: maybe allowing e.Default will refresh page and we can remove GetNetworks()?
+  e.preventDefault();
+
+  //? if Disconnecting.... feature fails, it's probably because the divs got shifted around
+  //selects network element that is being deleted
+  const parentNetwork = await e.nativeEvent.path[1].childNodes[0];
+
   const ddClient = useDockerDesktopClient();
-  console.log(network.Containers?.length);
   if (
     network.Name === 'bridge' ||
     network.Name === 'host' ||
@@ -140,10 +168,44 @@ const RemoveNetwork = async (
       `You can't delete a Network that has Containers attached to it!`,
     );
   } else {
+    //change network name to Disconnecting during deletion
+    parentNetwork.innerText = 'Disconnecting...';
+
+    //removes network only if no containers exist on it
     await ddClient.docker.cli.exec('network rm', [network.Name]);
     await GetNetworks(setNetworks);
     ddClient.desktopUI.toast.success('Successfully deleted Network!');
   }
+};
+
+const AddContainer = async (
+  e: SyntheticEvent<EventTarget>,
+  closeAddContainerForm: Function,
+  network: NetworkInfo,
+  containerName: string,
+  setContainers: setContainers,
+  setNetworks: setNetworks,
+) => {
+  e.preventDefault();
+  const ddClient = useDockerDesktopClient();
+  let alreadyAdded = false;
+  if (network.Containers?.includes(containerName)) alreadyAdded = true;
+
+  const commandArr: string[] = [];
+  commandArr.push(network.Name);
+  commandArr.push(containerName);
+
+  if (alreadyAdded) {
+    ddClient.desktopUI.toast.warning(
+      `Container ${containerName} is already assigned to the network ${network.Name}!`,
+    );
+  } else {
+    await ddClient.docker.cli.exec(`network connect`, commandArr);
+    //rerend networks with updated info
+    await GetNetworks(setNetworks);
+    await GetAllContainers(setContainers);
+  }
+  closeAddContainerForm();
 };
 
 const ConnectContainer = async (
@@ -151,19 +213,25 @@ const ConnectContainer = async (
   networkName: string,
   setContainers: setContainers,
   setNetworks: setNetworks,
-  e:React.SyntheticEvent<EventTarget>,
+  e: SyntheticEvent<EventTarget>,
   alias?: string,
   ip?: string,
 ): Promise<void> => {
-  e.preventDefault()
+  e.preventDefault();
   const ddClient = useDockerDesktopClient();
-  console.log('alias: ', alias);
-  console.log('ip: ', ip);
-  
+
   //gets container info to check if network connection already exists
-  
+
   const result = await ddClient.docker.cli.exec('inspect', [containerName]);
   const containerInfo: any = result.parseJsonObject();
+
+  // check if container is connected to none or host
+  if (containerInfo[0].NetworkSettings.Networks.none) {
+    await ddClient.docker.cli.exec('network disconnect', [
+      'none',
+      containerName,
+    ]);
+  }
 
   //if network connection doesn't exist, make the connection
   if (!containerInfo[0].NetworkSettings.Networks[networkName]) {
@@ -177,21 +245,9 @@ const ConnectContainer = async (
     //if connection already exists, display warning message
   } else {
     ddClient.desktopUI.toast.warning(
-      `Container ${containerName} is already assigned to the networkS ${networkName}!`,
+      `Container ${containerName} is already assigned to the network ${networkName}!`,
     );
   }
-
-  /*
-*connect a container to a network
-? https://docs.docker.com/engine/reference/commandline/network_connect/
-docker network connect [OPTIONS] <network name> <container name>
-*--alias		Add network-scoped alias for the container
-?--driver-opt		driver options for the network
-*--ip		IPv4 address (e.g., 172.30.100.104)
---ip6		IPv6 address (e.g., 2001:db8::33)
---link		Add link to another container
---link-local-ip		Add a link-local address for the container
-  */
 };
 
 //disconnects a container from given network when button is clicked
@@ -200,11 +256,19 @@ const DisconnectContainer = async (
   networkName: string,
   setContainers: setContainers,
   setNetworks: setNetworks,
+  e: BaseSyntheticEvent<any>,
 ): Promise<void> => {
   const ddClient = useDockerDesktopClient();
   let connected = true;
+  e.preventDefault();
 
-  //disconnect container from network
+  //? if Disconnecting.... feature fails, it's probably because the divs got shifted around
+  //select parent container element
+  const parentContainer = await e.nativeEvent.path[2];
+  //overwrite child divs and replace with Disconnecting...
+  parentContainer.innerText = `Disconnecting... ${containerName}`;
+
+  //disconnect container from Container
   await ddClient.docker.cli.exec('network disconnect', [
     networkName,
     containerName,
@@ -218,6 +282,7 @@ const DisconnectContainer = async (
   //if no other connections exist, set connected to false
   if (!Object.keys(networks).length) connected = false;
 
+  //TODO: if conneceted to none, remove first then connect to other network
   //assign container to 'none' network if no network connections still exist
   if (!connected) {
     await ddClient.docker.cli.exec('network connect', ['none', containerName]);
@@ -242,6 +307,38 @@ const HideContainers = (containerID: string, buttonId: string) => {
   }
 };
 
+const showAddNetworkForm = () => {
+  const addNetworkForm = document.getElementById('addNetworkForm');
+  if (addNetworkForm !== null) {
+    addNetworkForm.style.display = 'flex';
+  }
+};
+
+const hideAddNetworkForm = (
+  setNetworkName: Function,
+  setGateway: Function,
+  setSubnet: Function,
+  setIpRange: Function,
+  setDisabled: Function,
+) => {
+  const addNetworkForm = document.getElementById('addNetworkForm');
+  if (addNetworkForm !== null) {
+    setNetworkName('');
+    setGateway(['']);
+    setSubnet('');
+    setIpRange('');
+    setDisabled(true);
+    addNetworkForm.style.display = 'none';
+  }
+  // const gatewayFormInput = document.getElementById('addGatewayFormInput');
+  //
+  // // if (gatewayFormInput)
+  // if (gatewayFormInput) {
+  //
+  //   gatewayFormInput.setAttribute('value', '');
+  // }
+};
+
 export {
   GetNetworks,
   GetAllContainers,
@@ -250,6 +347,9 @@ export {
   ConnectContainer,
   DisconnectContainer,
   HideContainers,
+  showAddNetworkForm,
+  hideAddNetworkForm,
+  AddContainer,
 };
 
 /* future functionality

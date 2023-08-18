@@ -34,5 +34,5 @@ COPY --from=builder /backend backend
 COPY docker-compose.yaml .
 COPY metadata.json .
 COPY assets/PortNavigator.svg .
-COPY --from=client-builder /ui/build ui
+COPY --from=client-builder /ui/dist ui
 CMD ["node", "backend/server.js", "/run/guest-services/extension-node-extension.sock"]
