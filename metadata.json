@@ -1,19 +1,10 @@
 {
   "icon": "PortNavigator.svg",
-  "vm": {
-    "composefile": "docker-compose.yaml",
-    "exposes": {
-      "socket": "extension-node-extension.sock"
-    }
-  },
   "ui": {
     "dashboard-tab": {
       "title": "PortNavigator",
       "root": "/ui",
-      "src": "index.html",
-      "backend": {
-        "socket": "extension-node-extension.sock"
-      }
+      "src": "index.html"
     }
   }
 }

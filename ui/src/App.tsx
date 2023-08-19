@@ -6,7 +6,7 @@ import NetworksPage from './pages/NetworksPage';
 import ContainersPage from './pages/ContainersPage';
 import { useAppStore } from './store';
 
-export function App() {
+export default function App() {
   const { ddClient, networks, containers, setNetworks, setContainers, force } =
     useAppStore(store => {
       return {
@@ -110,12 +110,15 @@ export function App() {
   }, [force]);
 
   return (
-    <Routes>
-      <Route
-        path='/'
-        element={<NetworksPage networks={networks} containers={containers} />}
-      />
-      <Route path='/containers' element={<ContainersPage />} />
-    </Routes>
+    <div className='App'>
+      {/* <NetworksPage networks={networks} containers={containers} /> */}
+      <Routes>
+        <Route
+          path='/'
+          element={<NetworksPage networks={networks} containers={containers} />}
+        />
+        <Route path='/containers' element={<ContainersPage />} />
+      </Routes>
+    </div>
   );
 }
