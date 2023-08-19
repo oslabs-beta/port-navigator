@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "homepage": ".",
+  "main": "index.js",
   "dependencies": {
     "@babel/core": "^7.22.10",
     "@babel/preset-react": "^7.22.5",
@@ -20,7 +21,7 @@
   },
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server",
-    "build": "NODE_ENV=production webpack && tsc",
+    "build": "NODE_ENV=production tsc && webpack",
     "test": "jest",
     "eject": "react-scripts eject"
   },

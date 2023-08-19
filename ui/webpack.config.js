@@ -16,7 +16,7 @@ module.exports = {
     rules: [
       {
         test: /.(js|jsx)$/,
-        exclude: /node_modules/,
+        exclude: [/node_modules/],
         use: {
           loader: 'babel-loader',
           options: {
@@ -51,7 +51,7 @@ module.exports = {
     }),
   ],
   devServer: {
-    host: 'localhost',
+    host: '0.0.0.0',
     port: 3000,
     hot: true,
     historyApiFallback: true,
