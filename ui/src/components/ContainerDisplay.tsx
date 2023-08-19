@@ -4,7 +4,8 @@ import { createPortal } from 'react-dom';
 import { ContainerInfo } from '../interfaces/interfaces';
 import { useAppStore } from '../store';
 import FormModal from './container-form/FormModal';
-import Form from './container-form/ConnectContainer';
+import ConnectContainer from './container-form/ConnectContainer';
+import EditPorts from './container-form/EditPorts';
 
 //Component to display Container
 const ContainerDisplay: React.FC<{
@@ -14,6 +15,7 @@ const ContainerDisplay: React.FC<{
 }> = props => {
   // State determining if our FormModal should be displayed or not
   const [isOpen, setIsOpen] = useState<Boolean>(false);
+  const [editPorts, setEditPorts] = useState<Boolean>(false);
   const { ddClient, incForce } = useAppStore(store => {
     return { ddClient: store.ddClient, incForce: store.incForce };
   });
@@ -24,6 +26,10 @@ const ContainerDisplay: React.FC<{
   //onClick functionality to close our FormModal.
   function formClose() {
     setIsOpen(false);
+  }
+
+  function portsClose() {
+    setEditPorts(false);
   }
 
   //disconnects a container from given network when button is clicked
@@ -92,6 +98,20 @@ const ContainerDisplay: React.FC<{
           <strong>Type: </strong>
           <br /> {props.info.Ports.Type}{' '}
         </li>
+        <li>
+          <button className='innerButton' onClick={() => setIsOpen(true)}>
+            Edit Ports
+          </button>
+
+          {/* Display for form modal */}
+          {createPortal(
+            <FormModal open={editPorts} onClose={portsClose}>
+              {/* Calling Form component function as child of FormModal */}
+              <EditPorts info={props.info} portsClose={portsClose} />
+            </FormModal>,
+            document.body,
+          )}
+        </li>
       </ul>
     );
 
@@ -148,7 +168,7 @@ const ContainerDisplay: React.FC<{
           {createPortal(
             <FormModal open={isOpen} onClose={formClose}>
               {/* Calling Form component function as child of FormModal */}
-              <Form info={props.info} formClose={formClose} />
+              <ConnectContainer info={props.info} formClose={formClose} />
             </FormModal>,
             document.body,
           )}

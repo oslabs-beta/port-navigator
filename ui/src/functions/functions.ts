@@ -402,4 +402,15 @@ docker network connect [OPTIONS] <network name> <container name>
 ? https://docs.docker.com/engine/reference/commandline/network_disconnect/
 docker network disconnect [OPTIONS] <network name> <container name>
 --force , -f		Force the container to disconnect from a network
+
+* run a container
+? https://docs.docker.com/engine/reference/commandline/run/
+ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+--expose	Expose a port or a range of ports
+--ip		IPv4 address (e.g., 172.30.100.104)
+--ip6		IPv6 address (e.g., 2001:db8::33)
+--name		Assign a name to the container
+--network		Connect a container to a network
+--network-alias		Add network-scoped alias for the container
+--publish , -p		Publish a container’s port(s) to the host
 */
