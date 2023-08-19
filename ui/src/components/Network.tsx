@@ -26,7 +26,6 @@ const Network = (props: {
 
   //removes an empty network when button is clicked
   const RemoveNetwork = async (e: BaseSyntheticEvent<any>): Promise<void> => {
-    //TODO: maybe allowing e.Default will refresh page and we can remove GetNetworks()?
     e.preventDefault();
 
     //? if Disconnecting.... feature fails, it's probably because the divs got shifted around

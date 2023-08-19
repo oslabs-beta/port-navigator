@@ -6,7 +6,7 @@ import NetworksPage from './pages/NetworksPage';
 import ContainersPage from './pages/ContainersPage';
 import { useAppStore } from './store';
 
-export function App() {
+export default function App() {
   const { ddClient, networks, containers, setNetworks, setContainers, force } =
     useAppStore(store => {
       return {
@@ -47,11 +47,13 @@ export function App() {
         `network inspect ${newNetworks[i].Name}`,
         ['--format', '"{{json .}}"'],
       );
+
       //parsing additional info
-      //TODO: get rid of any!
-      const moreInfo: any = result.parseJsonLines()[0];
+      const moreInfo = result.parseJsonLines()[0];
       //grabbing container names and adding into array
-      const networkContainers: any[] = Object.values(moreInfo.Containers);
+      const networkContainers: NetworkInfo[] = Object.values(
+        moreInfo.Containers,
+      );
       const containerNames = networkContainers.map(el => el.Name);
       //adding aditional info to network object
       const newNetwork: NetworkInfo = {
@@ -108,12 +110,15 @@ export function App() {
   }, [force]);
 
   return (
-    <Routes>
-      <Route
-        path='/'
-        element={<NetworksPage networks={networks} containers={containers} />}
-      />
-      <Route path='/containers' element={<ContainersPage />} />
-    </Routes>
+    <div className='App'>
+      {/* <NetworksPage networks={networks} containers={containers} /> */}
+      <Routes>
+        <Route
+          path='/'
+          element={<NetworksPage networks={networks} containers={containers} />}
+        />
+        <Route path='/containers' element={<ContainersPage />} />
+      </Routes>
+    </div>
   );
 }

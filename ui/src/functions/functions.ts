@@ -219,6 +219,8 @@ const ConnectContainer = async (
 ): Promise<void> => {
   e.preventDefault();
   const ddClient = useDockerDesktopClient();
+  console.log('ip: ', ip);
+  console.log('alias: ', alias);
 
   //gets container info to check if network connection already exists
 
