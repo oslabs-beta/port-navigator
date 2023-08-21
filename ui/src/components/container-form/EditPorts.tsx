@@ -1,92 +1,79 @@
 import { ContainerInfo } from '../../interfaces/interfaces';
-import { useState, SyntheticEvent } from 'react';
+import { useState } from 'react';
+import Checkbox from './Checkbox';
 import { useAppStore } from '../../store';
 
-function EditPorts(props: { info: ContainerInfo; formClose: Function }) {
+function EditPorts(props: {
+  info: ContainerInfo;
+  portsClose: Function;
+  network: string;
+}) {
   //State used to record which network the user chooses
-  const [networkName, setnetworkName] = useState<string>('bridge');
-  const { ddClient, networks, incForce } = useAppStore(store => {
+  const { ddClient, incForce } = useAppStore(store => {
     return {
       ddClient: store.ddClient,
-      networks: store.networks,
       incForce: store.incForce,
     };
   });
+  const [newIp, setNewIp] = useState(
+    props.info.Ports ? props.info?.Ports.IP : '',
+  );
 
-  const ConnectContainer = async (
-    containerName: string,
-    networkName: string,
-    e: SyntheticEvent<EventTarget>,
-    alias?: string,
-    ip?: string,
-  ): Promise<void> => {
-    e.preventDefault();
-    console.log('ip: ', ip);
-    console.log('alias: ', alias);
+  const [newPublicPort, setNewPublicPort] = useState(
+    props.info.Ports ? props.info.Ports.PublicPort : '',
+  );
+  const [exposed, setExposed] = useState(false);
 
-    //gets container info to check if network connection already exists
+  const privatePort = props.info.Ports?.PrivatePort;
 
-    const result = await ddClient.docker.cli.exec('inspect', [containerName]);
-    const containerInfo: any = result.parseJsonObject();
+  const handleExposed = () => {
+    setExposed(!exposed);
+  };
 
-    // check if container is connected to none or host
-    if (containerInfo[0].NetworkSettings.Networks.none) {
-      await ddClient.docker.cli.exec('network disconnect', [
-        'none',
-        containerName,
-      ]);
-    }
-
-    //if network connection doesn't exist, make the connection
-    if (!containerInfo[0].NetworkSettings.Networks[networkName]) {
-      await ddClient.docker.cli.exec('network connect', [
-        networkName,
-        containerName,
-      ]);
-      //rerend networks with updated info
-      incForce();
-      //if connection already exists, display warning message
-    } else {
-      ddClient.desktopUI.toast.warning(
-        `Container ${containerName} is already assigned to the network ${networkName}!`,
+  const changePorts = async () => {
+    console.log('newIp: ', newIp);
+    console.log('newPrivatePort: ', privatePort);
+    console.log('newPublicPort: ', newPublicPort);
+    const commands = ['-d', `--name ${props.info.Name}`, props.info.Image];
+    if (newIp !== props.info.Ports?.IP)
+      commands.push(`--network ${props.network} --ip ${newIp}`);
+    if (exposed) commands.unshift(`--expose ${privatePort}`);
+    if (newPublicPort !== props.info.Ports?.PublicPort)
+      commands.unshift(
+        `-p ${newPublicPort}:${privatePort}/${props.info.Ports?.Type}`,
       );
-    }
+    await ddClient.docker.cli.exec('stop', [props.info.Name]);
+    await ddClient.docker.cli.exec('rm', [props.info.Name]);
+    await ddClient.docker.cli.exec('run', commands);
+    incForce();
   };
 
   return (
     <div className='form-container'>
-      <form
-        className='form'
-        // Invoking our function to connect container to network from an Event Listener
-        onSubmit={e => {
-          ConnectContainer(props.info.Name, networkName, e);
-          props.formClose();
+      <ul className='editPortInfo'>
+        {/* Display list of information from Ports*/}
+        <strong>IP: </strong>
+        <Checkbox state={newIp} setState={setNewIp} />
+        <hr />
+        <input type='checkbox' onChange={() => handleExposed()} />
+        <strong>Expose Private Port {privatePort}?</strong>
+        <hr />
+        <strong>Public Host Port: </strong>
+        <Checkbox state={newPublicPort} setState={setNewPublicPort} />
+        <hr />
+        <li>
+          <strong>Type: </strong>
+          <br /> {props.info.Ports ? props.info.Ports.Type : ''}
+        </li>
+      </ul>
+      <button
+        className='innerButton'
+        onClick={() => {
+          changePorts();
+          props.portsClose();
         }}>
-        {/* Container name */}
-        <span>
-          Connect <hr /> <span className='formLabel'>{props.info.Name}</span>{' '}
-          <hr /> Container to a Network:
-        </span>
-        <select
-          className='form-select'
-          value={networkName}
-          //   Recording the user input for network
-          onChange={e => {
-            setnetworkName(e.target.value);
-          }}>
-          {/* Iterating through all exisisting networks and displaying them as options for SELECT element */}
-          {networks.map(network =>
-            network.Name !== 'none' ? (
-              <option value={network.Name} key={network.Name}>
-                {network.Name}
-              </option>
-            ) : null,
-          )}
-        </select>
-        {/* <span> network?</span> */}
-
-        <button className='form-button'>Connect</button>
-      </form>
+        Submit
+      </button>
     </div>
   );
 }

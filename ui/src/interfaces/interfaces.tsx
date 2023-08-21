@@ -8,8 +8,8 @@ interface ContainerInfo {
 }
 interface PortItem {
   IP: string;
-  PrivatePort: number;
-  PublicPort: number;
+  PrivatePort: string;
+  PublicPort: string;
   Type: string;
 }
 

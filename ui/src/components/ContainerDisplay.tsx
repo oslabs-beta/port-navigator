@@ -99,7 +99,7 @@ const ContainerDisplay: React.FC<{
           <br /> {props.info.Ports.Type}{' '}
         </li>
         <li>
-          <button className='innerButton' onClick={() => setIsOpen(true)}>
+          <button className='innerButton' onClick={() => setEditPorts(true)}>
             Edit Ports
           </button>
 
@@ -107,7 +107,11 @@ const ContainerDisplay: React.FC<{
           {createPortal(
             <FormModal open={editPorts} onClose={portsClose}>
               {/* Calling Form component function as child of FormModal */}
-              <EditPorts info={props.info} portsClose={portsClose} />
+              <EditPorts
+                info={props.info}
+                portsClose={portsClose}
+                network={props.network}
+              />
             </FormModal>,
             document.body,
           )}
