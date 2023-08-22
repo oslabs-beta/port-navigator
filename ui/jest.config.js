@@ -9,4 +9,5 @@ module.exports = {
     '@docker/extension-api-client':
       '<rootDir>/__mocks__/@docker/extension-api-client.js',
   },
+  type:'module'
 };
