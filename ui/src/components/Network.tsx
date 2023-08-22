@@ -24,6 +24,8 @@ const Network = (props: {
     };
   });
 
+  console.log('testing');
+
   //removes an empty network when button is clicked
   const RemoveNetwork = async (e: BaseSyntheticEvent<any>): Promise<void> => {
     e.preventDefault();
