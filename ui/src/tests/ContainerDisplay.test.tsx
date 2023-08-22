@@ -3,7 +3,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ContainerDisplay from '../components/ContainerDisplay';
 
-
 jest.mock('@docker/extension-api-client', () => ({
   createDockerDesktopClient: jest.fn().mockReturnValue({
     docker: {
@@ -20,10 +19,6 @@ jest.mock('@docker/extension-api-client', () => ({
     },
   }),
 }));
-
-const ddClientMock = jest
-  .requireMock('@docker/extension-api-client')
-  .createDockerDesktopClient();
 
 describe('Container component unit tests', () => {
   beforeEach(() => {
@@ -81,11 +76,6 @@ describe('Container component unit tests', () => {
     const element = screen.queryByText(/PrivatePort/i);
 
     expect(element).not.toBeInTheDocument();
-
-    console.log(ddClientMock);
-    //   expect(ddClientMock.desktopUI.toast.error).toHaveBeenCalledWith(
-
-    //   )
   });
 
   test('renders the container display component with port information', () => {
@@ -134,5 +124,3 @@ describe('Container component unit tests', () => {
     expect(outputElement).not.toBeInTheDocument();
   });
 });
-
-
