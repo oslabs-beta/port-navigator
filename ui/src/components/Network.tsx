@@ -15,7 +15,7 @@ const Network = (props: {
   allNetworks: NetworkInfo[] | [];
 }) => {
   //importing ddClient & state for use in functions
-  const { ddClient, networks, setNetworks, incForce } = useAppStore(store => {
+  const { ddClient, networks, setNetworks, incForce } = useAppStore((store) => {
     return {
       ddClient: store.ddClient,
       networks: store.networks,
@@ -36,11 +36,11 @@ const Network = (props: {
       props.network.Name === 'none'
     ) {
       ddClient.desktopUI.toast.error(
-        `You can't delete the ${props.network.Name} network!`,
+        `You can't delete the ${props.network.Name} network!`
       );
     } else if (props.network.Containers?.length !== 0) {
       ddClient.desktopUI.toast.error(
-        `You can't delete a Network that has Containers attached to it!`,
+        `You can't delete a Network that has Containers attached to it!`
       );
     } else {
       //update name to read "Disconnecting...." until removal completes
@@ -99,14 +99,15 @@ const Network = (props: {
 
   let showContainersButton = (
     <button
-      className='innerButton'
+      className="innerButton"
       id={`${props.networkIndex}ShowHideNetworksButton`}
       onClick={() =>
         HideContainers(
           `${props.networkIndex}ContainersContainer`,
-          `${props.networkIndex}ShowHideNetworksButton`,
+          `${props.networkIndex}ShowHideNetworksButton`
         )
-      }>
+      }
+    >
       Show Containers
     </button>
   );
@@ -122,64 +123,70 @@ const Network = (props: {
   return (
     // a div containing the bridge name and the array displaying each container
     <div className={props.id ? `${props.id}` : 'userNetwork'}>
-      <div className='networkContainer'>
-        <div className='networkLabel'>
+      <div className="networkContainer">
+        <div className="networkLabel">
           <strong>Network: </strong>
           {networkName}
         </div>
-        <div className='networkInfo'>
-          <div className='Driver'>
+        <div className="networkInfo">
+          <div className="Driver">
             <strong>Driver: </strong>
             {props.network.Driver ? props.network.Driver : 'null'}
           </div>
-          <div className='Gateway'>
+          <div className="Gateway">
             <strong>Gateway: </strong>
             {props.network.Gateway ? props.network.Gateway : 'null'}
           </div>
-          <div className='Subnet'>
+          <div className="Subnet">
             <strong>Subnet: </strong>
             {props.network.Subnet ? props.network.Subnet : 'null'}
           </div>
         </div>
         <hr />
-        <div className='containerNetworkFeatures'>
-          <div className='connectedContainerContainer'>
-            <p className='connectedText'>
+        <div className="containerNetworkFeatures">
+          <div className="connectedContainerContainer">
+            <p className="connectedText">
               Connected
               <br />
               Containers
             </p>
-            <p className='divider'>|</p>
-            <p className='connectedCount'>{props.network.Containers?.length}</p>
+            <p className="divider">|</p>
+            <p className="connectedCount">{props.network.Containers?.length}</p>
           </div>
           {showContainersButton}
           <button
-            className='innerButton'
+            className="innerButton"
             id={`${props.networkIndex}ShowHideNetworksButton`}
-            onClick={() => setDisplayAddContainerForm(true)}>
+            onClick={() => setDisplayAddContainerForm(true)}
+          >
             Add Container
           </button>
           {createPortal(
             <FormModal
               open={displayAddContainerForm}
-              onClose={closeAddContainerForm}>
+              onClose={closeAddContainerForm}
+            >
               <AddContainer
                 network={props.network}
                 containerList={props.containers}
                 closeAddContainerForm={closeAddContainerForm}
               />
             </FormModal>,
-            document.body,
+            document.body
           )}
         </div>
-        <button className='deleteNetworkButton' onClick={e => RemoveNetwork(e)}>
+        <button
+          className="deleteNetworkButton"
+          onClick={(e) => RemoveNetwork(e)}
+        >
           x
         </button>
       </div>
       <div
         id={`${props.networkIndex}ContainersContainer`}
-        className='containersContainer'
-        style={{ display: 'none' }}>
+        className="containersContainer"
+        style={{ display: 'none' }}
+      >
         {networkContainerDisplay}
       </div>
     </div>
