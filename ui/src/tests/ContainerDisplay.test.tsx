@@ -10,7 +10,7 @@ test('renders the container display component with props', () => {
     Image: 'image',
     State: 'running',
     Networks: 'containerwatch_containerwatch-desktop-extension_default',
-    Ports: null,
+    Ports: [],
   };
 
   const networkInfo: NetworkInfo = {

@@ -75,32 +75,51 @@ const ContainerDisplay: React.FC<{
   if (!props.info.Ports) passedPorts = false;
 
   let portsUnorderedList = <div></div>;
+  const privatePortArray: string[] = [];
+  const publicPortArray: string[] = [];
+  const portType: Set<string> = new Set();
+  props.info.Ports.forEach(port => {
+    if (port.PublicPort)
+      publicPortArray.push(port.PublicPort + ':' + port.PrivatePort);
+    else if (port.PrivatePort) privatePortArray.push(port.PrivatePort);
+    if (port.Type) portType.add(port.Type);
+  });
+  let privatePortArrayStr = '';
+  privatePortArray.sort().forEach((port, i) => {
+    i === privatePortArray.length - 1
+      ? (privatePortArrayStr += port)
+      : (privatePortArrayStr += `${port}, `);
+  });
 
+  console.log('privatePortArray: ', privatePortArray);
+  console.log('publicPortArray: ', publicPortArray);
+  console.log('portType: ', portType);
   if (props.info.Ports)
     portsUnorderedList = (
       <ul className='portInfo'>
         {/* Display list of information from Ports*/}
         <li>
           <div>
-            <strong>Type: </strong> {props.info.Ports.Type}
+            <strong>Type: </strong> {portType}
           </div>
         </li>
+        <hr />
         <li>
           <strong>IPv4 Address: </strong>
-          <br />{' '}
+          <br />
           {props.network.IPv4Address
             ? props.network.IPv4Address[props.containerIndex]
-            : null}{' '}
+            : null}
         </li>
         <hr />
         <li>
-          <strong>Public Port: </strong>
-          <br /> {props.info.Ports.PublicPort}{' '}
+          <strong>Published Ports: </strong>
+          <br /> {publicPortArray}
         </li>
         <hr />
         <li>
-          <strong>Exposed Ports: </strong>
-          <br /> {props.info.Ports.PrivatePort}{' '}
+          <strong>Private Ports: </strong>
+          <br /> {privatePortArrayStr}
         </li>
         <hr />
         <li>
@@ -116,6 +135,9 @@ const ContainerDisplay: React.FC<{
                 info={props.info}
                 portsClose={portsClose}
                 network={props.network.Name}
+                publicPorts={publicPortArray}
+                privatePorts={privatePortArray}
+                portType={portType}
                 IPv4Address={
                   props.network.IPv4Address
                     ? props.network.IPv4Address[props.containerIndex]

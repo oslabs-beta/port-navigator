@@ -90,14 +90,7 @@ export default function App() {
           Image: el.Image,
           State: el.Status,
           Networks: el.HostConfig.NetworkMode,
-          Ports: el.Ports.length
-            ? {
-                IP: el.Ports[0].IP,
-                PrivatePort: el.Ports[0].PrivatePort,
-                PublicPort: el.Ports[0].PublicPort,
-                Type: el.Ports[0].Type,
-              }
-            : null,
+          Ports: [...el.Ports],
         };
         return newEl;
       });

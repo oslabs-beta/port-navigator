@@ -7,6 +7,9 @@ function EditPorts(props: {
   info: ContainerInfo;
   portsClose: Function;
   network: string;
+  publicPorts: string[];
+  privatePorts: string[];
+  portType: Set<string>;
   IPv4Address: string;
 }) {
   //State used to record which network the user chooses
@@ -18,12 +21,9 @@ function EditPorts(props: {
   });
   const [newIp, setNewIp] = useState(props.IPv4Address);
 
-  const [newPublicPort, setNewPublicPort] = useState(
-    props.info.Ports ? props.info.Ports.PublicPort : 'null',
-  );
+  const [newPublicPort, setNewPublicPort] = useState(props.publicPorts[0]);
   const [exposed, setExposed] = useState(false);
-
-  const privatePort = props.info.Ports?.PrivatePort;
+  const privatePort = props.privatePorts[0];
 
   const handleExposed = () => {
     setExposed(!exposed);
@@ -31,13 +31,11 @@ function EditPorts(props: {
 
   const changePorts = async () => {
     const commands = ['-d', `--name ${props.info.Name}`, props.info.Image];
-    if (newIp !== props.info.Ports?.IP)
+    if (newIp !== props.IPv4Address)
       commands.push(`--network ${props.network} --ip ${newIp}`);
     if (exposed) commands.unshift(`--expose ${privatePort}`);
     if (newPublicPort)
-      commands.unshift(
-        `-p ${newPublicPort}:${privatePort}/${props.info.Ports?.Type}`,
-      );
+      commands.unshift(`-p ${newPublicPort}:${privatePort}/${props.portType}`);
 
     await ddClient.docker.cli.exec('stop', [props.info.Name]);
     await ddClient.docker.cli.exec('rm', [props.info.Name]);
@@ -60,7 +58,7 @@ function EditPorts(props: {
         <hr />
         <li>
           <strong>Type: </strong>
-          <br /> {props.info.Ports ? props.info.Ports.Type : ''}
+          <br /> {props.portType}
         </li>
       </ul>
       <button
