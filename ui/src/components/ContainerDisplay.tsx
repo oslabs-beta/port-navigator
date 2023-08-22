@@ -1,7 +1,7 @@
 import React, { useState, useRef, BaseSyntheticEvent } from 'react';
 import { createPortal } from 'react-dom';
 
-import { ContainerInfo } from '../interfaces/interfaces';
+import { ContainerInfo, NetworkInfo } from '../interfaces/interfaces';
 import { useAppStore } from '../store';
 import FormModal from './container-form/FormModal';
 import ConnectContainer from './container-form/ConnectContainer';
@@ -11,7 +11,8 @@ import EditPorts from './container-form/EditPorts';
 const ContainerDisplay: React.FC<{
   id: string;
   info: ContainerInfo;
-  network: string;
+  network: NetworkInfo;
+  containerIndex: number;
 }> = props => {
   // State determining if our FormModal should be displayed or not
   const [isOpen, setIsOpen] = useState<Boolean>(false);
@@ -81,7 +82,10 @@ const ContainerDisplay: React.FC<{
         {/* Display list of information from Ports*/}
         <li>
           <strong>IP: </strong>
-          <br /> {props.info.Ports.IP}{' '}
+          <br />{' '}
+          {props.network.IPv4Address
+            ? props.network.IPv4Address[props.containerIndex]
+            : null}{' '}
         </li>
         <hr />
         <li>
@@ -110,7 +114,7 @@ const ContainerDisplay: React.FC<{
               <EditPorts
                 info={props.info}
                 portsClose={portsClose}
-                network={props.network}
+                network={props.network.Name}
               />
             </FormModal>,
             document.body,
@@ -155,11 +159,11 @@ const ContainerDisplay: React.FC<{
       <div className='footerContainer'>
         <hr className='lastHR' />
         <div className='containerButtons'>
-          {props.network !== 'none' ? (
+          {props.network.Name !== 'none' ? (
             <button
               className='innerButton'
               onClick={e =>
-                DisconnectContainer(props.info.Name, props.network, e)
+                DisconnectContainer(props.info.Name, props.network.Name, e)
               }>
               Disconnect
             </button>

@@ -408,9 +408,11 @@ docker network disconnect [OPTIONS] <network name> <container name>
  docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 --expose	Expose a port or a range of ports
 --ip		IPv4 address (e.g., 172.30.100.104)
+specify an ip address for the container you are connecting to
 --ip6		IPv6 address (e.g., 2001:db8::33)
 --name		Assign a name to the container
 --network		Connect a container to a network
 --network-alias		Add network-scoped alias for the container
 --publish , -p		Publish a container’s port(s) to the host
+publish and allow connection to host
 */

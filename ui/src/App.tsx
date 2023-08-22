@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import type { ContainerInfo, NetworkInfo } from './interfaces/interfaces';
+import { NetworkContainerInfo } from './interfaces/interfaces';
 
 import NetworksPage from './pages/NetworksPage';
 import ContainersPage from './pages/ContainersPage';
@@ -47,18 +48,20 @@ export default function App() {
         `network inspect ${newNetworks[i].Name}`,
         ['--format', '"{{json .}}"'],
       );
-
       //parsing additional info
       const moreInfo = result.parseJsonLines()[0];
+      console.log('moreInfo: ', moreInfo);
       //grabbing container names and adding into array
-      const networkContainers: NetworkInfo[] = Object.values(
+      const networkContainers: NetworkContainerInfo[] = Object.values(
         moreInfo.Containers,
       );
       const containerNames = networkContainers.map(el => el.Name);
+      const containerIp = networkContainers.map(el => el.IPv4Address);
       //adding aditional info to network object
       const newNetwork: NetworkInfo = {
         ...newNetworks[i],
         Containers: containerNames,
+        IPv4Address: containerIp,
         Gateway: moreInfo.IPAM.Config.length
           ? moreInfo.IPAM.Config[0].Gateway
           : null,

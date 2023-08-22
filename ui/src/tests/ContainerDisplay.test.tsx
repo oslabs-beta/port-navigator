@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ContainerDisplay from '../components/ContainerDisplay';
-import { ContainerInfo } from '../interfaces/interfaces';
+import { ContainerInfo, NetworkInfo } from '../interfaces/interfaces';
 
 test('renders the container display component with props', () => {
   const containerInfo: ContainerInfo = {
@@ -13,11 +13,19 @@ test('renders the container display component with props', () => {
     Ports: null,
   };
 
+  const networkInfo: NetworkInfo = {
+    Driver: 'bridge',
+    Name: 'bridge',
+    ID: '1234',
+    Containers: [containerInfo.Name],
+  };
+
   render(
     <ContainerDisplay
       id={containerInfo.Id}
       info={containerInfo}
-      network='bridge'
+      network={networkInfo}
+      containerIndex={1}
     />,
   );
 

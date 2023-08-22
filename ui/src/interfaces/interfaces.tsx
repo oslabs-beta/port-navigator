@@ -6,6 +6,12 @@ interface ContainerInfo {
   Networks: string | [string];
   Ports: PortItem | null;
 }
+
+interface NetworkContainerInfo {
+  Name: string;
+  IPv4Address: string;
+}
+
 interface PortItem {
   IP: string;
   PrivatePort: string;
@@ -18,6 +24,7 @@ interface NetworkInfo {
   Name: string;
   ID: string;
   Containers?: string[];
+  IPv4Address?: string[];
   Gateway?: string;
   Subnet?: string;
   Scope?: string;
@@ -33,4 +40,5 @@ export type {
   NetworkInfo,
   setNetworks,
   setContainers,
+  NetworkContainerInfo,
 };

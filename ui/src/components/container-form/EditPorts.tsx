@@ -16,11 +16,11 @@ function EditPorts(props: {
     };
   });
   const [newIp, setNewIp] = useState(
-    props.info.Ports ? props.info?.Ports.IP : '',
+    props.info.Ports ? props.info?.Ports.IP : 'null',
   );
 
   const [newPublicPort, setNewPublicPort] = useState(
-    props.info.Ports ? props.info.Ports.PublicPort : '',
+    props.info.Ports ? props.info.Ports.PublicPort : 'null',
   );
   const [exposed, setExposed] = useState(false);
 
@@ -31,17 +31,15 @@ function EditPorts(props: {
   };
 
   const changePorts = async () => {
-    console.log('newIp: ', newIp);
-    console.log('newPrivatePort: ', privatePort);
-    console.log('newPublicPort: ', newPublicPort);
     const commands = ['-d', `--name ${props.info.Name}`, props.info.Image];
     if (newIp !== props.info.Ports?.IP)
       commands.push(`--network ${props.network} --ip ${newIp}`);
     if (exposed) commands.unshift(`--expose ${privatePort}`);
-    if (newPublicPort !== props.info.Ports?.PublicPort)
+    if (newPublicPort)
       commands.unshift(
         `-p ${newPublicPort}:${privatePort}/${props.info.Ports?.Type}`,
       );
+
     await ddClient.docker.cli.exec('stop', [props.info.Name]);
     await ddClient.docker.cli.exec('rm', [props.info.Name]);
     await ddClient.docker.cli.exec('run', commands);
