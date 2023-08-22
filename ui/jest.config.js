@@ -5,5 +5,8 @@ module.exports = {
     '^.+\\.tsx?$': 'ts-jest',
   },
   testEnvironment: 'jsdom',
-
+  moduleNameMapper: {
+    '@docker/extension-api-client':
+      '<rootDir>/__mocks__/@docker/extension-api-client.js',
+  },
 };
