@@ -20,10 +20,6 @@ jest.mock('@docker/extension-api-client', () => ({
   }),
 }));
 
-const ddClientMock = jest
-  .requireMock('@docker/extension-api-client')
-  .createDockerDesktopClient();
-
 describe('Container component unit tests', () => {
   beforeEach(() => {
     jest.clearAllMocks();
