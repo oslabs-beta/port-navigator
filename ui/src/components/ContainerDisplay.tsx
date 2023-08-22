@@ -74,7 +74,6 @@ const ContainerDisplay: React.FC<{
   let passedPorts = true;
   if (!props.info.Ports) passedPorts = false;
 
-  let portsUnorderedList = <div></div>;
   const privatePortArray: string[] = [];
   const publicPortArray: string[] = [];
   const portType: Set<string> = new Set();
@@ -90,66 +89,6 @@ const ContainerDisplay: React.FC<{
       ? (privatePortArrayStr += port)
       : (privatePortArrayStr += `${port}, `);
   });
-
-  console.log('privatePortArray: ', privatePortArray);
-  console.log('publicPortArray: ', publicPortArray);
-  console.log('portType: ', portType);
-  if (props.info.Ports)
-    portsUnorderedList = (
-      <ul className='portInfo'>
-        {/* Display list of information from Ports*/}
-        <li>
-          <div>
-            <strong>Type: </strong> {portType}
-          </div>
-        </li>
-        <hr />
-        <li>
-          <strong>IPv4 Address: </strong>
-          <br />
-          {props.network.IPv4Address
-            ? props.network.IPv4Address[props.containerIndex]
-            : null}
-        </li>
-        <hr />
-        <li>
-          <strong>Published Ports: </strong>
-          <br /> {publicPortArray}
-        </li>
-        <hr />
-        <li>
-          <strong>Private Ports: </strong>
-          <br /> {privatePortArrayStr}
-        </li>
-        <hr />
-        <li>
-          <button className='innerButton' onClick={() => setEditPorts(true)}>
-            Edit Ports
-          </button>
-
-          {/* Display for form modal */}
-          {createPortal(
-            <FormModal open={editPorts} onClose={portsClose}>
-              {/* Calling Form component function as child of FormModal */}
-              <EditPorts
-                info={props.info}
-                portsClose={portsClose}
-                network={props.network.Name}
-                publicPorts={publicPortArray}
-                privatePorts={privatePortArray}
-                portType={portType}
-                IPv4Address={
-                  props.network.IPv4Address
-                    ? props.network.IPv4Address[props.containerIndex]
-                    : 'null'
-                }
-              />
-            </FormModal>,
-            document.body,
-          )}
-        </li>
-      </ul>
-    );
 
   return (
     <div id={props.id} className='container' ref={container}>
@@ -182,7 +121,62 @@ const ContainerDisplay: React.FC<{
             <br /> {props.info.State}
           </p>
         </div>
-        {portsUnorderedList}
+        <ul className='portInfo'>
+          {/* Display list of information from Ports*/}
+          <li>
+            <strong>IPv4Address: </strong>
+            <br />
+            {props.network.IPv4Address ? (
+              props.network.IPv4Address[props.containerIndex]
+            ) : (
+              <em>none</em>
+            )}
+          </li>
+          <hr />
+          <li>
+            <div>
+              <strong>Type: </strong> {portType}
+            </div>
+          </li>
+          <hr />
+          <li>
+            <strong>Published Ports: </strong>
+            <br /> {publicPortArray.length ? publicPortArray : <em>none</em>}
+          </li>
+          <hr />
+          <li>
+            <strong>Private Ports: </strong>
+            <br />
+            {privatePortArrayStr.length ? privatePortArrayStr : <em>none</em>}
+          </li>
+          <hr />
+          <li>
+            <button className='innerButton' onClick={() => setEditPorts(true)}>
+              Edit Ports
+            </button>
+
+            {/* Display for form modal */}
+            {createPortal(
+              <FormModal open={editPorts} onClose={portsClose}>
+                {/* Calling Form component function as child of FormModal */}
+                <EditPorts
+                  info={props.info}
+                  portsClose={portsClose}
+                  network={props.network.Name}
+                  publicPorts={publicPortArray}
+                  privatePorts={privatePortArray}
+                  portType={portType}
+                  IPv4Address={
+                    props.network.IPv4Address
+                      ? props.network.IPv4Address[props.containerIndex]
+                      : 'null'
+                  }
+                />
+              </FormModal>,
+              document.body,
+            )}
+          </li>
+        </ul>
       </div>
       <div className='footerContainer'>
         <hr className='lastHR' />
