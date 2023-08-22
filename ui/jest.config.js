@@ -6,7 +6,7 @@ module.exports = {
   },
   testEnvironment: 'jsdom',
   moduleNameMapper: {
-    'docker/extension-api-client':
-      '<rootDir>/_mocks_/@docker/extension-api-client.js',
+    '@docker/extension-api-client':
+      '<rootDir>/__mocks__/@docker/extension-api-client.js',
   },
 };
