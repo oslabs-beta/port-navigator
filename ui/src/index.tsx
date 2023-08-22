@@ -15,5 +15,5 @@ ReactDOM.render(
       </HashRouter>
     </DockerMuiThemeProvider>
   </React.StrictMode>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );

@@ -127,6 +127,7 @@ const Network = (props: {
           <strong>Network: </strong>
           {networkName}
         </div>
+        <hr className='hrNet' />
         <div className='networkInfo'>
           <div className='Driver'>
             <strong>Driver: </strong>
