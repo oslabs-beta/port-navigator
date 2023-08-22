@@ -50,7 +50,6 @@ export default function App() {
       );
       //parsing additional info
       const moreInfo = result.parseJsonLines()[0];
-      console.log('moreInfo: ', moreInfo);
       //grabbing container names and adding into array
       const networkContainers: NetworkContainerInfo[] = Object.values(
         moreInfo.Containers,

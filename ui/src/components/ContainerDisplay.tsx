@@ -81,7 +81,12 @@ const ContainerDisplay: React.FC<{
       <ul className='portInfo'>
         {/* Display list of information from Ports*/}
         <li>
-          <strong>IP: </strong>
+          <div>
+            <strong>Type: </strong> {props.info.Ports.Type}
+          </div>
+        </li>
+        <li>
+          <strong>IPv4 Address: </strong>
           <br />{' '}
           {props.network.IPv4Address
             ? props.network.IPv4Address[props.containerIndex]
@@ -89,19 +94,15 @@ const ContainerDisplay: React.FC<{
         </li>
         <hr />
         <li>
-          <strong>PrivatePort: </strong>
-          <br /> {props.info.Ports.PrivatePort}{' '}
-        </li>
-        <hr />
-        <li>
-          <strong>PublicPort: </strong>
+          <strong>Public Port: </strong>
           <br /> {props.info.Ports.PublicPort}{' '}
         </li>
         <hr />
         <li>
-          <strong>Type: </strong>
-          <br /> {props.info.Ports.Type}{' '}
+          <strong>Exposed Ports: </strong>
+          <br /> {props.info.Ports.PrivatePort}{' '}
         </li>
+        <hr />
         <li>
           <button className='innerButton' onClick={() => setEditPorts(true)}>
             Edit Ports
@@ -115,6 +116,11 @@ const ContainerDisplay: React.FC<{
                 info={props.info}
                 portsClose={portsClose}
                 network={props.network.Name}
+                IPv4Address={
+                  props.network.IPv4Address
+                    ? props.network.IPv4Address[props.containerIndex]
+                    : 'null'
+                }
               />
             </FormModal>,
             document.body,

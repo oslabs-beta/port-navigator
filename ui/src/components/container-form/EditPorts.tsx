@@ -7,6 +7,7 @@ function EditPorts(props: {
   info: ContainerInfo;
   portsClose: Function;
   network: string;
+  IPv4Address: string;
 }) {
   //State used to record which network the user chooses
   const { ddClient, incForce } = useAppStore(store => {
@@ -15,9 +16,7 @@ function EditPorts(props: {
       incForce: store.incForce,
     };
   });
-  const [newIp, setNewIp] = useState(
-    props.info.Ports ? props.info?.Ports.IP : 'null',
-  );
+  const [newIp, setNewIp] = useState(props.IPv4Address);
 
   const [newPublicPort, setNewPublicPort] = useState(
     props.info.Ports ? props.info.Ports.PublicPort : 'null',
@@ -50,11 +49,11 @@ function EditPorts(props: {
     <div className='form-container'>
       <ul className='editPortInfo'>
         {/* Display list of information from Ports*/}
-        <strong>IP: </strong>
+        <strong>IPv4 Address: </strong>
         <Checkbox state={newIp} setState={setNewIp} />
         <hr />
         <input type='checkbox' onChange={() => handleExposed()} />
-        <strong>Expose Private Port {privatePort}?</strong>
+        <strong>Exposed Container Ports: {privatePort}?</strong>
         <hr />
         <strong>Public Host Port: </strong>
         <Checkbox state={newPublicPort} setState={setNewPublicPort} />
