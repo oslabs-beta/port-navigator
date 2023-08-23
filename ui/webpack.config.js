@@ -35,13 +35,7 @@ module.exports = {
         exclude: [/node_modules/],
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
-      { 
-        test: /\\.(png|jp(e*)g|svg|gif)$/, 
-        type: 'asset/resource',
-        generator: {
-          filename: 'images/[name]-[hash][ext]'
-        },
-      },
+      { test: /\.(png|jp(e*)g|svg|gif)$/, use: ['file-loader'] },
     ],
   },
   plugins: [

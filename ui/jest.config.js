@@ -8,6 +8,7 @@ module.exports = {
   moduleNameMapper: {
     '@docker/extension-api-client':
       '<rootDir>/__mocks__/@docker/extension-api-client.js',
+    '\\.(css|scss|png|jpg|svg)$': '<rootDir>/__mocks__/image.js',
   },
-  modulePathIgnorePatterns: ['<rootDir>/dist/']
+  modulePathIgnorePatterns: ['<rootDir>/dist/'],
 };
