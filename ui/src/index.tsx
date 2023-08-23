@@ -10,7 +10,7 @@ ReactDOM.render(
   <React.StrictMode>
     <DockerMuiThemeProvider>
       <CssBaseline />
-      <HashRouter basename=''>
+      <HashRouter>
         <App />
       </HashRouter>
     </DockerMuiThemeProvider>

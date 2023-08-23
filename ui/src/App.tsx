@@ -112,8 +112,8 @@ export default function App() {
   }, [force]);
 
   return (
+        // <NetworksPage networks={networks} containers={containers} />
     <div className='App'>
-      {/* <NetworksPage networks={networks} containers={containers} /> */}
       <Routes>
         <Route
           path='/'
