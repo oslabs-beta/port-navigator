@@ -11,6 +11,7 @@ const NetworksPage = (props: {
   containers: ContainerInfo[] | [];
 }) => {
   const nav = useNavigate();
+  console.log('nav', nav);
   const networkEl: JSX.Element[] = [];
   const hostNone: JSX.Element[] = [];
   const defaultBridge: JSX.Element[] = [];
@@ -60,32 +61,34 @@ const NetworksPage = (props: {
   networkEl.unshift(...defaultBridge);
 
   return (
-    <div className='mainContainer'>
-      <div className='buttonContainer'>
+    <div className="mainContainer">
+      <div className="buttonContainer">
         <button
-          className='button'
-          title='Containers'
-          onClick={() => nav('containers')}>
-          Containers
+          className="button"
+          title="Containers"
+          onClick={() => nav('containers')}
+        >
+          Visualizer
         </button>
       </div>
-      <div className='addNetworkButtonContainer'>
+      <div className="addNetworkButtonContainer">
         <button
-          className='addNetworkButton'
-          onClick={() => setDisplayAddNetworkForm(true)}>
+          className="addNetworkButton"
+          onClick={() => setDisplayAddNetworkForm(true)}
+        >
           Add Network
         </button>
         {createPortal(
           <FormModal open={displayAddNetworkForm} onClose={closeAddNetworkForm}>
             <NetworkForm closeAddNetworkForm={closeAddNetworkForm} />
           </FormModal>,
-          document.body,
+          document.body
         )}
       </div>
-      <div className='hostContainer'>
+      <div className="hostContainer">
         <h1>Host</h1>
       </div>
-      <div className='networksContainer'>{networkEl}</div>
+      <div className="networksContainer">{networkEl}</div>
     </div>
   );
 };
