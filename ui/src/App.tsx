@@ -6,6 +6,7 @@ import NetworksPage from './pages/NetworksPage';
 import VisualizerPage from './pages/VisualizerPage';
 import SankeyPage from './pages/SankeyPage';
 import ArcPage from './pages/ArcPage';
+import ForcePage from './pages/ForcePage';
 import { useAppStore } from './store';
 
 export default function App() {
@@ -120,6 +121,7 @@ export default function App() {
     <Route index element={<SankeyPage networks={networks} containers={containers} />} />
     <Route path='Sankey' element={<SankeyPage networks={networks} containers={containers} />} />
     <Route path='Arc' element={<ArcPage networks={networks} containers={containers} />} />
+    <Route path='Force' element={<ForcePage networks={networks} containers={containers} />} />
   </Route>
 </Routes>
     </div>

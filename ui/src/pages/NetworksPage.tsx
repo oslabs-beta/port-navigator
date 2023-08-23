@@ -70,12 +70,6 @@ const NetworksPage = (props: {
         </button>
       </div>
       <div className="addNetworkButtonContainer">
-        <button
-          className="addNetworkButton"
-          onClick={() => setDisplayAddNetworkForm(true)}
-        >
-          Add Network
-        </button>
         {createPortal(
           <FormModal open={displayAddNetworkForm} onClose={closeAddNetworkForm}>
             <NetworkForm closeAddNetworkForm={closeAddNetworkForm} />
@@ -86,6 +80,12 @@ const NetworksPage = (props: {
       <div className='hostContainer'>
         <img className='comp' src={'https://res.cloudinary.com/dbinuhocd/image/upload/v1692796941/computer-icon_zns1lr.png'} alt="computer-icon" />
       </div>
+        <button
+          className="addNetworkButton"
+          onClick={() => setDisplayAddNetworkForm(true)}
+        >
+          Add Network
+        </button>
       <div className="networksContainer">{networkEl}</div>
     </div>
   );

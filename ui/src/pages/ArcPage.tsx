@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
 import { ContainerInfo, NetworkInfo, graphData } from '../interfaces/interfaces';
 import { useAppStore } from '../store';
 
@@ -12,7 +11,7 @@ const ArcPage = (props: {
   networks: NetworkInfo[] | [];
   containers: ContainerInfo[] | [];
 }) => {
-  // const nav = useNavigate();
+
   const location = useLocation();
 
   const { ddClient } = useAppStore(store => {
@@ -33,17 +32,11 @@ const ArcPage = (props: {
   
   // Create series
   const series2 = root2.container.children.push(
-    am5flow.Sankey.new(root2, {
+    am5flow.ArcDiagram.new(root2, {
       sourceIdField: "from",
       targetIdField: "to",
       valueField: "value",
-      nodeWidth: 30,
-      orientation: "vertical",
-      nodeAlign: "center",
-      maskContent: true,
-      opacity: 1,
-      linkTension: 0.4
-      // nodePadding: 25,
+      orientation: "horizontal",
 
     })
   );
@@ -64,10 +57,7 @@ const ArcPage = (props: {
     getTrafficInfo();
 
     const graphData: graphData = [];
-    /*
-    props.networks.name;
-    props.networks.Containers (an array of strings)
-    */
+
    props.networks.forEach(network => {
      if (network.Containers?.length) {
        network.Containers.forEach(container => graphData.push( { from: network.Name, to: container, value: 3 } ) )
@@ -78,42 +68,26 @@ const ArcPage = (props: {
 
   // Set data
   series2.data.setAll(graphData);
-  
-  
-  series2.nodes.rectangles.template.setAll({
-    fillOpacity: 1,
-    stroke: am5.color(0x000000),
-    strokeWidth: 1,
-    cornerRadiusTL: 4,
-    cornerRadiusTR: 4,
-    cornerRadiusBL: 4,
-    cornerRadiusBR: 4,
-    tooltipY: am5.percent(-25),
-    tooltipText: '{name}',
-    
-  });
-  
-
 
   series2.nodes.labels.template.setAll({
-    x: am5.percent(50),
-    centerX: am5.percent(50),
-    centerY: am5.percent(18),
-    textAlign: "center",
     fill: am5.color(0xffffff),
+    rotation: 90,
+    centerX: am5.percent(2),
     fontWeight: "600",
     oversizedBehavior: "truncate",
-    maxWidth: 75,
-    scale: 0.85,
+    maxHeight: 154,
+    shadowColor: am5.color(0x000000),
+    shadowBlur: 5,
+    shadowOffsetX: -2,
+    shadowOffsetY: 2
+  });
 
-  });  
-
-  
   series2.links.template.setAll({
-    tooltipText: '{to}',
-    tooltipY: am5.percent(55),
-    controlPointDistance: 0.15,
-  })
+    strokeStyle: "gradient",
+    strokeWidth: 3,
+    strokeOpacity: 0.6,
+  });
+
 
   //remove logo
   root2._logo?.dispose();

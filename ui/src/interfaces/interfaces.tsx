@@ -23,6 +23,13 @@ interface NetworkInfo {
   Scope?: string;
 }
 
+
+interface forceProps {
+  name: string;
+  value?: number;
+  children?: forceProps[];
+}
+
 interface nodeData {
   from: string;
   to: string;
@@ -41,5 +48,6 @@ export type {
   NetworkInfo,
   setNetworks,
   setContainers,
-  graphData
+  graphData,
+  forceProps
 };
