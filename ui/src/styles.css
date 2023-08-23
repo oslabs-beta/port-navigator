@@ -181,6 +181,27 @@ body {
   border-radius: 14px;
 }
 
+.publishedPortsDiv {
+  display: flex;
+}
+
+.publicPort {
+  padding-bottom: 3px;
+  width: 20px;
+  height: 20px;
+  font-weight: bolder;
+  background: linear-gradient(
+    to top left,
+    rgb(220, 234, 234),
+    rgb(190, 209, 209),
+    rgb(137, 170, 170)
+  );
+  border: solid 0.07rem rgb(255, 255, 255);
+  border-bottom: none;
+  border-right: none;
+  border-radius: 14px;
+}
+
 .deleteNetworkButton:hover {
   cursor: pointer;
   padding: 0 1px 2px 0;
