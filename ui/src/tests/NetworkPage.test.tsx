@@ -79,7 +79,7 @@ describe('NetworkPage unit tests', () => {
         Image: 'containertest',
         State: 'running',
         Networks: 'none',
-        Ports: null,
+        Ports: [],
       },
     ];
     const noUserCreatedNetworksProps = {
@@ -107,7 +107,7 @@ describe('NetworkPage unit tests', () => {
           Image: 'portNavigator',
           Name: 'Port Navigator',
           Networks: 'Test Network',
-          Ports: null,
+          Ports: [],
           State: 'Test',
         },
       ],
@@ -203,7 +203,7 @@ describe('NetworkPage unit tests', () => {
       const addNetworkFormCloseButtonArray = screen.queryAllByText(/x/);
       fireEvent.click(addNetworkFormCloseButtonArray[3]);
       const addNetworkFormText = screen.queryByText(
-        'Advanced network settings'
+        'Advanced network settings',
       );
       expect(addNetworkFormText).toBeNull();
     });

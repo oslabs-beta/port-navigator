@@ -136,7 +136,7 @@ const ContainerDisplay: React.FC<{
             {props.network.IPv4Address ? (
               props.network.IPv4Address[props.containerIndex]
             ) : (
-              <em>none</em>
+              <em>null</em>
             )}
           </li>
           <hr />
@@ -149,13 +149,13 @@ const ContainerDisplay: React.FC<{
           <li>
             <strong>Published Ports: </strong>
             <br />
-            {publicPortArrayStr.length ? publicPortArrayStr : <em>none</em>}
+            {publicPortArrayStr.length ? publicPortArrayStr : <em>null</em>}
           </li>
           <hr />
           <li>
             <strong>Private Ports: </strong>
             <br />
-            {privatePortArrayStr.length ? privatePortArrayStr : <em>none</em>}
+            {privatePortArrayStr.length ? privatePortArrayStr : <em>null</em>}
           </li>
           <hr />
           <li>
