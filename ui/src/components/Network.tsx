@@ -14,6 +14,7 @@ const Network = (props: {
   id?: String;
   allNetworks: NetworkInfo[] | [];
 }) => {
+  
   //importing ddClient & state for use in functions
   const { ddClient, networks, setNetworks, incForce } = useAppStore(store => {
     return {
