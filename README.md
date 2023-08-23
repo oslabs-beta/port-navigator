@@ -2,6 +2,8 @@
 
 # PortNavigator
 
+### A Docker Desktop Networking Tool
+
 <br />
 <div align="center">
   <a href="https://github.com/oslabs-beta/port-navigator">
@@ -11,8 +13,6 @@
   <a href="https://PortNavigator.net/">Website</a>
 <br/>
 </div>
-
-A Docker networking management and visualization tool to configure and maintain Docker container network settings.
 
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
@@ -34,16 +34,14 @@ A Docker networking management and visualization tool to configure and maintain 
 
 # About PortNavigator
 
-Tired of struggling with complex Docker network configurations? Meet Port Navigator, your stress-free solution for effortlessly managing container
+<!-- Tired of struggling with complex Docker network configurations? Meet Port Navigator, your stress-free solution for effortlessly managing container
 communication through our user-friendly GUI.
 
-Upon installation, our (extension? application?) provides an instant snapshot of all available networks and their associated containers. Connecting and disconnecting containers from networks is as easy as a few clicks. Need a new network? With Port Navigator, network management tasks such as adding, deleting, and configuration are all simplified within our (extension? application?). No more relying on command line interactions, we've included everything you need to maintain your (network?container?) infrastructure efficiently.We also included a built-in visualization tool that provides a clear, bird's-eye view of your (container? netowrk? )ecosystem.
+PortNavigator provides an instant snapshot of all available networks and their associated containers. Connecting and disconnecting containers from networks is as easy as a few clicks. Need a new network? With Port Navigator, network management tasks such as adding, deleting, and configuration are all simplified within our (extension? application?). No more relying on command line interactions, we've included everything you need to maintain your (network?container?) infrastructure efficiently.We also included a built-in visualization tool that provides a clear, bird's-eye view of your (container? netowrk? )ecosystem. -->
 
-<!-- Possible revision to a more formal tone? -->
+[![Typescript][Typescript]][Typescript-url][![Docker][Docker]][Docker-url][![JavaScript][JavaScript]][JavaScript-url][![React][React.js]][React-url][![Nodejs][Nodejs]][Nodejs-url][![Jest][Jest]][Jest-url][![Webpack][Webpack]][Webpack-url][![Github Actions][Github-Actions]][Github-Actions-url][![NPM][NPM]][NPM-url][![Zustand][Zustand]][Zustand-url][![amCharts5][amCharts5]][amCHarts5-url][![React-Testing-Library][React-Testing-Library]][React-Testing-Library-url]
 
-Port Navigator is a Docker Desktop extension for container networking. Using PortNavigator, you can add user-created bridge networks, delete networks, connect/disconnect containers, and manage ports directly through the user interface. We also use amcharts to provide the ability to visualize networks and containers.
-
-[![Docker][Docker]][Docker-url][![Typescript][Typescript]][Typescript-url][![JavaScript][JavaScript]][JavaScript-url][![React][React.js]][React-url][![Nodejs][Nodejs]][Nodejs-url][![Jest][Jest]][Jest-url][![Webpack][Webpack]][Webpack-url][![Github Actions][Github-Actions]][Github-Actions-url][![Zustand][Zustand]][Zustand-url][![NPM][NPM]][NPM-url][![amCharts5][amCharts5]][amCHarts5-url][![React-Testing-Library][React-Testing-Library]][React-Testing-Library-url]
+PortNavigator supports users with Docker networking configurations through a Docker Desktop GUI that enables modification of gateways, subnets, IP addresses, and container port mappings. The GUI also minimizes the need for command line interactions and provides visualizations of existing networks and containers.
 
 <!-- -------- Features --------- -->
 
@@ -58,39 +56,29 @@ Port Navigator is a Docker Desktop extension for container networking. Using Por
 
 ### Container Networking Visuals
 
-View your networks and their attached containers through the network management GUI, or visualize your networks and containers in an Arc or Sankey display.
+View your networks and their attached containers through the network management GUI, or visualize your networks and containers in an Arc, Force, or Sankey display.
 
-<!-- TODO: Add a screenshot here of networks page and both visualizer options -->
+<!-- TODO: Add a gif here of networks page and both visualizer options -->
 
-### Create new networks
+### Create & remove networks
 
-Add user-created bridge networks for your containers directly from the user interface.
+Add user-created bridge networks for your containers directly from the user interface and remove any unused networks.
 
-<!-- TODO: Add a screenshot of add network form here -->
+<!-- TODO: Add a gif of add network form & disconnecting a network here -->
 
-### Connect containers to networks
+### Connect & disconnect containers to networks
 
-Connect your containers to the default bridge network, the default host network, or your user-created bridge networks.
+Connect your containers to any default or user-created network configurations and disconnect containers from any network.
 
-<!-- TODO:  Add screenshots of add container and connect container forms here -->
+<!-- TODO:  Add a gif of add container and connect container forms here as well as disconnecting a network-->
 
-### View disconnected containers
+### Adjust port exposure
 
-Identify which containers are not currently connected to a network.
-
-<!-- TODO:  Add a screenshot of the none network here -->
-
-### Adjust port exposures
-
-View published and private ports on containers and adjust which ports are published.
+View published and private ports on containers and configure which ports are published.
 
 <!-- TODO:  Add screenshot of ports form -->
 
-<!-- -------- Instructions Section --------- -->
-
 # Installation Instructions
-
-<!-- There are two ways to install PortNavigator, both of which are explained below. -->
 
 ### Installation through the Docker Desktop Extension Marketplace (Recommended)
 
@@ -109,17 +97,14 @@ You can also install PortNavigator directly through the command line. To install
 2. Install the <a href="https://www.docker.com/products/docker-desktop/"><span>Docker Destkop Client</span></a>
 3. Build the extension image
 
-<!-- TO DO:  change the commands to not include ctri17g? -->
-
 ```
-docker build --tag=ctri17g/port-navigator:latest .
+docker build --tag=port-navigator/port-navigator:latest .
 ```
 
 4. Install the extension
-<!-- TO DO:  change the commands to not include ctri17g? -->
 
 ```
-docker extension install ctri17g/port-navigator:latest
+docker extension install port-navigator/port-navigator:latest
 ```
 
 # Contributing
@@ -154,18 +139,14 @@ git push origin <Branch Name>
 
 ### Update the extension
 
-<!-- TO DO:  change the commands to not include ctri17g? -->
-
 ```
-docker extension update ctri17g/port-navigator:latest
+docker extension update port-navigator/port-navigator:latest
 ```
 
 ### Enable Chrome dev tools
 
-<!-- TO DO:  change the commands to not include ctri17g? -->
-
 ```
-docker extension dev debug ctri17g/port-navigator
+docker extension dev debug port-navigator/port-navigator
 ```
 
 ### Enable hot reloading
@@ -179,10 +160,9 @@ npm start
 ```
 
 3.  In a separate terminal, execute in command line
-<!-- TO DO:  change the commands to not include ctri17g? -->
 
 ```
-docker extension dev ui-source ctri17g/port-navigator http://localhost:3000
+docker extension dev ui-source port-navigator/port-navigator http://localhost:3000
 
 ```
 
@@ -222,19 +202,19 @@ This project is licensed under the terms of the [MIT LICENSE](LICENSE).
 [Typescript-url]: https://www.typescriptlang.org/
 [Docker]: https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white
 [Docker-url]: https://www.docker.com/
-[React-Testing-Library]: https://img.shields.io/badge/ReactTestingLibrary-%23b45309
+[React-Testing-Library]: https://img.shields.io/badge/React%20Testing%20Library-%23d97706?style=for-the-badge&logo=reacttestinglibrary&logoColor=white
 [React-Testing-Library-url]: https://github.com/testing-library/react-testing-library
-[Jest]: https://img.shields.io/badge/Jest-%23d97706?style=for-the-badge&logo=Jest
+[Jest]: https://img.shields.io/badge/Jest-%23eab308?style=for-the-badge&logo=jest
 [Jest-url]: https://jestjs.io/docs/getting-started
-[amCharts5]: https://img.shields.io/badge/amCharts5-%23f472b6
+[amCharts5]: https://img.shields.io/badge/amChart%205-%23f472b6?style=for-the-badge&logo=amChart
 [amCharts5-url]: https://www.amcharts.com/docs/v5/
-[NPM]: https://img.shields.io/badge/NPM-%233f6212
+[NPM]: https://img.shields.io/badge/NPM-%23365314?style=for-the-badge&logo=npm
 [NPM-url]: https://docs.npmjs.com/about-npm
 [Webpack]: https://img.shields.io/badge/Webpack-%2364748b?style=for-the-badge&logo=Webpack
 [Webpack-url]: https://webpack.js.org/
 [Github-Actions]: https://img.shields.io/badge/GithubActions-%23581c87?style=for-the-badge&logo=GithubActions
 [Github-Actions-url]: https://docs.github.com/en/actions
-[Zustand]: https://img.shields.io/badge/Zustand-%231717a?style=for-the-badge&logo=Zustand
+[Zustand]: https://img.shields.io/badge/Zustand-%2378716c?style=for-the-badge&logo=zustand
 [Zustand-url]: https://www.npmjs.com/package/zustand
 [Nodejs]: https://img.shields.io/badge/Nodejs-%252523fed7aa?style=for-the-badge&logo=Node.js
 [Nodejs-url]: https://nodejs.org/en/docs
