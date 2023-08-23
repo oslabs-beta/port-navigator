@@ -4,11 +4,11 @@ declare module "*.jpg" {
 }
 
 declare module "*.png" {
-  const path: string;
+  const path: any;
   export default path;
 }
 
 declare module "*.svg" {
-  const path: string;
+  const path: any;
   export default path;
 }

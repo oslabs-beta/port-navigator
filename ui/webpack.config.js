@@ -10,6 +10,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
+    clean: true,
   },
 
   module: {
@@ -36,7 +37,10 @@ module.exports = {
       },
       { 
         test: /\\.(png|jp(e*)g|svg|gif)$/, 
-        type: 'asset/resource', 
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[name]-[hash][ext]'
+        },
       },
     ],
   },
