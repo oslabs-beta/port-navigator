@@ -34,14 +34,8 @@ module.exports = {
         exclude: [/node_modules/],
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
-      {
-        test: /\.(png|jpe?g|gif)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-          },
-        ],
-      },
+      { test: /\\.(png|jp(e*)g|svg|gif)$/, 
+        use: ['file-loader'], },
     ],
   },
   plugins: [
