@@ -11,7 +11,6 @@ const NetworksPage = (props: {
   containers: ContainerInfo[] | [];
 }) => {
   const nav = useNavigate();
-  console.log('nav', nav);
   const networkEl: JSX.Element[] = [];
   const hostNone: JSX.Element[] = [];
   const defaultBridge: JSX.Element[] = [];
