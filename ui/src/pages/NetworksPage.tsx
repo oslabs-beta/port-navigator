@@ -5,7 +5,7 @@ import Network from '../components/Network';
 import NetworkForm from '../components/NetworkForm';
 import FormModal from '../components/container-form/FormModal';
 import { ContainerInfo, NetworkInfo } from '../interfaces/interfaces';
-import comp from '../../../assets/computer-icon.png';
+import comp from '../../../computer-icon.png';
 
 const NetworksPage = (props: {
   networks: NetworkInfo[] | [];
