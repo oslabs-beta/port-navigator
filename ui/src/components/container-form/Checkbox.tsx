@@ -15,7 +15,7 @@ const Checkbox = (props: {
         <input
           type='text'
           onChange={e => props.setState(e.target.value)}
-          placeholder={props.state}
+          value={props.state}
         />
       ) : (
         props.state
