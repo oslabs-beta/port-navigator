@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom';
 import { ContainerInfo, NetworkInfo, graphData } from '../interfaces/interfaces';
 import { useAppStore } from '../store';
@@ -7,17 +8,24 @@ import * as am5 from "@amcharts/amcharts5";
 import * as am5flow from "@amcharts/amcharts5/flow";
 
 
-const VisualizerPage = (props: {
+const SankeyPage = (props: {
   networks: NetworkInfo[] | [];
   containers: ContainerInfo[] | [];
 }) => {
   // const nav = useNavigate();
+  const location = useLocation();
 
   const { ddClient } = useAppStore(store => {
     return { ddClient: store.ddClient };
   });
 
   useEffect(() => {
+
+    am5.array.each(am5.registry.rootElements, function(root) {
+      if (root.dom.id === "chartdiv" || "chartdiv2") {
+        root.dispose();
+      }
+    });
 
   const root = am5.Root.new("chartdiv"); 
 
@@ -41,15 +49,15 @@ const VisualizerPage = (props: {
 
     async function getTrafficInfo() {
 
-      const response = await ddClient.docker.cli.exec('stats', [
-        '--no-stream',
-        '--format',
-        '"{{ json . }}"',
-      ]);
+      // const response = await ddClient.docker.cli.exec('stats', [
+      //   '--no-stream',
+      //   '--format',
+      //   '"{{ json . }}"',
+      // ]);
       
-      console.log('response: ', response);
-      const resParsed: any = response.parseJsonLines();
-      console.log('resParsed: ', resParsed);
+      // console.log('response: ', response);
+      // const resParsed: any = response.parseJsonLines();
+      // console.log('resParsed: ', resParsed);
     }
 
     getTrafficInfo();
@@ -67,8 +75,8 @@ const VisualizerPage = (props: {
     })
    
 
-    console.log('props.networks: ', props.networks);
-    console.log('props.containers: ', props.containers);
+    // console.log('props.networks: ', props.networks);
+    // console.log('props.containers: ', props.containers);
 
   // Set data
   series.data.setAll(graphData);
@@ -112,11 +120,11 @@ const VisualizerPage = (props: {
   //remove logo
   root._logo?.dispose();
 
-});
+}, [location.pathname, props.networks, props.containers, ddClient.docker.cli]);
 
   return (
     <div id="chartdiv" ></div>
   );
 };
 
-export default VisualizerPage;
+export default SankeyPage;
