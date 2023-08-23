@@ -5,6 +5,7 @@ import Network from '../components/Network';
 import NetworkForm from '../components/NetworkForm';
 import FormModal from '../components/container-form/FormModal';
 import { ContainerInfo, NetworkInfo } from '../interfaces/interfaces';
+import comp from '../../../assets/computer-icon.png';
 
 const NetworksPage = (props: {
   networks: NetworkInfo[] | [];
@@ -63,10 +64,8 @@ const NetworksPage = (props: {
     <div className="mainContainer">
       <div className="buttonContainer">
         <button
-          className="button"
-          title="Containers"
-          onClick={() => nav('containers')}
-        >
+          className='button'
+          onClick={() => nav('Visualizer')}>
           Visualizer
         </button>
       </div>
@@ -84,8 +83,8 @@ const NetworksPage = (props: {
           document.body
         )}
       </div>
-      <div className="hostContainer">
-        <h1>Host</h1>
+      <div className='hostContainer'>
+        <img className='comp' src={comp} alt="computer-icon" />
       </div>
       <div className="networksContainer">{networkEl}</div>
     </div>

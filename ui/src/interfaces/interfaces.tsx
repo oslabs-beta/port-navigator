@@ -30,6 +30,14 @@ interface NetworkInfo {
   Scope?: string;
 }
 
+interface nodeData {
+  from: string;
+  to: string;
+  value: number;
+}
+
+interface graphData extends Array<nodeData> {}
+
 type setNetworks = React.Dispatch<React.SetStateAction<[] | NetworkInfo[]>>;
 
 type setContainers = React.Dispatch<React.SetStateAction<[] | ContainerInfo[]>>;
@@ -41,4 +49,5 @@ export type {
   setNetworks,
   setContainers,
   NetworkContainerInfo,
+  graphData,
 };

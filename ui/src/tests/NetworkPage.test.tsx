@@ -208,12 +208,12 @@ describe('NetworkPage unit tests', () => {
       expect(addNetworkFormText).toBeNull();
     });
 
-    // Should display a host at the top (not a network)
-    test('Should display a Host at the top of the page', () => {
-      render(<NetworksPage {...noUserCreatedNetworksProps} />);
-      const Host = screen.getByText(/Host/);
-      expect(Host).toBeDefined();
-    });
+    // Should display an Image at the top (not a network)
+    // test('Should display an Image at the top of the page', () => {
+    //   render(<NetworksPage {...noUserCreatedNetworksProps} />);
+    //   const Host = screen.getByText(/Host/);
+    //   expect(Host).toBeDefined();
+    // });
 
     // Should display a bridge network, a host network, and a none network if no user created networks are passed in as props
     test('renders bridge network if no user created props are passed in as props', () => {

@@ -4,7 +4,9 @@ import type { ContainerInfo, NetworkInfo } from './interfaces/interfaces';
 import { NetworkContainerInfo } from './interfaces/interfaces';
 
 import NetworksPage from './pages/NetworksPage';
-import ContainersPage from './pages/ContainersPage';
+import VisualizerPage from './pages/VisualizerPage';
+// import SankeyPage from './pages/SankeyPage';
+// import ArcPage from './pages/ArcPage';
 import { useAppStore } from './store';
 
 export default function App() {
@@ -111,7 +113,9 @@ export default function App() {
           path='/'
           element={<NetworksPage networks={networks} containers={containers} />}
         />
-        <Route path='/containers' element={<ContainersPage />} />
+        <Route path='Visualizer' element={<VisualizerPage networks={networks} containers={containers} />}>
+          
+        </Route>
       </Routes>
     </div>
   );
