@@ -12,7 +12,7 @@ body {
   text-shadow: 0.25px 0.25px 1px rgba(0, 0, 0, 0.5);
 }
 
-#chartdiv {
+#chartdiv, #chartdiv2 {
   margin-top: 28px;
   width: 100%;
   height: calc(400px + (850 - 400) * ((100vh - 534px) / (989 - 534)));
@@ -140,7 +140,8 @@ body {
 
 .innerButton,
 .form-button,
-.arc {
+.arc,
+.san {
   width: 130px;
   /* calc(130px + (180 - 130) * ((100vw - 552px) / (1872 - 552))); */
   font-size: 0.9rem;
@@ -160,11 +161,14 @@ body {
   border-radius: 24px;
   color: rgba(0, 0, 0, 0.684);
   border-width: 0.1rem;
+  text-align: center;
+  text-decoration: none;
 }
 
 .innerButton:hover,
 .form-button:hover,
-.arc:hover {
+.arc:hover,
+.san:hover {
   cursor: pointer;
   transform: scale(1.1);
   background: linear-gradient(to bottom right, #cb9f10e8, #8d7006e8);
@@ -177,9 +181,13 @@ body {
   transition: ease-in-out 0.2s;
 }
 
-.arc {
+.arc, .san {
   margin-left: 20px;
   font-size: 1rem;
+  padding: 10px 22px;
+  margin-bottom: 0;
+  width: 140px;
+  height: 41.4px;
 }
 
 .deleteNetworkButton {

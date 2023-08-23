@@ -5,7 +5,7 @@ import Network from '../components/Network';
 import NetworkForm from '../components/NetworkForm';
 import FormModal from '../components/container-form/FormModal';
 import { ContainerInfo, NetworkInfo } from '../interfaces/interfaces';
-import comp from '../../../computer-icon.png';
+
 
 const NetworksPage = (props: {
   networks: NetworkInfo[] | [];
@@ -84,7 +84,7 @@ const NetworksPage = (props: {
         )}
       </div>
       <div className='hostContainer'>
-        <img className='comp' src={comp} alt="computer-icon" />
+        <img className='comp' src={'https://res.cloudinary.com/dbinuhocd/image/upload/v1692796941/computer-icon_zns1lr.png'} alt="computer-icon" />
       </div>
       <div className="networksContainer">{networkEl}</div>
     </div>

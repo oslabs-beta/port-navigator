@@ -4,8 +4,8 @@ import type { ContainerInfo, NetworkInfo } from './interfaces/interfaces';
 
 import NetworksPage from './pages/NetworksPage';
 import VisualizerPage from './pages/VisualizerPage';
-// import SankeyPage from './pages/SankeyPage';
-// import ArcPage from './pages/ArcPage';
+import SankeyPage from './pages/SankeyPage';
+import ArcPage from './pages/ArcPage';
 import { useAppStore } from './store';
 
 export default function App() {
@@ -112,17 +112,16 @@ export default function App() {
   }, [force]);
 
   return (
-        // <NetworksPage networks={networks} containers={containers} />
     <div className='App'>
+      {/* <NetworksPage networks={networks} containers={containers} /> */}
       <Routes>
-        <Route
-          path='/'
-          element={<NetworksPage networks={networks} containers={containers} />}
-        />
-        <Route path='Visualizer' element={<VisualizerPage networks={networks} containers={containers} />}>
-          
-        </Route>
-      </Routes>
+  <Route path='/' element={<NetworksPage networks={networks} containers={containers} />} />
+  <Route path='Visualizer/*' element={<VisualizerPage networks={networks} containers={containers} />}>
+    <Route index element={<SankeyPage networks={networks} containers={containers} />} />
+    <Route path='Sankey' element={<SankeyPage networks={networks} containers={containers} />} />
+    <Route path='Arc' element={<ArcPage networks={networks} containers={containers} />} />
+  </Route>
+</Routes>
     </div>
   );
 }
