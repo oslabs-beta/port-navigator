@@ -18,17 +18,16 @@ const PublicCheckbox = (props: {
 
   return (
     <li>
-      <div className="publishedPortsContainer">
-        <span className="publishedPortsLabelContainer">
-          <label htmlFor="publicPort">{props.publicPorts[props.index]}</label>
+      <div className='publishedPortsContainer'>
+        <span className='publishedPortsLabelContainer'>
+          <label htmlFor='publicPort'>{props.publicPorts[props.index]}</label>
         </span>
-        <span className="publishedPortsButtonContainer">
+        <span className='publishedPortsButtonContainer'>
           <button
-            name="publicPort"
-            className="publicPort"
-            onClick={(_e) => removePublish()}
-          >
-            X
+            name='publicPort'
+            className='publicPort'
+            onClick={_e => removePublish()}>
+            x
           </button>
         </span>
       </div>
