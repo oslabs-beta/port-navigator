@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 
 import '@testing-library/jest-dom';
 import ContainerDisplay from '../components/ContainerDisplay';
+import { NetworkInfo } from '../interfaces/interfaces';
 
 jest.mock('@docker/extension-api-client', () => ({
   createDockerDesktopClient: jest.fn().mockReturnValue({
@@ -28,8 +29,8 @@ describe('Container component unit tests', () => {
 
   const portItem = {
     IP: '0.0.0.0',
-    PrivatePort: 9090,
-    PublicPort: 9090,
+    PrivatePort: '9090',
+    PublicPort: '9090',
     Type: 'tcp',
   };
   const containerInfoWithPorts = {
@@ -38,7 +39,7 @@ describe('Container component unit tests', () => {
     Image: 'image',
     State: 'running',
     Networks: 'containerwatch_containerwatch-desktop-extension_default',
-    Ports: portItem,
+    Ports: [portItem],
   };
 
   const containerInfoWithoutPorts = {
@@ -47,7 +48,15 @@ describe('Container component unit tests', () => {
     Image: 'image',
     State: 'running',
     Networks: 'containerwatch_containerwatch-desktop-extension_default',
-    Ports: null,
+    Ports: [],
+  };
+
+  const networkInfo: NetworkInfo = {
+    Driver: 'bridge',
+    Name: 'bridge',
+    ID: '1234',
+    Containers: [containerInfoWithPorts.Name],
+    IPv4Address: ['0.0.0.0'],
   };
 
   test('renders the container display component without port information', () => {
@@ -55,7 +64,8 @@ describe('Container component unit tests', () => {
       <ContainerDisplay
         id={containerInfoWithoutPorts.Id}
         info={containerInfoWithoutPorts}
-        network='bridge'
+        network={networkInfo}
+        containerIndex={0}
       />,
     );
 
@@ -69,7 +79,8 @@ describe('Container component unit tests', () => {
       <ContainerDisplay
         id={containerInfoWithoutPorts.Id}
         info={containerInfoWithoutPorts}
-        network='bridge'
+        network={networkInfo}
+        containerIndex={0}
       />,
     );
 
@@ -83,11 +94,12 @@ describe('Container component unit tests', () => {
       <ContainerDisplay
         id={containerInfoWithPorts.Id}
         info={containerInfoWithPorts}
-        network='bridge'
+        network={networkInfo}
+        containerIndex={0}
       />,
     );
 
-    const portElement = screen.getByText(/PrivatePort/i);
+    const portElement = screen.getByText(/Private Ports/);
 
     const containerElement = screen.getByText(/image/);
 
@@ -100,7 +112,8 @@ describe('Container component unit tests', () => {
       <ContainerDisplay
         id={containerInfoWithoutPorts.Id}
         info={containerInfoWithoutPorts}
-        network='bridge'
+        network={networkInfo}
+        containerIndex={0}
       />,
     );
     const buttonElement = screen.getByRole('button', {
@@ -116,7 +129,8 @@ describe('Container component unit tests', () => {
       <ContainerDisplay
         id={containerInfoWithoutPorts.Id}
         info={containerInfoWithoutPorts}
-        network='bridge'
+        network={networkInfo}
+        containerIndex={0}
       />,
     );
 

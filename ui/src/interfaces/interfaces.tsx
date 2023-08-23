@@ -4,13 +4,19 @@ interface ContainerInfo {
   Image: string;
   State: string;
   Networks: string | [string];
-  Ports: PortItem | null;
+  Ports: PortItem[];
 }
+
+interface NetworkContainerInfo {
+  Name: string;
+  IPv4Address: string;
+}
+
 interface PortItem {
-  IP: string;
-  PrivatePort: number;
-  PublicPort: number;
-  Type: string;
+  IP?: string;
+  PrivatePort?: string;
+  PublicPort?: string;
+  Type?: string;
 }
 
 interface NetworkInfo {
@@ -18,10 +24,19 @@ interface NetworkInfo {
   Name: string;
   ID: string;
   Containers?: string[];
+  IPv4Address?: string[];
   Gateway?: string;
   Subnet?: string;
   Scope?: string;
 }
+
+interface nodeData {
+  from: string;
+  to: string;
+  value: number;
+}
+
+interface graphData extends Array<nodeData> {}
 
 type setNetworks = React.Dispatch<React.SetStateAction<[] | NetworkInfo[]>>;
 
@@ -33,4 +48,6 @@ export type {
   NetworkInfo,
   setNetworks,
   setContainers,
+  NetworkContainerInfo,
+  graphData,
 };
