@@ -81,7 +81,6 @@ export default function App() {
     // obtain list of all containers on Docker Desktop
     const dockerContainers: [] | unknown =
       await ddClient.docker.listContainers();
-    console.log('dockerContainers: ', dockerContainers);
     if (Array.isArray(dockerContainers)) {
       const newContainers = dockerContainers.map(el => {
         const newEl: ContainerInfo = {
@@ -94,8 +93,6 @@ export default function App() {
         };
         return newEl;
       });
-
-      console.log('containers: ', newContainers);
       setContainers(newContainers);
     }
   };
@@ -107,7 +104,7 @@ export default function App() {
   }, [force]);
 
   return (
-        // <NetworksPage networks={networks} containers={containers} />
+    // <NetworksPage networks={networks} containers={containers} />
     <div className='App'>
       <Routes>
         <Route
