@@ -1,3 +1,145 @@
+<!-- -------- Current README --------- -->
+
+# PortNavigator
+
+<!-- -------- Table of Contents Section --------- -->
+
+<!-- TODO: Will need to link section names by clicking on them on GitHub here -->
+
+## Table of Contents
+
+<!-- -------- Product Description Section --------- -->
+
+## Product Description
+
+Tired of struggling with complex Docker network configurations? Meet Port Navigator, your stress-free solution for effortlessly managing container
+communication through our user-friendly GUI.
+
+Upon installation, our (extension? application?) provides an instant snapshot of all available networks and their associated containers.Connecting and disconnecting containers from networks is as easy as a few clicks. Need a new network? With Port Navigator, network management tasks such as adding, deleting, and configuration are all simplified within our (extension? application?). No more relying on command line interactions, we've included everything you need to maintain your (network?container?) infrastructure efficiently.We also included a built-in visualization tool that provides a clear, bird's-eye view of your (container? netowrk? )ecosystem.
+
+<!-- -------- Features --------- -->
+
+## Features
+
+<!-- -------- Instructions Section --------- -->
+
+## Instructions
+
+There are two ways to install PortNavigator, both of which are explained below.
+
+### Installation through the Docker Desktop Extension Marketplace
+
+PortNavigator is a published extension of the Docker Desktop Extension Marketplace. To install PortNavigator this way, you can
+
+1. Open the Docker Desktop Application
+2. Click 'Add Extensions'
+3. Use the search bar to search for 'PortNavigator'
+4. Click the 'Install' button
+
+### Installation through the command line
+
+You can also install PortNavigator directly through the command line. To install PortNavigator this way, you can
+
+1. Fork and clone this repository
+2. Build the extension image using
+
+<!-- TO DO:  change the commands to not include ctri17g? -->
+
+```
+docker build --tag=ctri17g/port-navigator:latest .
+```
+
+3. Install the extension using
+<!-- TO DO:  change the commands to not include ctri17g? -->
+
+```
+docker extension install ctri17g/port-navigator:latest
+```
+
+## Installation for development
+
+If you are installing PortNavigator for development purposes, there are some additional commands it may be helpful to use.
+
+1. Fork and clone this repository
+2. Build the extension image using
+
+<!-- TO DO:  change the commands to not include ctri17g? -->
+
+```
+docker build --tag=ctri17g/port-navigator:latest .
+```
+
+3. Install the extension using
+<!-- TO DO:  change the commands to not include ctri17g? -->
+
+```
+docker extension install ctri17g/port-navigator:latest
+```
+
+4. Update the extension using
+<!-- TO DO:  change the commands to not include ctri17g? -->
+
+```
+docker extension update ctri17g/port-navigator:latest
+```
+
+5. Enable front-end debugging mode using
+<!-- TO DO:  change the commands to not include ctri17g? -->
+
+```
+docker extension dev debug ctri17g/port-navigator
+```
+
+6. Enable hot reloading by
+   a. Navigating to the UI folder
+   b. Running
+
+   ```
+   npm start
+   ```
+
+   c. In a separate terminal, running
+   <!-- TO DO:  change the commands to not include ctri17g? -->
+
+   ```
+   docker extension dev ui-source ctri17g/port-navigator http://localhost:3000
+
+   ```
+
+<!-- -------- Technologies Used Section??? --------- -->
+
+<!-- -------- Open Source Information Section --------- -->
+
+<!-- -------- Changelog Section --------- -->
+
+<!-- -------- License Information Section --------- -->
+
+<!-- -------- Contributor Information Section --------- -->
+
+## Contributor Information
+
+<!-- TODO:  Everyone needs to add their links in here -->
+
+Adrian ![add image alt text here](add your picture link here)
+[GitHub](add your link to your GitHub profile here)
+[LinkedIn](add your link to your LinkedIn profile here)
+
+Brandon ![add image alt text here](add your picture link here)
+[GitHub](add your link to your GitHub profile here)
+[LinkedIn](add your link to your LinkedIn profile here)
+
+Clayton ![add image alt text here](add your picture link here)
+[GitHub](add your link to your GitHub profile here)
+[LinkedIn](add your link to your LinkedIn profile here)
+
+Wes ![add image alt text here](add your picture link here)
+[GitHub](add your link to your GitHub profile here)
+[LinkedIn](add your link to your LinkedIn profile here)
+
+<!-- -------- FAQ Section --------- -->
+
+<!-- -------- Previous README --------- -->
+
 # port-navigator
 
 CTRI-G Docker Desktop Extension (Adrian, Brandon, Clayton, Wes)
