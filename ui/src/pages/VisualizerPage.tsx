@@ -1,10 +1,12 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ContainerInfo, NetworkInfo, graphData } from '../interfaces/interfaces';
-import { useAppStore } from '../store';
+// import { useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import { ContainerInfo, NetworkInfo } from '../interfaces/interfaces';
+// import { useAppStore } from '../store';
 // import NetworksPage from './pages/NetworksPage';
-import * as am5 from "@amcharts/amcharts5";
-import * as am5flow from "@amcharts/amcharts5/flow";
+// import * as am5 from "@amcharts/amcharts5";
+// import * as am5flow from "@amcharts/amcharts5/flow";
+import ArcPage from './ArcPage';
+import SankeyPage from './SankeyPage';
 
 
 const VisualizerPage = (props: {
@@ -13,86 +15,106 @@ const VisualizerPage = (props: {
 }) => {
   const nav = useNavigate();
 
-  const { ddClient } = useAppStore(store => {
-    return { ddClient: store.ddClient };
-  });
+//   const { ddClient } = useAppStore(store => {
+//     return { ddClient: store.ddClient };
+//   });
 
-  useEffect(() => {
+//   useEffect(() => {
 
-  const root = am5.Root.new("chartdiv"); 
+//   const root = am5.Root.new("chartdiv"); 
 
   
-  // Create series
-  const series = root.container.children.push(
-    am5flow.Sankey.new(root, {
-      sourceIdField: "from",
-      targetIdField: "to",
-      valueField: "value",
-      nodeWidth: 30,
-      orientation: "vertical"
-    })
-    );
-    // if (series.logo) {
-      //   series.logo.disabled = true;
-      // }
+//   // Create series
+//   const series = root.container.children.push(
+//     am5flow.Sankey.new(root, {
+//       sourceIdField: "from",
+//       targetIdField: "to",
+//       valueField: "value",
+//       nodeWidth: 30,
+//       orientation: "vertical",
+//       nodeAlign: "center",
+//       maskContent: true,
+//       opacity: 1,
+//       linkTension: 0.4
+//       // nodePadding: 25,
 
-    async function getTrafficInfo() {
+//     })
+//   );
 
-      const response = await ddClient.docker.cli.exec('stats', [
-        '--no-stream',
-        '--format',
-        '"{{ json . }}"',
-      ]);
+//     async function getTrafficInfo() {
+
+//       const response = await ddClient.docker.cli.exec('stats', [
+//         '--no-stream',
+//         '--format',
+//         '"{{ json . }}"',
+//       ]);
       
-      console.log('response: ', response);
-      const resParsed: any = response.parseJsonLines();
-      console.log('resParsed: ', resParsed);
-    }
+//       console.log('response: ', response);
+//       const resParsed: any = response.parseJsonLines();
+//       console.log('resParsed: ', resParsed);
+//     }
 
-    getTrafficInfo();
-      //create an object, loop through networks array, at each network - loop through containers array, set 'from' property to network & 'to' property to container, push new object into a graphData array ('value' property can be fixed to a shared value, or we can base the value on the traffic with that specific network connection)
-    const graphData: graphData = [];
-    /*
-    props.networks.name;
-    props.networks.Containers (an array of strings)
-    */
-   props.networks.forEach(network => {
-     if (network.Containers?.length) {
-       network.Containers.forEach(container => graphData.push( { from: network.Name, to: container, value: 3 } ) )
-     }
-     graphData.push({ from: "Host", to: network.Name, value: 3 })
-    })
+//     getTrafficInfo();
+
+//     const graphData: graphData = [];
+//     /*
+//     props.networks.name;
+//     props.networks.Containers (an array of strings)
+//     */
+//    props.networks.forEach(network => {
+//      if (network.Containers?.length) {
+//        network.Containers.forEach(container => graphData.push( { from: network.Name, to: container, value: 3 } ) )
+//      }
+//      graphData.push({ from: "Host", to: network.Name, value: 3 })
+//     })
    
 
-    console.log('props.networks: ', props.networks);
-    console.log('props.containers: ', props.containers);
+//     console.log('props.networks: ', props.networks);
+//     console.log('props.containers: ', props.containers);
 
-  // Set data
- series.data.setAll(graphData);
+//   // Set data
+//   series.data.setAll(graphData);
   
-  series.nodes.rectangles.template.setAll({
-    fillOpacity: 0.5,
-    stroke: am5.color(0x000000),
-    strokeWidth: 1,
-    cornerRadiusTL: 4,
-    cornerRadiusTR: 4,
-    cornerRadiusBL: 4,
-    cornerRadiusBR: 4
-  });
   
-  series.nodes.labels.template.setAll({
-    x: am5.percent(50),
-    centerX: am5.percent(50),
-    textAlign: "center",
+//   series.nodes.rectangles.template.setAll({
+//     fillOpacity: 1,
+//     stroke: am5.color(0x000000),
+//     strokeWidth: 1,
+//     cornerRadiusTL: 4,
+//     cornerRadiusTR: 4,
+//     cornerRadiusBL: 4,
+//     cornerRadiusBR: 4,
+//     tooltipY: am5.percent(-25),
+//     tooltipText: '{name}',
     
-  });  
+//   });
+  
 
-  // series.nodes.get("colors").set("step", 2);
-  // return () => {
-  //   series.dispose();
-  // };
 
-});
+//   series.nodes.labels.template.setAll({
+//     x: am5.percent(50),
+//     centerX: am5.percent(50),
+//     centerY: am5.percent(18),
+//     textAlign: "center",
+//     fill: am5.color(0xffffff),
+//     fontWeight: "600",
+//     oversizedBehavior: "truncate",
+//     maxWidth: 75,
+//     scale: 0.85,
+
+//   });  
+
+  
+//   series.links.template.setAll({
+//     tooltipText: '{to}',
+//     tooltipY: am5.percent(55),
+//     controlPointDistance: 0.15,
+//   })
+
+//   //remove logo
+//   root._logo?.dispose();
+
+// });
 
   return (
     <div className='mainContainer'>
@@ -102,8 +124,16 @@ const VisualizerPage = (props: {
         onClick={() => nav('/')}>
         Networks
       </button>
+      <button
+        className='button arc'
+        onClick={() => nav('Arc')}>
+        Arc
+      </button>
     </div>
-    <div id="chartdiv" ></div>
+    <Routes>
+      <Route path='/' element={<SankeyPage networks={props.networks} containers={props.containers} />}/>
+      <Route path='/Arc'  element={<ArcPage networks={props.networks} containers={props.containers} />} />
+    </Routes>
   </div>
   );
 };
