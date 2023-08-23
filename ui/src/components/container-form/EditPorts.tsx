@@ -1,8 +1,8 @@
 import { ContainerInfo } from '../../interfaces/interfaces';
 import { useState } from 'react';
-import Checkbox from './Checkbox';
 import PrivateCheckbox from './PrivateCheckbox';
 import PublicCheckbox from './PublicCheckbox';
+// import Checkbox from './Checkbox';
 
 import { useAppStore } from '../../store';
 
@@ -22,16 +22,15 @@ function EditPorts(props: {
       incForce: store.incForce,
     };
   });
-  const [newIp, setNewIp] = useState(props.IPv4Address);
+  // const [newIp, setNewIp] = useState(props.IPv4Address);
 
   const [newPublicPorts, setNewPublicPorts] = useState(props.publicPorts);
-  const [exposed, setExposed] = useState(false);
-  console.log('setExposed: ', setExposed);
   const [newPrivatePorts, setNewPrivatePorts] = useState(props.privatePorts);
 
-  const publicPortElements = newPublicPorts.map((_port, i) => {
+  const publicPortElements = newPublicPorts.map((port, i) => {
     return (
       <PublicCheckbox
+        key={port}
         privatePorts={newPrivatePorts}
         setPrivatePorts={setNewPrivatePorts}
         publicPorts={newPublicPorts}
@@ -41,9 +40,10 @@ function EditPorts(props: {
     );
   });
 
-  const privatePortElements = newPrivatePorts.map((_port, i) => {
+  const privatePortElements = newPrivatePorts.map((port, i) => {
     return (
       <PrivateCheckbox
+        key={port}
         privatePorts={newPrivatePorts}
         setPrivatePorts={setNewPrivatePorts}
         publicPorts={newPublicPorts}
@@ -59,12 +59,19 @@ function EditPorts(props: {
 
   const changePorts = async () => {
     const commands = ['-d', `--name ${props.info.Name}`, props.info.Image];
-    if (newIp !== props.IPv4Address)
-      commands.push(`--network ${props.network} --ip ${newIp}`);
-    if (exposed) commands.unshift(`--expose ${newPrivatePorts}`);
-    if (newPublicPorts)
+    commands.unshift(`--network ${props.network}`);
+    // if (newIp !== props.IPv4Address) commands.unshift(`--ip ${newIp}`);
+    if (newPublicPorts.length)
+      newPublicPorts.forEach(port => {
+        commands.unshift(`-p ${port}`);
+      });
+    if (newPrivatePorts.length === 1)
+      commands.unshift(`--expose ${newPrivatePorts[0]}`);
+    else if (newPrivatePorts.length > 1)
       commands.unshift(
-        `-p ${newPublicPorts}:${newPrivatePorts}/${props.portType}`,
+        `--expose ${newPrivatePorts[0]}-${
+          newPrivatePorts[newPrivatePorts.length - 1]
+        }`,
       );
 
     await ddClient.docker.cli.exec('stop', [props.info.Name]);
@@ -76,14 +83,16 @@ function EditPorts(props: {
   return (
     <div className='form-container'>
       <ul className='editPortInfo'>
-        {/* Display list of information from Ports*/}
         <li>
-          <strong>Type: </strong>
-          <br /> {props.portType}
+          <div>
+            <strong>Type: </strong>
+            {props.portType}
+          </div>
         </li>
         <hr />
         <strong>IPv4 Address: </strong>
-        <Checkbox state={newIp} setState={setNewIp} />
+        {props.IPv4Address}
+        {/* <Checkbox state={newIp} setState={setNewIp} /> */}
         <hr />
         <strong>Published Ports: </strong>
         <p>(Host Port : Container Port) </p>
@@ -92,6 +101,10 @@ function EditPorts(props: {
         <strong>Private Ports: </strong>
         {privatePortElements}
       </ul>
+      <p>
+        WARNING! By clicking 'Submit' this container will restart and be
+        disconnected from all other networks excluding this one
+      </p>
       <button
         className='innerButton'
         onClick={() => {

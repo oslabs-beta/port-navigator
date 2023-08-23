@@ -668,3 +668,7 @@ body {
   align-items: center;
   font-size: 85%;
 }
+
+.editPortInfo {
+  list-style: none;
+}

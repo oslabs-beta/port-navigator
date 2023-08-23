@@ -90,6 +90,13 @@ const ContainerDisplay: React.FC<{
       : (privatePortArrayStr += `${port}, `);
   });
 
+  let publicPortArrayStr = '';
+  publicPortArray.sort().forEach((port, i) => {
+    i === publicPortArray.length - 1
+      ? (publicPortArrayStr += port)
+      : (publicPortArrayStr += `${port}, `);
+  });
+
   return (
     <div id={props.id} className='container' ref={container}>
       {/* Display container information*/}
@@ -141,7 +148,8 @@ const ContainerDisplay: React.FC<{
           <hr />
           <li>
             <strong>Published Ports: </strong>
-            <br /> {publicPortArray.length ? publicPortArray : <em>none</em>}
+            <br />
+            {publicPortArrayStr.length ? publicPortArrayStr : <em>none</em>}
           </li>
           <hr />
           <li>
