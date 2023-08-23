@@ -8,6 +8,17 @@
 
 ## Table of Contents
 
+<ol>
+      <br />
+    <li><a href="#product-description">About PortNavigator</a></li>
+    <li><a href="#installation">Installation</a></li>
+    <li><a href="#in-development">In Development</a></li>
+    <li><a href="#contributing">Contributing</a></li> 
+    <li><a href="#license">License</a></li>
+    <li><a href="#authors">Authors</a></li>
+    <li><a href="#troubleshooting">Troubleshooting</a></li>
+  </ol>
+
 <!-- -------- Product Description Section --------- -->
 
 ## Product Description
@@ -133,7 +144,7 @@ Clayton ![add image alt text here](add your picture link here)
 [LinkedIn](add your link to your LinkedIn profile here)
 
 Wes ![add image alt text here](add your picture link here)
-[GitHub](add your link to your GitHub profile here)
+[GitHub](https://github.com/booksandgames)
 [LinkedIn](add your link to your LinkedIn profile here)
 
 <!-- -------- FAQ Section --------- -->
