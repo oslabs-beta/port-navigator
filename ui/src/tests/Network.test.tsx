@@ -43,6 +43,7 @@ describe('Network component unit tests', () => {
         Driver: 'bridge',
         Name: 'bridge',
         ID: '0',
+        IPv4Address: [],
         Containers: [],
       },
       networkIndex: 0,
@@ -54,6 +55,8 @@ describe('Network component unit tests', () => {
         Driver: 'none',
         Name: 'none',
         ID: '0',
+        IPv4Address: [],
+        Containers: [],
       },
       networkIndex: 0,
       containers: [],
@@ -64,17 +67,28 @@ describe('Network component unit tests', () => {
         Driver: 'host',
         Name: 'host',
         ID: '0',
+        IPv4Address: [],
+        Containers: [],
       },
       networkIndex: 0,
       containers: [],
       allNetworks: [],
     };
+
+    const portItem = {
+      IP: '0.0.0.0',
+      PrivatePort: '9090',
+      PublicPort: '9090',
+      Type: 'tcp',
+    };
+
     const singleContainerTestProps = {
       network: {
         Driver: 'bridge',
         Name: 'Test Network',
         ID: '0',
         Containers: ['Port Navigator'],
+        IPv4Address: ['0.0.0.0'],
       },
       networkIndex: 0,
       containers: [
@@ -83,11 +97,19 @@ describe('Network component unit tests', () => {
           Image: 'portNavigator',
           Name: 'Port Navigator',
           Networks: 'Test Network',
-          Ports: [],
+          Ports: [portItem],
           State: 'Test',
         },
       ],
-      allNetworks: [],
+      allNetworks: [
+        {
+          Driver: 'bridge',
+          Name: 'Test Network',
+          ID: '0',
+          Containers: ['Port Navigator'],
+          IPv4Address: ['0.0.0.0'],
+        },
+      ],
     };
     const multipleContainerTestProps = {
       network: {
@@ -95,6 +117,7 @@ describe('Network component unit tests', () => {
         Name: 'Test Network',
         ID: '0',
         Containers: ['Port Navigator', 'Other Container'],
+        IPv4Address: ['0.0.0.0', '0.0.0.0'],
       },
       networkIndex: 0,
       containers: [
@@ -103,7 +126,7 @@ describe('Network component unit tests', () => {
           Image: 'portNavigator',
           Name: 'Port Navigator',
           Networks: 'Test Network',
-          Ports: [],
+          Ports: [portItem],
           State: 'Test',
         },
         {
@@ -111,11 +134,19 @@ describe('Network component unit tests', () => {
           Image: 'otherContainer',
           Name: 'Other Container',
           Networks: 'Test Network',
-          Ports: [],
+          Ports: [portItem],
           State: 'Test',
         },
       ],
-      allNetworks: [],
+      allNetworks: [
+        {
+          Driver: 'bridge',
+          Name: 'Test Network',
+          ID: '0',
+          Containers: ['Port Navigator', 'Other Container'],
+          IPv4Address: ['0.0.0.0', '0.0.0.0'],
+        },
+      ],
     };
     // const emptyUserCreatedBridgeProps = {
     //   network: {

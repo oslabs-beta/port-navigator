@@ -56,6 +56,7 @@ describe('Container component unit tests', () => {
     Name: 'bridge',
     ID: '1234',
     Containers: [containerInfoWithPorts.Name],
+    IPv4Address: ['0.0.0.0'],
   };
 
   test('renders the container display component without port information', () => {
@@ -98,7 +99,7 @@ describe('Container component unit tests', () => {
       />,
     );
 
-    const portElement = screen.getByText(/PrivatePort/i);
+    const portElement = screen.getByText(/Private Ports/);
 
     const containerElement = screen.getByText(/image/);
 
