@@ -72,14 +72,14 @@ const NetworkForm = (props: { closeAddNetworkForm: Function }) => {
       <div id='addNetworkNameForm'>
         <h2 id='addNetworkFormTitle'>Add Network</h2>
         <div className='addNetworkTextInput'>
-          <label htmlFor='networkName' className='addNetworkFormLabel'>
+          <label htmlFor='networkName' className='addNetworkFormLabel labelFieldName'>
             Name:{' '}
           </label>
           <input
             type='text'
             placeholder='Add a network name'
             name='networkName'
-            className='addNetworkFormInput'
+            className='addNetworkFormInput inputFieldName'
             value={networkName}
             onChange={e => {
               setNetworkName(e.target.value);
@@ -87,31 +87,33 @@ const NetworkForm = (props: { closeAddNetworkForm: Function }) => {
           />
         </div>
       </div>
-      <br />
+      <hr className='formhr' />
       <div className='addNetworkCheckbox'>
         <input
           type='checkbox'
           name='advancedSettings'
-          className='addSubnetFormInput'
+          className='addSubnetFormInput chk'
           checked={!disabled}
           onChange={() => handleCheck()}></input>
-        <label htmlFor='advancedSettings' className='addNetworkFormLabel'>
+        <label htmlFor='advancedSettings' className='addNetworkFormLabel labelField'>
           Advanced network settings
         </label>
       </div>
+      <hr className='formhr' />
+      <div className='netconfig'>
       <div id='addSubnetForm'>
         <div className='addNetworkTextInput'>
           <input
             type='text'
             placeholder='Add a subnetwork (optional)'
             name='subnet'
-            className='addSubnetFormInput'
+            className='addSubnetFormInput inputField'
             id='addSubnetFormInput'
             value={subnet}
             disabled={disabled}
             onChange={e => setSubnet(e.target.value)}
           />
-          <label htmlFor='subnet' className='addNetworkFormLabel'>
+          <label htmlFor='subnet' className='addNetworkFormLabel labelField'>
             Subnetwork:{' '}
           </label>
         </div>
@@ -122,7 +124,7 @@ const NetworkForm = (props: { closeAddNetworkForm: Function }) => {
             type='text'
             placeholder='Add a gateway (optional)'
             name='gateway'
-            className='addGatewayFormInput'
+            className='addGatewayFormInput inputField'
             id='addGatewayFormInput'
             value={gateway}
             disabled={subnet.length ? false : true}
@@ -130,7 +132,7 @@ const NetworkForm = (props: { closeAddNetworkForm: Function }) => {
               setGateway(e.target.value);
             }}
           />
-          <label htmlFor='gateway' className='addNetworkFormLabel'>
+          <label htmlFor='gateway' className='addNetworkFormLabel labelField'>
             Gateway:{' '}
           </label>
         </div>
@@ -142,22 +144,24 @@ const NetworkForm = (props: { closeAddNetworkForm: Function }) => {
               type='text'
               placeholder='Add an IP-Range (optional)'
               name='ip-range'
-              className='addNetworkFormInput'
+              className='addNetworkFormInput inputField'
               value={ipRange}
               disabled={subnet.length ? false : true}
               onChange={e => {
                 setIpRange(e.target.value);
               }}
             />
-            <label htmlFor='ip-range' className='addNetworkFormLabel'>
+            <label htmlFor='ip-range' className='addNetworkFormLabel labelField'>
               IP-Range:{' '}
             </label>
           </div>
         </form>
       </div>
+      </div>
       <div id='containerForAddNetworkFormSubmit'>
         <button
           id='submitAddNetworkFormButton'
+          className='innerButton'
           onClick={() => {
             AddNetwork(props.closeAddNetworkForm);
           }}>
