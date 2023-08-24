@@ -184,7 +184,7 @@ Clayton Stewart ![add image alt text here](add your picture link here)
 
 Wes Phipps ![add image alt text here](add your picture link here)
 [GitHub](https://github.com/booksandgames) |
-[LinkedIn](add your link to your LinkedIn profile here)
+[LinkedIn](www.linkedin.com/in/wp2890)
 
 <!-- -------- License Information Section --------- -->
 
