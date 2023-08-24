@@ -71,7 +71,7 @@ function AddContainer(props: {
             ))}
           </select>{' '}
           <span>container to the</span> <hr />{' '}
-          <strong>{props.network.Name}</strong> 
+          <strong className='strongContainer'>{props.network.Name}</strong> 
           <hr /> <span>network</span>
         </span>
         <button

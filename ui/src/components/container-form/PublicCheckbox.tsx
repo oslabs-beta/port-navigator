@@ -25,7 +25,7 @@ const PublicCheckbox = (props: {
             name='publicPort'
             className='publicPort'
             onClick={_e => removePublish()}>
-            <p>Edit</p> 
+            <p>Remove</p> 
           </button>
         </span>
       </div>

@@ -103,7 +103,7 @@ function EditPorts(props: {
         {privatePortElements}
       </ul>
       <p>
-        WARNING! By clicking 'Submit' this container will restart and be
+        <strong>WARNING</strong>! By clicking "Submit" this container will restart and be
         disconnected from all other networks excluding this one
       </p>
       <button
