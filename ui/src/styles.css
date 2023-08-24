@@ -12,7 +12,9 @@ body {
   text-shadow: 0.25px 0.25px 1px rgba(0, 0, 0, 0.5);
 }
 
-#chartdiv, #chartdiv2, #chartdiv3 {
+#chartdiv,
+#chartdiv2,
+#chartdiv3 {
   margin-top: 28px;
   width: 100%;
 }
@@ -207,7 +209,9 @@ body {
   transition: ease-in-out 0.2s;
 }
 
-.arc, .san, .force {
+.arc,
+.san,
+.force {
   margin-left: 20px;
   font-size: 1rem;
   padding: 10px 22px;
@@ -259,7 +263,7 @@ body {
   border-radius: 14px;
 }
 
-.publicPort  p {
+.publicPort p {
   position: absolute;
   bottom: -11.5px;
   left: 9.5px;
@@ -349,7 +353,6 @@ body {
   );
 }
 
-
 .defaultNetwork:hover,
 .network:hover,
 .userNetwork:hover {
@@ -388,6 +391,7 @@ body {
 }
 
 .networkContainer hr {
+  max-width: 800px;
   width: 100%;
   height: 2px;
   background-color: rgba(240, 255, 255, 0.25);
@@ -531,7 +535,6 @@ body {
   /* word-wrap: break-word; */
 }
 
-
 .clipText {
   width: 100%;
   overflow: auto;
@@ -605,7 +608,6 @@ body {
 .bottomhr {
   margin-top: 24px !important;
   margin-bottom: 0 !important;
-
 }
 
 /* Form */
@@ -646,7 +648,7 @@ body {
 }
 
 .portEdit .chk,
-.addNetworkCheckbox .chk  {
+.addNetworkCheckbox .chk {
   transform: scale(1.4);
   margin-right: 6px;
 }
@@ -665,8 +667,7 @@ body {
   align-items: center;
 }
 
- .publish input
- {
+.publish input {
   margin-right: 6px;
   width: 60px;
   color: #ffffff;
@@ -824,7 +825,7 @@ body {
   color: rgb(145, 145, 145);
 }
 
-.labelField  {
+.labelField {
   align-self: flex-end;
   margin-right: 6px;
   width: 200px;
@@ -835,7 +836,7 @@ body {
 }
 
 .inputField,
-.inputFieldName  {
+.inputFieldName {
   align-self: flex-end;
   margin-right: 6px;
   min-width: 220px;

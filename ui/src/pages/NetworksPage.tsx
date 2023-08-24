@@ -6,7 +6,6 @@ import NetworkForm from '../components/NetworkForm';
 import FormModal from '../components/container-form/FormModal';
 import { ContainerInfo, NetworkInfo } from '../interfaces/interfaces';
 
-
 const NetworksPage = (props: {
   networks: NetworkInfo[] | [];
   containers: ContainerInfo[] | [];
@@ -61,32 +60,35 @@ const NetworksPage = (props: {
   networkEl.unshift(...defaultBridge);
 
   return (
-    <div className="mainContainer">
-      <div className="buttonContainer">
-        <button
-          className='button'
-          onClick={() => nav('Visualizer')}>
+    <div className='mainContainer'>
+      <div className='buttonContainer'>
+        <button className='button' onClick={() => nav('Visualizer')}>
           Visualizer
         </button>
       </div>
       <div className='hostContainer'>
-        <img className='comp' src={'../../../assets/computer-icon.svg'} alt="computer-icon" />
+        <img
+          className='comp'
+          src={
+            'https://res.cloudinary.com/dbinuhocd/image/upload/v1692796941/computer-icon_zns1lr.png'
+          }
+          alt='computer-icon'
+        />
       </div>
-      <div className="addNetworkButtonContainer">
+      <div className='addNetworkButtonContainer'>
         {createPortal(
           <FormModal open={displayAddNetworkForm} onClose={closeAddNetworkForm}>
             <NetworkForm closeAddNetworkForm={closeAddNetworkForm} />
           </FormModal>,
-          document.body
+          document.body,
         )}
         <button
-          className="addNetworkButton"
-          onClick={() => setDisplayAddNetworkForm(true)}
-        >
+          className='addNetworkButton'
+          onClick={() => setDisplayAddNetworkForm(true)}>
           Add Network
         </button>
       </div>
-      <div className="networksContainer">{networkEl}</div>
+      <div className='networksContainer'>{networkEl}</div>
     </div>
   );
 };
