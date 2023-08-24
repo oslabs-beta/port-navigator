@@ -670,7 +670,7 @@ body {
 .publish input {
   margin-right: 6px;
   width: 60px;
-  color: #ffffff;
+  color: #000000b3;
   font-weight: 400;
   font-size: 20px;
   background: rgba(255, 255, 255, 0.985);
@@ -847,6 +847,7 @@ body {
   border: solid rgba(255, 255, 255, 0.233) 0.5px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   text-align: left;
+  text-indent: 10px;
 }
 
 .labelFieldName {

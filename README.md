@@ -31,7 +31,7 @@ communication through our user-friendly GUI.
 
 PortNavigator provides an instant snapshot of all available networks and their associated containers. Connecting and disconnecting containers from networks is as easy as a few clicks. Need a new network? With Port Navigator, network management tasks such as adding, deleting, and configuration are all simplified within our (extension? application?). No more relying on command line interactions, we've included everything you need to maintain your (network?container?) infrastructure efficiently.We also included a built-in visualization tool that provides a clear, bird's-eye view of your (container? netowrk? )ecosystem. -->
 
-[![Docker][Docker]][Docker-url][![HTML5][HTML5]][HTML5-url][![CSS3][CSS3]][CSS3-url][![JavaScript][JavaScript]][JavaScript-url][![Typescript][Typescript]][Typescript-url][![React][React]][React-url][![React-Router][React-Router.js]][React-Router-url][![Nodejs][Nodejs]][Nodejs-url][![Webpack][Webpack]][Webpack-url][![Git][Git]][Git-url][![Github Actions][Github-Actions]][Github-Actions-url][![NPM][NPM]][NPM-url][![Jest][Jest]][Jest-url][![React-Testing-Library][React-Testing-Library]][React-Testing-Library-url][![Zustand][Zustand]][Zustand-url][![amCharts5][amCharts5]][amCHarts5-url]
+[![Docker][Docker]][Docker-url][![HTML5][HTML5]][HTML5-url][![CSS3][CSS3]][CSS3-url][![JavaScript][JavaScript]][JavaScript-url][![Typescript][Typescript]][Typescript-url][![React][React]][React-url][![React-Router][React-Router.js]][React-Router-url][![Nodejs][Nodejs]][Nodejs-url][![Webpack][Webpack]][Webpack-url][![Git][Git]][Git-url][![Github Actions][Github-Actions]][Github-Actions-url][![NPM][NPM]][NPM-url][![React-Testing-Library][React-Testing-Library]][React-Testing-Library-url][![Jest][Jest]][Jest-url][![Zustand][Zustand]][Zustand-url][![amCharts5][amCharts5]][amCharts5-url]
 
 PortNavigator supports users with Docker networking configurations through a
 Docker Desktop GUI that enables modification of gateways, subnets, IP addresses,
@@ -66,28 +66,44 @@ View your networks and their attached containers through the network management
 GUI, or visualize your networks and containers in an Arc, Force, or Sankey
 display.
 
-<!-- TODO: Add a gif here of networks page and both visualizer options -->
+<br />
+  <div align="center">
+    <img alt="Logo" src="assets/GUIandVisualizations.gif" width="fit" height="auto">
+  </div>
+<br />
 
 ### Create & remove networks
 
 Add user-created bridge networks for your containers directly from the user
 interface and remove any unused networks.
 
-<!-- TODO: Add a gif of add network form & disconnecting a network here -->
+<br />
+  <div align="center">
+    <img alt="Logo" src="assets/AddandRemoveNetworks.gif" width="fit" height="auto">
+  </div>
+<br />
 
 ### Connect & disconnect containers to networks
 
 Connect your containers to any default or user-created network configurations
 and disconnect containers from any network.
 
-<!-- TODO:  Add a gif of add container and connect container forms here as well as disconnecting a network-->
+<br />
+  <div align="center">
+    <img alt="Logo" src="assets/ConnectandDisconnectContainers.gif" width="fit" height="auto">
+  </div>
+<br />
 
 ### Adjust port exposure
 
 View published and private ports on containers and configure which ports are
 published.
 
-<!-- TODO:  Add screenshot of ports form -->
+<br />
+  <div align="center">
+    <img alt="Logo" src="assets/EditPorts.gif" width="fit" height="auto">
+  </div>
+<br />
 
 # Installation Instructions
 
@@ -196,10 +212,10 @@ docker extension dev ui-source port-navigator/port-navigator http://localhost:30
 [![GitHub][GitHub-shield]](https://github.com/AdrianAdamZ)
 [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/adrianadamz/)
 
-### Brandon Gregiore
+### Brandon Gregoire
 
 <div align="left">
-    <img alt="Logo" src="assets/Clayton_Profile.jpg" width="210px" height="auto">
+    <img alt="Logo" src="assets/Brandon_Profile.jpg" width="210px" height="auto">
   </div>
 
 [![GitHub][GitHub-shield]](https://github.com/Bgregz)
@@ -247,14 +263,14 @@ This project is licensed under the terms of the [MIT LICENSE](LICENSE).
   https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white
 [Docker-url]: https://www.docker.com/
 [React-Testing-Library]:
-  https://img.shields.io/badge/React%20Testing%20Library-%23d97706?style=for-the-badge&logo=reacttestinglibrary&logoColor=white
+  https://img.shields.io/badge/React%20Testing%20Library-%23d97706?style=for-the-badge&logoColor=white&logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iNjQuMDAwMDAwcHQiIGhlaWdodD0iNjQuMDAwMDAwcHQiIHZpZXdCb3g9IjAgMCA2NC4wMDAwMDAgNjQuMDAwMDAwIgogcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCI+CjxtZXRhZGF0YT4KQ3JlYXRlZCBieSBwb3RyYWNlIDEuMTAsIHdyaXR0ZW4gYnkgUGV0ZXIgU2VsaW5nZXIgMjAwMS0yMDExCjwvbWV0YWRhdGE+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuMDAwMDAwLDY0LjAwMDAwMCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSIKZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSJub25lIj4KPHBhdGggZD0iTTI1OCA1OTEgbC0zMyAtMzAgMiAtOTEgYzEgLTU0IDcgLTk3IDE0IC0xMDYgMTAgLTEyIDggLTE3IC03IC0yOQotNDMgLTMzIC05NCAtNSAtOTQgNTIgMCAxOSAxMiA0NSAzMCA2OCA0NSA1NyAzNSAxMTMgLTE3IDg5IC0xNiAtNyAtMTUgLTggNQotMTEgMjkgLTYgMjggLTIxIC01IC01NSAtMTUgLTE2IC0yOCAtMzQgLTI5IC00MSAwIC03IC0yIC0zMiAtMyAtNTcgLTIgLTM1Ci00IC00MSAtMTEgLTI1IC04IDE5IC05IDE5IC05IC0yIC0xIC0xMiAxMCAtMzUgMjQgLTUwIDEzIC0xNSAyNSAtMjMgMjUgLTE3CjAgNyAxMSA5IDI2IDYgMzcgLTcgOSAtMjIgLTQyIC0yMiAtNTAgMCAtOTQgMzUgLTk0IDc1IDAgMTQgLTQgMjUgLTEwIDI1IC0xNwowIC0xMSAtMzYgMTMgLTcxIDMwIC00NSA2OSAtNjMgMTE1IC01NCA0MyA4IDEwMiA2NiAxMDIgMTAwIDAgMTMgNSAyNyAxMCAzMAoxNSA5IDEyIDQ1IC01IDUxIC0yMiA5IC0yMCA5MyAzIDEyMSA5IDExIDMxIDI0IDQ4IDI4IDI3IDUgMzUgMiA1MyAtMjEgMjcKLTM0IDI5IC0xMTEgNCAtMTMwIC0xNSAtMTEgLTE1IC0xMyAtMyAtMTQgMTMgMCAxMyAtMSAwIC0xMCAtMTIgLTcgLTEyIC0xMgotMiAtMjIgNiAtNiAxMiAtMjIgMTIgLTM0IDAgLTM0IDU5IC05MSAxMDIgLTk5IDQ2IC05IDg1IDkgMTE1IDU0IDI0IDM1IDMwCjcxIDEzIDcxIC01IDAgLTEwIC0xMSAtMTAgLTI1IDAgLTQwIC00NCAtNzUgLTk0IC03NSAtNTEgMCAtNzkgMTUgLTQyIDIyIDE1CjMgMjYgMSAyNiAtNiAwIC02IDEyIDIgMjUgMTcgMTQgMTUgMjUgMzggMjQgNTAgMCAyMSAtMSAyMSAtMTAgMiAtNyAtMTUgLTgKLTggLTYgMjcgMSAyNiAtMiA0NCAtNyA0MCAtNSAtMyAtNyAyIC0zIDEwIDMgMTAgLTYgMjcgLTI0IDQ0IC0zNSAzMyAtMzcgNTEKLTYgNTcgMTkgMyAyMCA0IDUgMTEgLTUzIDI0IC02MyAtMzIgLTE4IC04OSAzNSAtNDQgNDAgLTkzIDEyIC0xMTggLTIzIC0yMQotNTEgLTIxIC03NiAtMiAtMTUgMTIgLTE3IDE3IC03IDI5IDcgOSAxMyA1MiAxNCAxMDYgbDIgOTEgLTMzIDMwIGMtMjAgMTgKLTQzIDI5IC02MiAyOSAtMTkgMCAtNDIgLTExIC02MiAtMjl6Ii8+CjxwYXRoIGQ9Ik0yNjUgMjUxIGMtMyAtNiAtMTMgLTEwIC0yMyAtMTAgLTQ4IDEgLTE0NyAtMzAgLTE2NCAtNTEgLTIxIC0yNgotMjQgLTc5IC01IC0xMDIgMTQgLTE4IDQ3IC0zMSA0NyAtMTggMCA1IC05IDEyIC0yMCAxNSAtMzAgOSAtMzcgNTIgLTEzIDgzCjIwIDI2IDM4IDM0IDEwNiA0NSA1MSA4IDQ3IC05IC01IC0yMiBsLTQzIC0xMSA0MSA1IDQwIDUgMjMgLTU1IGMxOSAtNDUgMjEKLTU4IDExIC03MCAtMTkgLTIzIC00OCAtMTggLTY0IDEzIGwtMTUgMjcgLTEgLTI3IGMwIC01NSA2MSAtNzcgMTAwIC0zNiAxMQoxMiAyMCAyNyAyMCAzMiAwIDYgLTQgNSAtOSAtMiAtNSAtOSAtMTAgLTEgLTE1IDI1IC0zIDIxIC05IDUzIC0xMiA3MSAtOSA0NQoxNyA4MiA1NiA4MiAzOSAwIDY1IC0zOCA1NiAtODMgLTE1IC03NSAtMjQgLTExMSAtMjUgLTk4IDAgOCAtNCAxMSAtOCA4IC0xMQotMTIgMzkgLTU3IDYzIC01NyAzMCAwIDU0IDI2IDU0IDU4IGwtMSAyNyAtMTUgLTI3IGMtMTYgLTMxIC00NSAtMzYgLTY0IC0xMwotMTAgMTIgLTggMjUgMTEgNzAgbDIzIDU1IDQwIC01IDQxIC01IC00MiAxMSBjLTUzIDEzIC01NyAzMCAtNSAyMiA2NyAtMTEgODUKLTE5IDEwNSAtNDUgMjQgLTMxIDE3IC03NCAtMTMgLTgzIC0xMSAtMyAtMjAgLTEwIC0yMCAtMTUgMCAtMTMgMzMgMCA0OCAxOAoxOCAyMyAxNSA3NiAtNiAxMDIgLTE3IDIxIC0xMTYgNTIgLTE2NCA1MSAtMTAgMCAtMjAgNCAtMjMgMTAgLTggMTIgLTEwMiAxMgotMTEwIDB6Ii8+CjwvZz4KPC9zdmc+Cg==
 [React-Testing-Library-url]:
   https://github.com/testing-library/react-testing-library
 [Jest]:
   https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white
 [Jest-url]: https://jestjs.io/docs/getting-started
 [amCharts5]:
-  https://img.shields.io/badge/amChart%205-%23f472b6?style=for-the-badge&logo=amChart
+  https://img.shields.io/badge/amCharts_5-%23007ACC?style=for-the-badge&logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNzVweCIgaGVpZ2h0PSIyMXB4IiB2aWV3Qm94PSIwIDAgNzUgMjEiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDUyLjQgKDY3Mzc4KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5sb2dvPC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGcgaWQ9IjAzIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgogICAgICAgIDxnIGlkPSIwMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTE4My4wMDAwMDAsIC0xNC4wMDAwMDApIiBzdHJva2Utd2lkdGg9IjIiPgogICAgICAgICAgICA8ZyBpZD0iSGVhZGVyIj4KICAgICAgICAgICAgICAgIDxnIGlkPSJsb2dvIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxODQuMDAwMDAwLCAxNS4wMDAwMDApIj4KICAgICAgICAgICAgICAgICAgICA8ZyBpZD0iYW1Mb2dvIj4KICAgICAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTcxLjYyMjY0MTUsMTkgTDQ1Ljk0MDI0NDIsMTkgQzMyLjQ1NDk5NDksMTguOTYzOTAxIDM0LjY0NDc5ODQsMCAyNC4wODEyNDQ1LDAgQzEzLjUxNzY5MDcsMCAxNS43MDc4MjQ4LDE4Ljk2MzkwMSAyLjM1Nzk5NDA5LDE5IEwtOC41NjU5MDI3NWUtMTQsMTkiIGlkPSJTdHJva2UtMSIgc3Ryb2tlPSIjNUVCMEZDIj48L3BhdGg+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0wLDE5IEwyMS43NDQ2ODA5LDE5IEMyNS40MTcyNjIzLDE4Ljk3OTYzODggMjguMjk0ODI5MiwxOC4wNzI3NDI0IDMwLjkwMjA5MTgsMTQuOTM4NDI0NSBDMzIuMzk2MzEwOCwxMy4xNDIyMDE2IDMzLjcxMzkxMzEsMTEuMTYyMzk5IDM0Ljc2MzkwMDgsOS4wMTc0MDc2NyBDMzUuNjAzMDU0MSw3LjMwMjk1ODExIDM2LjA3MDc0NDcsNS4zMTU0MzggMzcuMTc1NTcwMiwzLjc2ODQ3NjEgQzM4LjAzNDQ0NzIsMi41NjU4NDkwOSAzOS45OTg0NDg2LDIuMzMwMDUyNzUgNDEuMDM0MDkxOCwzLjM3NzUwNzM4IEM0Mi43MjA0NjczLDUuMDgzNDE4MzUgNDMuMzMyOTQ3NywxMS4wODUyMjMzIDQ2LjA1MjcyNSwxMS4yNzk4MDQ2IEM0OC42MzQyODcxLDExLjQ2NDY5NzggNDkuMzg4NDE5NSw1LjUyMDY5MjQ4IDUwLjg5MTMwNDksMy43NzcxNzg4OCBDNTMuNjA2MTUxMywwLjYyODkwMzY4MiA1Ni4xMDY4NzYyLDQuMTI0MTQxMDUgNTcuMjAwMzQ1Niw2Ljg5MDMxNDUyIEM1OS42MTQxMDY5LDEyLjk5NjM4ODggNjMuODYwMjI5LDE4Ljk5OTgzNTggNzAuNjcwMjEyOCwxOC45OTk4MzU4IEw3MywxOC45OTk4MzY2IiBpZD0iUGFnZS0xIiBzdHJva2U9IiNGRkZGRkYiPjwvcGF0aD4KICAgICAgICAgICAgICAgICAgICAgICAgPHBhdGggZD0iTTIzLjQxNTA5NDMsMCBDMTMuMTY0NDMzNCwwIDE1LjI4OTU1MDksMTkuMDYxMzgxOSAyLjI2MzI1NTMxLDE4Ljk5OTg1MTQgTDEuMjQzNDQ5NzllLTEzLDE4Ljk5OTg1MTQiIGlkPSJTdHJva2UtMyIgc3Ryb2tlPSIjNUVCMEZDIj48L3BhdGg+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=
 [amCharts5-url]: https://www.amcharts.com/docs/v5/
 [NPM]:
   https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white
@@ -266,7 +282,7 @@ This project is licensed under the terms of the [MIT LICENSE](LICENSE).
   https://img.shields.io/badge/GithubActions-%23581c87?style=for-the-badge&logo=GithubActions&color=gray
 [Github-Actions-url]: https://docs.github.com/en/actions
 [Zustand]:
-  https://img.shields.io/badge/Zustand-%2378716c?style=for-the-badge&logo=zustand
+  https://img.shields.io/badge/Zustand-%2378716c?style=for-the-badge&logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iNDguMDAwMDAwcHQiIGhlaWdodD0iNDguMDAwMDAwcHQiIHZpZXdCb3g9IjAgMCA0OC4wMDAwMDAgNDguMDAwMDAwIgogcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCI+CjxtZXRhZGF0YT4KQ3JlYXRlZCBieSBwb3RyYWNlIDEuMTAsIHdyaXR0ZW4gYnkgUGV0ZXIgU2VsaW5nZXIgMjAwMS0yMDExCjwvbWV0YWRhdGE+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuMDAwMDAwLDQ4LjAwMDAwMCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSIKZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSJub25lIj4KPHBhdGggZD0iTTE2OSAzMjMgYy03OCAtNzQgLTc4IC05MyAtMyAtMTY3IDMwIC0zMSA2NCAtNTYgNzQgLTU2IDEwIDAgNDQgMjUKNzQgNTYgbDU2IDU1IDAgNjQgYzAgNTcgLTMgNjYgLTI2IDg0IC0xOCAxNCAtNDEgMjEgLTcxIDIxIC00MCAwIC01MCAtNSAtMTA0Ci01N3ogbTE3MSAtNDggbDAgLTY1IC0zMCAwIGMtMjggMCAtMzAgMyAtMzAgMzUgMCAzMyAtMiAzNSAtMzUgMzUgLTMyIDAgLTM1CjIgLTM1IDMwIGwwIDMwIDY1IDAgNjUgMCAwIC02NXogbS0xNDAgLTM1IGMwIC0yNyAtMyAtMzAgLTMwIC0zMCAtMjcgMCAtMzAgMwotMzAgMzAgMCAyNyAzIDMwIDMwIDMwIDI3IDAgMzAgLTMgMzAgLTMweiBtNzAgMCBjMCAtMjcgLTMgLTMwIC0zMCAtMzAgLTI3IDAKLTMwIDMgLTMwIDMwIDAgMjcgMyAzMCAzMCAzMCAyNyAwIDMwIC0zIDMwIC0zMHogbTAgLTcwIGMwIC0yNyAtMyAtMzAgLTMwCi0zMCAtMjcgMCAtMzAgMyAtMzAgMzAgMCAyNyAzIDMwIDMwIDMwIDI3IDAgMzAgLTMgMzAgLTMweiIvPgo8L2c+Cjwvc3ZnPgo=
 [Zustand-url]: https://www.npmjs.com/package/zustand
 [Nodejs]:
   https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white
