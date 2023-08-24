@@ -31,7 +31,7 @@ communication through our user-friendly GUI.
 
 PortNavigator provides an instant snapshot of all available networks and their associated containers. Connecting and disconnecting containers from networks is as easy as a few clicks. Need a new network? With Port Navigator, network management tasks such as adding, deleting, and configuration are all simplified within our (extension? application?). No more relying on command line interactions, we've included everything you need to maintain your (network?container?) infrastructure efficiently.We also included a built-in visualization tool that provides a clear, bird's-eye view of your (container? netowrk? )ecosystem. -->
 
-[![Docker][Docker]][Docker-url][![HTML5][HTML5]][HTML5-url][![CSS3][CSS3]][CSS3-url][![JavaScript][JavaScript]][JavaScript-url][![Typescript][Typescript]][Typescript-url][![React][React]][React-url][![React-Router][React-Router.js]][React-Router-url][![Nodejs][Nodejs]][Nodejs-url][![Webpack][Webpack]][Webpack-url][![Git][Git]][Git-url][![Github Actions][Github-Actions]][Github-Actions-url][![NPM][NPM]][NPM-url][![Jest][Jest]][Jest-url][![React-Testing-Library][React-Testing-Library]][React-Testing-Library-url][![Zustand][Zustand]][Zustand-url][![amCharts5][amCharts5]][amCHarts5-url]
+[![Docker][Docker]][Docker-url][![HTML5][HTML5]][HTML5-url][![CSS3][CSS3]][CSS3-url][![JavaScript][JavaScript]][JavaScript-url][![Typescript][Typescript]][Typescript-url][![React][React]][React-url][![React-Router][React-Router.js]][React-Router-url][![Nodejs][Nodejs]][Nodejs-url][![Webpack][Webpack]][Webpack-url][![Git][Git]][Git-url][![Github Actions][Github-Actions]][Github-Actions-url][![NPM][NPM]][NPM-url][![Jest][Jest]][Jest-url][![React-Testing-Library][React-Testing-Library]][React-Testing-Library-url][![Zustand][Zustand]][Zustand-url][![amCharts5][amCharts5]][amCharts5-url]
 
 PortNavigator supports users with Docker networking configurations through a
 Docker Desktop GUI that enables modification of gateways, subnets, IP addresses,
@@ -254,7 +254,7 @@ This project is licensed under the terms of the [MIT LICENSE](LICENSE).
   https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white
 [Jest-url]: https://jestjs.io/docs/getting-started
 [amCharts5]:
-  https://img.shields.io/badge/amChart%205-%23f472b6?style=for-the-badge&logo=amChart
+  https://img.shields.io/badge/amCharts_5-%23f472b6?style=for-the-badge&logo=amChart
 [amCharts5-url]: https://www.amcharts.com/docs/v5/
 [NPM]:
   https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white
