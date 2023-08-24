@@ -30,7 +30,7 @@ body {
 
 #chartdiv3 {
   height: calc(440px + (850 - 440) * ((100vh - 534px) / (989 - 534)));
-  width: calc(548px + (1000 - 548) * ((100vw - 552px) / (1872 - 552)));
+  width: calc(548px + (1872 - 548) * ((100vw - 552px) / (1872 - 552)));
 }
 
 .buttonContainer,
