@@ -59,7 +59,7 @@ function AddContainer(props: {
     <div className='form-container'>
       <form className='form'>
         <span>
-          Connect <hr />{' '}
+          Connect {' '}
           <select
             className='form-select'
             value={containerName}
@@ -70,8 +70,9 @@ function AddContainer(props: {
               </option>
             ))}
           </select>{' '}
-          <hr /> <span>container to the</span> <hr />{' '}
-          <span>{props.network.Name}</span> <hr /> <span>network</span>
+          <span>container to the</span> <hr />{' '}
+          <strong className='strongContainer'>{props.network.Name}</strong> 
+          <hr /> <span>network</span>
         </span>
         <button
           className='form-button'

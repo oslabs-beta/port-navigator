@@ -81,32 +81,33 @@ function EditPorts(props: {
   };
 
   return (
-    <div className='form-container'>
-      <ul className='editPortInfo'>
+    <div className='portEdit'>
+      <ul className='form-container'>
         <li>
-          <div>
-            <strong>Type: </strong>
-            {props.portType}
-          </div>
+          <strong>Type: </strong>
+          {props.portType}
         </li>
-        <hr />
-        <strong>IPv4 Address: </strong>
-        {props.IPv4Address}
+        <hr className='formhr' />
+        <li>
+          <strong>IPv4 Address: </strong>
+          {props.IPv4Address}
+        </li>
+        
         {/* <Checkbox state={newIp} setState={setNewIp} /> */}
-        <hr />
-        <strong>Published Ports: </strong>
-        <p>(Host Port : Container Port) </p>
+        <hr className='formhr' />
+        <strong className='pubport' >Published Ports: </strong>
+        <p className='pubportP' >( Host Port : Container Port ) </p>
         {publicPortElements}
-        <hr />
+        <hr className='formhr' />
         <strong>Private Ports: </strong>
         {privatePortElements}
       </ul>
       <p>
-        WARNING! By clicking 'Submit' this container will restart and be
+        <strong>WARNING</strong>! By clicking "Submit" this container will restart and be
         disconnected from all other networks excluding this one
       </p>
       <button
-        className='innerButton'
+        className='innerButton editButton'
         onClick={() => {
           changePorts();
           props.portsClose();
