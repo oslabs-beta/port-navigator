@@ -82,12 +82,18 @@ const Network = (props: {
   props.containers.forEach((currentContainer: ContainerInfo, i: number) => {
     // declare a variable, newContainer, and assign it the value of a container component passing down the currentContainer object as props
     if (props.network.Containers?.includes(currentContainer.Name)) {
+      let containerIndex = 0;
+      for (let j = 0; j < props.network.Containers.length; j++) {
+        if (props.network.Containers[j] === currentContainer.Name)
+          containerIndex = j;
+      }
       const newContainer = (
         <ContainerDisplay
           id={`network${props.networkIndex}_container${i}`}
           key={`network${props.networkIndex}_container${i}`}
           info={currentContainer}
-          network={props.network.Name}
+          containerIndex={containerIndex}
+          network={props.allNetworks[props.networkIndex]}
         />
       );
       // push the newContainer into the bridgeContainerDisplay
@@ -128,6 +134,7 @@ const Network = (props: {
           <strong>Network: </strong>
           {networkName}
         </div>
+        <hr className='hrNet' />
         <div className='networkInfo'>
           <div className='Driver'>
             <strong>Driver: </strong>

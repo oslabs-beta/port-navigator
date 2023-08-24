@@ -1,19 +1,22 @@
 import React, { useState, useRef, BaseSyntheticEvent } from 'react';
 import { createPortal } from 'react-dom';
 
-import { ContainerInfo } from '../interfaces/interfaces';
+import { ContainerInfo, NetworkInfo } from '../interfaces/interfaces';
 import { useAppStore } from '../store';
 import FormModal from './container-form/FormModal';
-import Form from './container-form/ConnectContainer';
+import ConnectContainer from './container-form/ConnectContainer';
+import EditPorts from './container-form/EditPorts';
 
 //Component to display Container
 const ContainerDisplay: React.FC<{
   id: string;
   info: ContainerInfo;
-  network: string;
+  network: NetworkInfo;
+  containerIndex: number;
 }> = props => {
   // State determining if our FormModal should be displayed or not
   const [isOpen, setIsOpen] = useState<Boolean>(false);
+  const [editPorts, setEditPorts] = useState<Boolean>(false);
   const { ddClient, incForce } = useAppStore(store => {
     return { ddClient: store.ddClient, incForce: store.incForce };
   });
@@ -24,6 +27,10 @@ const ContainerDisplay: React.FC<{
   //onClick functionality to close our FormModal.
   function formClose() {
     setIsOpen(false);
+  }
+
+  function portsClose() {
+    setEditPorts(false);
   }
 
   //disconnects a container from given network when button is clicked
@@ -67,33 +74,28 @@ const ContainerDisplay: React.FC<{
   let passedPorts = true;
   if (!props.info.Ports) passedPorts = false;
 
-  let portsUnorderedList = <div></div>;
+  const privatePortArray: string[] = [];
+  const publicPortArray: string[] = [];
+  const portType: Set<string> = new Set();
+  props.info.Ports.forEach(port => {
+    if (port.PublicPort)
+      publicPortArray.push(port.PublicPort + ':' + port.PrivatePort);
+    else if (port.PrivatePort) privatePortArray.push(port.PrivatePort);
+    if (port.Type) portType.add(port.Type);
+  });
+  let privatePortArrayStr = '';
+  privatePortArray.sort().forEach((port, i) => {
+    i === privatePortArray.length - 1
+      ? (privatePortArrayStr += port)
+      : (privatePortArrayStr += `${port}, `);
+  });
 
-  if (props.info.Ports)
-    portsUnorderedList = (
-      <ul className='portInfo'>
-        {/* Display list of information from Ports*/}
-        <li>
-          <strong>IP: </strong>
-          <br /> {props.info.Ports.IP}{' '}
-        </li>
-        <hr />
-        <li>
-          <strong>PrivatePort: </strong>
-          <br /> {props.info.Ports.PrivatePort}{' '}
-        </li>
-        <hr />
-        <li>
-          <strong>PublicPort: </strong>
-          <br /> {props.info.Ports.PublicPort}{' '}
-        </li>
-        <hr />
-        <li>
-          <strong>Type: </strong>
-          <br /> {props.info.Ports.Type}{' '}
-        </li>
-      </ul>
-    );
+  let publicPortArrayStr = '';
+  publicPortArray.sort().forEach((port, i) => {
+    i === publicPortArray.length - 1
+      ? (publicPortArrayStr += port)
+      : (publicPortArrayStr += `${port}, `);
+  });
 
   return (
     <div id={props.id} className='container' ref={container}>
@@ -126,16 +128,72 @@ const ContainerDisplay: React.FC<{
             <br /> {props.info.State}
           </p>
         </div>
-        {portsUnorderedList}
+        <ul className='portInfo'>
+          {/* Display list of information from Ports*/}
+          <li>
+            <strong>IPv4Address: </strong>
+            <br />
+            {props.network.IPv4Address ? (
+              props.network.IPv4Address[props.containerIndex]
+            ) : (
+              <em>null</em>
+            )}
+          </li>
+          <hr />
+          <li>
+            <div>
+              <strong>Type: </strong> {portType}
+            </div>
+          </li>
+          <hr />
+          <li>
+            <strong>Published Ports: </strong>
+            <br />
+            {publicPortArrayStr.length ? publicPortArrayStr : <em>null</em>}
+          </li>
+          <hr />
+          <li>
+            <strong>Private Ports: </strong>
+            <br />
+            {privatePortArrayStr.length ? privatePortArrayStr : <em>null</em>}
+          </li>
+          <hr />
+          <li>
+            <button className='innerButton' onClick={() => setEditPorts(true)}>
+              Edit Ports
+            </button>
+
+            {/* Display for form modal */}
+            {createPortal(
+              <FormModal open={editPorts} onClose={portsClose}>
+                {/* Calling Form component function as child of FormModal */}
+                <EditPorts
+                  info={props.info}
+                  portsClose={portsClose}
+                  network={props.network.Name}
+                  publicPorts={publicPortArray}
+                  privatePorts={privatePortArray}
+                  portType={portType}
+                  IPv4Address={
+                    props.network.IPv4Address
+                      ? props.network.IPv4Address[props.containerIndex]
+                      : 'null'
+                  }
+                />
+              </FormModal>,
+              document.body,
+            )}
+          </li>
+        </ul>
       </div>
       <div className='footerContainer'>
         <hr className='lastHR' />
         <div className='containerButtons'>
-          {props.network !== 'none' ? (
+          {props.network.Name !== 'none' ? (
             <button
               className='innerButton'
               onClick={e =>
-                DisconnectContainer(props.info.Name, props.network, e)
+                DisconnectContainer(props.info.Name, props.network.Name, e)
               }>
               Disconnect
             </button>
@@ -148,7 +206,7 @@ const ContainerDisplay: React.FC<{
           {createPortal(
             <FormModal open={isOpen} onClose={formClose}>
               {/* Calling Form component function as child of FormModal */}
-              <Form info={props.info} formClose={formClose} />
+              <ConnectContainer info={props.info} formClose={formClose} />
             </FormModal>,
             document.body,
           )}

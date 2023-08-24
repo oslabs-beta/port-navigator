@@ -1,9 +1,13 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import type { ContainerInfo, NetworkInfo } from './interfaces/interfaces';
+import { NetworkContainerInfo } from './interfaces/interfaces';
 
 import NetworksPage from './pages/NetworksPage';
-import ContainersPage from './pages/ContainersPage';
+import VisualizerPage from './pages/VisualizerPage';
+import SankeyPage from './pages/SankeyPage';
+import ArcPage from './pages/ArcPage';
+import ForcePage from './pages/ForcePage';
 import { useAppStore } from './store';
 
 export default function App() {
@@ -47,18 +51,19 @@ export default function App() {
         `network inspect ${newNetworks[i].Name}`,
         ['--format', '"{{json .}}"'],
       );
-
       //parsing additional info
       const moreInfo = result.parseJsonLines()[0];
       //grabbing container names and adding into array
-      const networkContainers: NetworkInfo[] = Object.values(
+      const networkContainers: NetworkContainerInfo[] = Object.values(
         moreInfo.Containers,
       );
       const containerNames = networkContainers.map(el => el.Name);
+      const containerIp = networkContainers.map(el => el.IPv4Address);
       //adding aditional info to network object
       const newNetwork: NetworkInfo = {
         ...newNetworks[i],
         Containers: containerNames,
+        IPv4Address: containerIp,
         Gateway: moreInfo.IPAM.Config.length
           ? moreInfo.IPAM.Config[0].Gateway
           : null,
@@ -87,18 +92,10 @@ export default function App() {
           Image: el.Image,
           State: el.Status,
           Networks: el.HostConfig.NetworkMode,
-          Ports: el.Ports.length
-            ? {
-                IP: el.Ports[0].IP,
-                PrivatePort: el.Ports[0].PrivatePort,
-                PublicPort: el.Ports[0].PublicPort,
-                Type: el.Ports[0].Type,
-              }
-            : null,
+          Ports: [...el.Ports],
         };
         return newEl;
       });
-
       setContainers(newContainers);
     }
   };
@@ -112,13 +109,16 @@ export default function App() {
   return (
         // <NetworksPage networks={networks} containers={containers} />
     <div className='App'>
+      {/* <NetworksPage networks={networks} containers={containers} /> */}
       <Routes>
-        <Route
-          path='/'
-          element={<NetworksPage networks={networks} containers={containers} />}
-        />
-        <Route path='/containers' element={<ContainersPage />} />
-      </Routes>
+  <Route path='/' element={<NetworksPage networks={networks} containers={containers} />} />
+  <Route path='Visualizer/*' element={<VisualizerPage networks={networks} containers={containers} />}>
+    <Route index element={<SankeyPage networks={networks} containers={containers} />} />
+    <Route path='Sankey' element={<SankeyPage networks={networks} containers={containers} />} />
+    <Route path='Arc' element={<ArcPage networks={networks} containers={containers} />} />
+    <Route path='Force' element={<ForcePage networks={networks} containers={containers} />} />
+  </Route>
+</Routes>
     </div>
   );
 }
