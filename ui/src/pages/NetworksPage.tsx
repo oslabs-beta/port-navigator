@@ -78,7 +78,7 @@ const NetworksPage = (props: {
         )}
       </div>
       <div className='hostContainer'>
-        <img className='comp' src={'https://res.cloudinary.com/dbinuhocd/image/upload/v1692796941/computer-icon_zns1lr.png'} alt="computer-icon" />
+        <img className='comp' src={'../../../assets/computer-icon.svg'} alt="computer-icon" />
       </div>
         <button
           className="addNetworkButton"
