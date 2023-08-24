@@ -106,19 +106,19 @@ const ContainerDisplay: React.FC<{
           <strong>Container: </strong>
           <span /> {props.info.Name}
         </p>
-        <hr />
       </div>
       <div className='containerInfoContainer'>
         <div
           className={
             passedPorts ? 'containerInfo withPorts' : 'containerInfo noPorts'
           }>
+          <hr className='tophr'/>
           <p className='clipText'>
             <strong>ContainerID: </strong>
             <br /> {props.info.Id}
           </p>
           <hr />
-          <p>
+          <p className='clipText'>
             <strong>Image: </strong>
             <br /> {props.info.Image}
           </p>
@@ -127,12 +127,16 @@ const ContainerDisplay: React.FC<{
             <strong>Activity: </strong>
             <br /> {props.info.State}
           </p>
+          <hr className='bottomhr'/>
         </div>
         <ul className='portInfo'>
+        <li>
+              <strong>Type: </strong> {portType}
+          </li>
           {/* Display list of information from Ports*/}
+          <hr />
           <li>
             <strong>IPv4Address: </strong>
-            <br />
             {props.network.IPv4Address ? (
               props.network.IPv4Address[props.containerIndex]
             ) : (
@@ -141,25 +145,16 @@ const ContainerDisplay: React.FC<{
           </li>
           <hr />
           <li>
-            <div>
-              <strong>Type: </strong> {portType}
-            </div>
-          </li>
-          <hr />
-          <li>
             <strong>Published Ports: </strong>
-            <br />
             {publicPortArrayStr.length ? publicPortArrayStr : <em>null</em>}
           </li>
           <hr />
           <li>
             <strong>Private Ports: </strong>
-            <br />
             {privatePortArrayStr.length ? privatePortArrayStr : <em>null</em>}
           </li>
-          <hr />
           <li>
-            <button className='innerButton' onClick={() => setEditPorts(true)}>
+            <button className='innerButton editButton' onClick={() => setEditPorts(true)}>
               Edit Ports
             </button>
 
@@ -187,7 +182,7 @@ const ContainerDisplay: React.FC<{
         </ul>
       </div>
       <div className='footerContainer'>
-        <hr className='lastHR' />
+
         <div className='containerButtons'>
           {props.network.Name !== 'none' ? (
             <button
