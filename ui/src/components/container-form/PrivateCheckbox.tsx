@@ -32,17 +32,17 @@ const PrivateCheckbox = (props: {
 
   return (
     <li>
-      <input type='checkbox' onChange={handleCheck} checked={checked} />
+      <input className='chk' type='checkbox' onChange={handleCheck} checked={checked} />
       {checked ? (
-        <div>
+        <div className='publish'>
           <input
             name='publicPort'
             type='text'
             onChange={e => handleSetState(e.target.value)}
             placeholder={'8080'}
           />
-          <label htmlFor='publicPort'>:{props.privatePorts[props.index]}</label>
-          <button onClick={_e => handlePublish()}>Publish</button>
+          <label htmlFor='publicPort'>: {props.privatePorts[props.index]}</label>
+          <button className='innerButton' onClick={_e => handlePublish()}>Publish</button>
         </div>
       ) : (
         props.privatePorts[props.index]
