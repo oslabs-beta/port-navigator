@@ -115,7 +115,7 @@ PortNavigator this way, you can
 3. Build the extension image
 
 ```
-docker build --tag=port-navigator/port-navigator:latest .
+docker build --tag=port-navigator/port-navigator:1.0.0 .
 ```
 
 4. Install the extension
