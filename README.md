@@ -174,15 +174,15 @@ Adrian Zywno ![add image alt text here](add your picture link here)
 [GitHub](https://github.com/AdrianAdamZ) |
 [LinkedIn](https://www.linkedin.com/in/adrianadamz/)
 
-Brandon Gregiore ![add image alt text here](add your picture link here)
+Brandon Gregiore
 [GitHub](https://github.com/Bgregz) |
-[LinkedIn](add your link to your LinkedIn profile here)
+[LinkedIn](https://www.linkedin.com/in/brandon-gregoire-942b88289/)
 
 Clayton Stewart ![add image alt text here](add your picture link here)
 [GitHub](https://github.com/ClStewart1212) |
 [LinkedIn](https://www.linkedin.com/in/clstewart1212/)
 
-Wes Phipps ![add image alt text here](add your picture link here)
+Wes Phipps
 [GitHub](https://github.com/booksandgames) |
 [LinkedIn](www.linkedin.com/in/wp2890)
 
