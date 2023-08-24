@@ -190,7 +190,7 @@ docker extension dev ui-source port-navigator/port-navigator http://localhost:30
 ### Adrian Zywno
 
 <div align="left">
-    <img alt="Logo" src="assets/Clayton_Profile.jpg" width="210px" height="auto">
+    <img alt="Logo" src="assets/Adrian_Profile.jpeg" width="210px" height="auto">
   </div>
 
 [![GitHub][GitHub-shield]](https://github.com/AdrianAdamZ)
@@ -217,7 +217,7 @@ docker extension dev ui-source port-navigator/port-navigator http://localhost:30
 ### Wes Phipps
 
 <div align="left">
-    <img alt="Logo" src="assets/Clayton_Profile.jpg" width="210px" height="auto">
+    <img alt="Logo" src="assets/Wes_Profile.jpg" width="210px" height="auto">
   </div>
 
 [![GitHub][GitHub-shield]](https://github.com/booksandgames)
