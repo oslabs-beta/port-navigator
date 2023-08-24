@@ -565,9 +565,16 @@ body {
 }
 
 .portInfo button {
-  padding: 4px;
+  padding: 0px;
   width: 80px;
+  height: 24px;
+  margin: 0;
   margin-left: 50%;
+}
+
+.portInfo button p {
+  margin: 0;
+  margin-bottom: 1.5px;
 }
 
 .portInfo li {

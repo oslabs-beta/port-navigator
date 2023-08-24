@@ -155,7 +155,7 @@ const ContainerDisplay: React.FC<{
           </li>
           <li>
             <button className='innerButton editButton' onClick={() => setEditPorts(true)}>
-              Edit Ports
+              <p>Edit Ports</p> 
             </button>
 
             {/* Display for form modal */}
