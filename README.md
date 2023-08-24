@@ -196,10 +196,10 @@ docker extension dev ui-source port-navigator/port-navigator http://localhost:30
 [![GitHub][GitHub-shield]](https://github.com/AdrianAdamZ)
 [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/adrianadamz/)
 
-### Brandon Gregiore
+### Brandon Gregoire
 
 <div align="left">
-    <img alt="Logo" src="assets/Clayton_Profile.jpg" width="210px" height="auto">
+    <img alt="Logo" src="assets/Brandon_Profile.jpg" width="210px" height="auto">
   </div>
 
 [![GitHub][GitHub-shield]](https://github.com/Bgregz)
