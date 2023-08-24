@@ -66,28 +66,44 @@ View your networks and their attached containers through the network management
 GUI, or visualize your networks and containers in an Arc, Force, or Sankey
 display.
 
-<!-- TODO: Add a gif here of networks page and both visualizer options -->
+<br />
+  <div align="center">
+    <img alt="Logo" src="assets/GUIandVisualizations.gif" width="fit" height="auto">
+  </div>
+<br />
 
 ### Create & remove networks
 
 Add user-created bridge networks for your containers directly from the user
 interface and remove any unused networks.
 
-<!-- TODO: Add a gif of add network form & disconnecting a network here -->
+<br />
+  <div align="center">
+    <img alt="Logo" src="assets/AddandRemoveNetworks.gif" width="fit" height="auto">
+  </div>
+<br />
 
 ### Connect & disconnect containers to networks
 
 Connect your containers to any default or user-created network configurations
 and disconnect containers from any network.
 
-<!-- TODO:  Add a gif of add container and connect container forms here as well as disconnecting a network-->
+<br />
+  <div align="center">
+    <img alt="Logo" src="assets/ConnectandDisconnectContainers.gif" width="fit" height="auto">
+  </div>
+<br />
 
 ### Adjust port exposure
 
 View published and private ports on containers and configure which ports are
 published.
 
-<!-- TODO:  Add screenshot of ports form -->
+<br />
+  <div align="center">
+    <img alt="Logo" src="assets/EditPorts.gif" width="fit" height="auto">
+  </div>
+<br />
 
 # Installation Instructions
 
