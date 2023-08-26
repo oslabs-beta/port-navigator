@@ -120,6 +120,15 @@ body {
   color: rgba(240, 255, 255, 0.855);
   margin: 0 auto;
 }
+.netconnect {
+  height: 32.5px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  line-height: 12px;
+  word-spacing: -1px;
+
+}
 
 .connectedContainerContainer {
   width: 130px;
