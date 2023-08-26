@@ -5,25 +5,25 @@ CTRI-G Docker Desktop Extension (Adrian, Brandon, Clayton, Wes)
 ### To build the extension image
 
 ```
-docker build --tag=port-navigator/port-navigator:latest .
+docker build --tag=portnavigator/port-navigator:latest .
 ```
 
 ### To install the extension
 
 ```
-docker extension install port-navigator/port-navigator:latest
+docker extension install portnavigator/port-navigator:latest
 ```
 
 ### To update the extension
 
 ```
-docker extension update port-navigator/port-navigator:latest
+docker extension update portnavigator/port-navigator:latest
 ```
 
 ### Enable front-end debug mode
 
 ```
-docker extension dev debug port-navigator/port-navigator
+docker extension dev debug portnavigator/port-navigator
 ```
 
 ## Hot reloading
@@ -33,13 +33,13 @@ docker extension dev debug port-navigator/port-navigator
 3. While server is running, in a separate termianal run:
 
 ```
-docker extension dev ui-source port-navigator/port-navigator http://localhost:3000
+docker extension dev ui-source portnavigator/port-navigator http://localhost:3000
 ```
 
 ### Disable debug mode, hot reloading, etc.
 
 ```
-docker extension dev reset port-navigator/port-navigator
+docker extension dev reset portnavigator/port-navigator
 ```
 
 ### Prepare a Buildx
@@ -51,13 +51,13 @@ docker buildx create --name=buildx-multi-arch --driver=docker-container --driver
 ### Build for Validation Testing
 
 ```
-docker buildx build --builder=buildx-multi-arch --platform=linux/amd64,linux/arm64 --build-arg TAG=1.0.0 --tag=port-navigator/port-navigator:1.0.0 .
+docker buildx build --builder=buildx-multi-arch --platform=linux/amd64,linux/arm64 --build-arg TAG=1.0.0 --tag=portnavigator/port-navigator:1.0.0 .
 ```
 
 ### Build & Push Extension to DockerHub
 
 ```
-docker buildx build --push --builder=buildx-multi-arch --platform=linux/amd64,linux/arm64 --build-arg TAG=1.0.0 --tag=port-navigator/port-navigator:1.0.0 .
+docker buildx build --push --builder=buildx-multi-arch --platform=linux/amd64,linux/arm64 --build-arg TAG=1.0.0 --tag=portnavigator/port-navigator:1.0.0 .
 ```
 
 # CLI commands to know
