@@ -71,7 +71,7 @@ const ForcePage = (props: {
             
         hostObj.children?.push(childObj);
       } else {
-        hostObj.children?.push({name: network.Name, value: 6, children: []})
+        hostObj.children?.push({name: network.Name, value: 5.5, children: []})
       }
     })
 
