@@ -37,7 +37,8 @@ const ArcPage = (props: {
       targetIdField: "to",
       valueField: "value",
       orientation: "horizontal",
-
+      tooltipText: "{name}",
+      tooltipPosition: "pointer",
     })
   );
 
@@ -79,13 +80,14 @@ const ArcPage = (props: {
     shadowColor: am5.color(0x000000),
     shadowBlur: 5,
     shadowOffsetX: -2,
-    shadowOffsetY: 2
+    shadowOffsetY: 2,
   });
 
   series2.links.template.setAll({
     strokeStyle: "gradient",
     strokeWidth: 3,
     strokeOpacity: 0.6,
+    // tooltipHTML: "{from}:{to}"
   });
 
 
