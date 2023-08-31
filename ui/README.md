@@ -51,13 +51,13 @@ docker buildx create --name=buildx-multi-arch --driver=docker-container --driver
 ### Build for Validation Testing
 
 ```
-docker buildx build --builder=buildx-multi-arch --platform=linux/amd64,linux/arm64 --build-arg TAG=1.0.0 --tag=portnavigator/port-navigator:1.0.0 .
+docker buildx build --builder=buildx-multi-arch --platform=linux/amd64,linux/arm64 --build-arg TAG=1.0.2 --tag=portnavigator/port-navigator:1.0.2 .
 ```
 
 ### Build & Push Extension to DockerHub
 
 ```
-docker buildx build --push --builder=buildx-multi-arch --platform=linux/amd64,linux/arm64 --build-arg TAG=1.0.0 --tag=portnavigator/port-navigator:1.0.0 .
+docker buildx build --push --builder=buildx-multi-arch --platform=linux/amd64,linux/arm64 --build-arg TAG=1.0.2 --tag=portnavigator/port-navigator:1.0.2 .
 ```
 
 # CLI commands to know
