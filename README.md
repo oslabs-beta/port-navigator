@@ -43,7 +43,7 @@ interactions and provides visualizations of existing networks and containers.
     <img src="./assets/PortNavigator.svg" alt="Logo" width="300" height="auto">
   </a>
   <br /> -->
-  <a href="https://PortNavigator.net/"><h3>https://PortNavigator.net/</h3></a>
+  <a href="https://PortNavigator.net/"><h3>https://portnavigatornet.firebaseapp.com/</h3></a>
 <br/>
 </div>
 
@@ -131,13 +131,13 @@ PortNavigator this way, you can
 3. Build the extension image
 
 ```
-docker build --tag=port-navigator/port-navigator:latest .
+docker build --tag=portnavigator/port-navigator:1.0.0 .
 ```
 
 4. Install the extension
 
 ```
-docker extension install port-navigator/port-navigator:latest
+docker extension install portnavigator/port-navigator:latest
 ```
 
 # Contributing
@@ -175,13 +175,13 @@ git push origin <Branch Name>
 ### Update the extension
 
 ```
-docker extension update port-navigator/port-navigator:latest
+docker extension update portnavigator/port-navigator:latest
 ```
 
 ### Enable Chrome dev tools
 
 ```
-docker extension dev debug port-navigator/port-navigator
+docker extension dev debug portnavigator/port-navigator
 ```
 
 ### Enable hot reloading
@@ -197,7 +197,7 @@ npm start
 3.  In a separate terminal, execute in command line
 
 ```
-docker extension dev ui-source port-navigator/port-navigator http://localhost:3000
+docker extension dev ui-source portnavigator/port-navigator http://localhost:3000
 
 ```
 
