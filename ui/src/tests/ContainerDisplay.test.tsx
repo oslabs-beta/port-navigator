@@ -117,7 +117,7 @@ describe('Container component unit tests', () => {
       />,
     );
     const buttonElement = screen.getByRole('button', {
-      name: 'Connect',
+      name: 'Connect to Networks',
     });
     fireEvent.click(buttonElement);
 
