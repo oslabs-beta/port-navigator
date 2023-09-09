@@ -58,12 +58,12 @@ body {
   width: 100%;
   height: 50px;
   column-gap: 16px;
-  margin: 2px 20px 4px 20px;
+  margin: 6px 20px 6px 20px;
 }
 
 .containerButtons button {
   width: 100px;
-  padding: 8px;
+  padding: 8px 8px 10px;
   /* calc(130px + (180 - 130) * ((100vw - 552px) / (1872 - 552))); */
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   border-bottom: none;
@@ -120,6 +120,7 @@ body {
   color: rgba(240, 255, 255, 0.855);
   margin: 0 auto;
 }
+
 .netconnect {
   height: 32.5px;
   display: flex;
@@ -127,7 +128,6 @@ body {
   align-items: center;
   line-height: 12px;
   word-spacing: -1px;
-
 }
 
 .connectedContainerContainer {
@@ -216,6 +216,11 @@ body {
   color: azure;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   transition: ease-in-out 0.2s;
+  
+}
+
+.addNetworkButton:hover {
+  filter: brightness(1.2) contrast(120%);
 }
 
 .arc,
@@ -458,7 +463,7 @@ body {
   justify-content: space-between;
   align-items: center;
   background: linear-gradient(to top left, rgb(46, 87, 120), rgb(47, 54, 71));
-  border-radius: 24px;
+  border-radius: 20px;
   margin: 20px;
   border-top: solid 0.15rem #546795;
   border-left: solid 0.15rem #5f719b;
@@ -522,7 +527,7 @@ body {
 .withPorts {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   width: calc(375px + (565 - 375) * ((100vw - 552px) / (1872 - 552)));
   height: 100%;
   padding: 0px 0px 0px 20px;
@@ -539,7 +544,7 @@ body {
   margin: 0;
   font-size: 1rem;
   text-overflow: clip;
-  padding-right: 100px;
+  /* padding-right: 40px; */
   text-overflow: ellipsis;
   /* word-wrap: break-word; */
 }
@@ -575,7 +580,7 @@ body {
   list-style: none;
   background: linear-gradient(to bottom right, #106d75, #15676f);
   /* box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.15); */
-  border-radius: 20px;
+  border-radius: 14px;
   padding: 10px 20px;
   margin: 0;
 }
@@ -611,11 +616,11 @@ body {
 
 .tophr {
   margin-top: 0 !important;
-  margin-bottom: 24px !important;
+  margin-bottom: 14px !important;
 }
 
 .bottomhr {
-  margin-top: 24px !important;
+  margin-top: 14px !important;
   margin-bottom: 0 !important;
 }
 

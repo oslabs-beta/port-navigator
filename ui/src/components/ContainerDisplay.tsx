@@ -194,7 +194,7 @@ const ContainerDisplay: React.FC<{
             </button>
           ) : null}
           <button className='innerButton netconnect' onClick={() => setIsOpen(true)}>
-          Add Network Connections
+          Connect to Networks
           </button>
 
           {/* Display for form modal */}
