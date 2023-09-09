@@ -107,7 +107,7 @@ describe('Container component unit tests', () => {
     expect(containerElement).toBeInTheDocument();
   });
 
-  test('renders formModal if the connect button is clicked', () => {
+  test('renders formModal if the connect to networks button is clicked', () => {
     render(
       <ContainerDisplay
         id={containerInfoWithoutPorts.Id}
@@ -124,7 +124,7 @@ describe('Container component unit tests', () => {
     const outputElement = screen.getByText(/Container to a Network/);
     expect(outputElement).toBeVisible();
   });
-  test('Does not render formModal if the connect button is not clicked', () => {
+  test('Does not render formModal if the connect to networks button is not clicked', () => {
     render(
       <ContainerDisplay
         id={containerInfoWithoutPorts.Id}
