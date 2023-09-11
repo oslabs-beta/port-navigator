@@ -21,7 +21,7 @@ LABEL org.opencontainers.image.title="PortNavigator" \
     com.docker.extension.publisher-url="https://portnavigator.net/" \
     com.docker.extension.additional-urls='[{"title":"GitHub", "url":"https://github.com/oslabs-beta/port-navigator"}]' \
     com.docker.extension.changelog="CSS styling and URL" \
-    com.docker.extension.categories="CSS styling and URL"
+    com.docker.extension.categories="utility-tools, networking"
 
 COPY metadata.json .
 COPY assets/PortNavigator.svg .
