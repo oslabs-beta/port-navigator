@@ -20,7 +20,7 @@ LABEL org.opencontainers.image.title="PortNavigator" \
     com.docker.extension.detailed-description="PortNavigator supports users with Docker networking configurations through a Docker Desktop GUI that enables modification of gateways, subnets, IP addresses, and container port mappings. The GUI also minimizes the need for command line interactions and provides visualizations of existing networks and containers. " \
     com.docker.extension.publisher-url="https://portnavigator.net/" \
     com.docker.extension.additional-urls='[{"title":"GitHub", "url":"https://github.com/oslabs-beta/port-navigator"}]' \
-    com.docker.extension.changelog="CSS styling and URL" \
+    com.docker.extension.changelog="minor bug fixes" \
     com.docker.extension.categories="utility-tools, networking"
 
 COPY metadata.json .
