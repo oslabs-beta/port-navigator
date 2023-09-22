@@ -64,10 +64,10 @@ export default function App() {
         ...newNetworks[i],
         Containers: containerNames,
         IPv4Address: containerIp,
-        Gateway: moreInfo.IPAM.Config.length
+        Gateway: (moreInfo.IPAM.Config && moreInfo.IPAM.Config.length)
           ? moreInfo.IPAM.Config[0].Gateway
           : null,
-        Subnet: moreInfo.IPAM.Config.length
+        Subnet: (moreInfo.IPAM.Config && moreInfo.IPAM.Config.length)
           ? moreInfo.IPAM.Config[0].Subnet
           : null,
         Scope: moreInfo.Scope,
