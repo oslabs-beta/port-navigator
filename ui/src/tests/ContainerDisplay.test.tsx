@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ContainerDisplay from '../components/ContainerDisplay';
 import { NetworkInfo } from '../interfaces/interfaces';
+import { create } from 'react-test-renderer';
 
 jest.mock('@docker/extension-api-client', () => ({
   createDockerDesktopClient: jest.fn().mockReturnValue({
@@ -66,7 +67,7 @@ describe('Container component unit tests', () => {
         info={containerInfoWithoutPorts}
         network={networkInfo}
         containerIndex={0}
-      />,
+      />
     );
 
     const element = screen.getByText(/prometheus/i);
@@ -81,7 +82,7 @@ describe('Container component unit tests', () => {
         info={containerInfoWithoutPorts}
         network={networkInfo}
         containerIndex={0}
-      />,
+      />
     );
 
     const element = screen.queryByText(/PrivatePort/i);
@@ -96,7 +97,7 @@ describe('Container component unit tests', () => {
         info={containerInfoWithPorts}
         network={networkInfo}
         containerIndex={0}
-      />,
+      />
     );
 
     const portElement = screen.getByText(/Private Ports/);
@@ -114,7 +115,7 @@ describe('Container component unit tests', () => {
         info={containerInfoWithoutPorts}
         network={networkInfo}
         containerIndex={0}
-      />,
+      />
     );
     const buttonElement = screen.getByRole('button', {
       name: 'Connect to Networks',
@@ -131,10 +132,22 @@ describe('Container component unit tests', () => {
         info={containerInfoWithoutPorts}
         network={networkInfo}
         containerIndex={0}
-      />,
+      />
     );
 
     const outputElement = screen.queryByText(/Container to a Network/);
     expect(outputElement).not.toBeInTheDocument();
+  });
+
+  test('renders ContainerDisplay', () => {
+    const containerDisplay = create(
+      <ContainerDisplay
+        id={containerInfoWithoutPorts.Id}
+        info={containerInfoWithoutPorts}
+        network={networkInfo}
+        containerIndex={0}
+      />
+    ).toJSON();
+    expect(containerDisplay).toMatchSnapshot();
   });
 });

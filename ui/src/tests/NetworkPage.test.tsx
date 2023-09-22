@@ -1,6 +1,7 @@
 //add imports here
 import NetworksPage from '../pages/NetworksPage';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { create } from 'react-test-renderer';
 import '@testing-library/jest-dom';
 
 // mocks go here if needed
@@ -203,7 +204,7 @@ describe('NetworkPage unit tests', () => {
       const addNetworkFormCloseButtonArray = screen.queryAllByText(/x/);
       fireEvent.click(addNetworkFormCloseButtonArray[3]);
       const addNetworkFormText = screen.queryByText(
-        'Advanced network settings',
+        'Advanced network settings'
       );
       expect(addNetworkFormText).toBeNull();
     });
@@ -269,6 +270,13 @@ describe('NetworkPage unit tests', () => {
       render(<NetworksPage {...userCreatedNetworks} containers={containers} />);
       const networkName = screen.getByText(/Eg3/);
       expect(networkName).toBeInTheDocument();
+    });
+
+    test('renders NetworkPage', () => {
+      const networksPage = create(
+        <NetworksPage {...userCreatedNetworks} containers={containers} />
+      ).toJSON();
+      expect(networksPage).toMatchSnapshot();
     });
   });
 });

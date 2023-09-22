@@ -1,6 +1,7 @@
 // add imports here
 import Network from '../components/Network';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { create } from 'react-test-renderer';
 import '@testing-library/jest-dom';
 
 // mock the docker extension api client
@@ -183,7 +184,7 @@ describe('Network component unit tests', () => {
       });
       fireEvent.click(testDisconnectButton);
       expect(ddClientMock.desktopUI.toast.error).toHaveBeenCalledWith(
-        "You can't delete the bridge network!",
+        "You can't delete the bridge network!"
       );
     });
 
@@ -194,7 +195,7 @@ describe('Network component unit tests', () => {
       });
       fireEvent.click(testDisconnectButton);
       expect(ddClientMock.desktopUI.toast.error).toHaveBeenCalledWith(
-        "You can't delete the none network!",
+        "You can't delete the none network!"
       );
     });
 
@@ -205,7 +206,7 @@ describe('Network component unit tests', () => {
       });
       fireEvent.click(testDisconnectButton);
       expect(ddClientMock.desktopUI.toast.error).toHaveBeenCalledWith(
-        "You can't delete the host network!",
+        "You can't delete the host network!"
       );
     });
 
@@ -216,7 +217,7 @@ describe('Network component unit tests', () => {
       });
       fireEvent.click(testDisconnectButton);
       expect(ddClientMock.desktopUI.toast.error).toHaveBeenCalledWith(
-        `You can't delete a Network that has Containers attached to it!`,
+        `You can't delete a Network that has Containers attached to it!`
       );
     });
 
@@ -227,7 +228,7 @@ describe('Network component unit tests', () => {
       });
       fireEvent.click(testDisconnectButton);
       expect(ddClientMock.desktopUI.toast.error).toHaveBeenCalledWith(
-        `You can't delete a Network that has Containers attached to it!`,
+        `You can't delete a Network that has Containers attached to it!`
       );
     });
 
@@ -359,6 +360,11 @@ describe('Network component unit tests', () => {
       fireEvent.click(addContainerButton);
       const connectNetworkPhrase = screen.getByText(/container to the/);
       expect(connectNetworkPhrase).toBeDefined();
+    });
+
+    test('renders Network', () => {
+      const network = create(<Network {...emptyBridgeTestProps} />).toJSON();
+      expect(network).toMatchSnapshot();
     });
   });
 });
