@@ -40,16 +40,15 @@ body {
   align-items: center;
   width: 100%;
   height: 50px;
+  button {
+    width: 140px;
+  }
 }
 
 .addNetworkButtonContainer {
   justify-content: center;
 }
 
-.buttonContainer button,
-.addNetworkButtonContainer button {
-  width: 140px;
-}
 
 .containerButtons {
   display: flex;
@@ -59,18 +58,26 @@ body {
   height: 50px;
   column-gap: 16px;
   margin: 6px 20px 6px 20px;
+  button {
+    width: 100px;
+    padding: 8px 8px 10px;
+    /* calc(130px + (180 - 130) * ((100vw - 552px) / (1872 - 552))); */
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    border-bottom: none;
+    border-right: none;
+    border-radius: 24px;
+    border-width: 0.1rem;
+  }
+  hr {
+    justify-self: center;
+    align-self: start;
+    width: 90%;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }
 
-.containerButtons button {
-  width: 100px;
-  padding: 8px 8px 10px;
-  /* calc(130px + (180 - 130) * ((100vw - 552px) / (1872 - 552))); */
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  border-bottom: none;
-  border-right: none;
-  border-radius: 24px;
-  border-width: 0.1rem;
-}
+
 
 .button,
 .addNetworkButton {
@@ -195,6 +202,17 @@ body {
   text-decoration: none;
 }
 
+.editButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 13.25px 0 !important;
+  p {
+    transform: translateY(0.5px);
+  }
+}
+
 .addNetworkButton {
   margin: 20px 0 0;
 }
@@ -219,8 +237,11 @@ body {
   
 }
 
-.addNetworkButton:hover {
-  filter: brightness(1.2) contrast(120%);
+.addNetworkButton:hover,
+.arc:hover,
+.san:hover,
+.force:hover {
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
 }
 
 .arc,
@@ -275,13 +296,22 @@ body {
   border-bottom: none;
   border-right: none;
   border-radius: 14px;
+  p {
+    position: absolute;
+    bottom: -11.5px;
+    left: 9.5px;
+    // color: rgba(0, 0, 0, 0.684);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
 }
 
-.publicPort p {
-  position: absolute;
-  bottom: -11.5px;
-  left: 9.5px;
+.publicPort:hover {
+  p {
+    color: azure;
+  }
 }
+
 
 .deleteNetworkButton:hover {
   cursor: pointer;
@@ -295,6 +325,7 @@ body {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   transition: ease-in-out 0.2s;
   color: azure;
+  filter: brightness(1.2) contrast(120%);
 }
 
 .userNetwork {
@@ -343,29 +374,34 @@ body {
   border-left: solid 0.15rem #eae8f0;
   border-width: 0.1rem;
   align-self: center;
+
+  .connectedContainerContainer {
+    background: linear-gradient(
+      to bottom right,
+      rgba(33, 35, 35, 0.103),
+      rgba(13, 14, 14, 0.158),
+      rgba(0, 0, 0, 0.205)
+    );
+  }
 }
 
-.defaultNetwork .connectedContainerContainer {
-  background: linear-gradient(
-    to bottom right,
-    rgba(33, 35, 35, 0.103),
-    rgba(13, 14, 14, 0.158),
-    rgba(0, 0, 0, 0.205)
-  );
+
+.defaultNetwork:hover {
+
+  .networkLabel {
+    text-shadow: 0.25px 0.25px 2.5px rgba(0, 0, 0, 0.5);
+  }
+  
+  .connectedContainerContainer {
+    background: linear-gradient(
+      to bottom right,
+      rgba(33, 35, 35, 0.103),
+      rgba(13, 14, 14, 0.125),
+      rgba(0, 0, 0, 0.142)
+    );
+  }
 }
 
-.defaultNetwork:hover .networkLabel {
-  text-shadow: 0.25px 0.25px 2.5px rgba(0, 0, 0, 0.5);
-}
-
-.defaultNetwork:hover .connectedContainerContainer {
-  background: linear-gradient(
-    to bottom right,
-    rgba(33, 35, 35, 0.103),
-    rgba(13, 14, 14, 0.125),
-    rgba(0, 0, 0, 0.142)
-  );
-}
 
 .defaultNetwork:hover,
 .network:hover,
@@ -388,10 +424,10 @@ body {
   border-left: solid 0.15rem rgb(255, 255, 255);
   border-width: 0.1rem;
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
-}
-
-.hostContainer h1 {
-  font-size: 2rem;
+  
+  h1 {
+    font-size: 2rem;
+  }
 }
 
 .networkContainer {
@@ -402,18 +438,18 @@ body {
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
+  hr {
+    max-width: 800px;
+    width: 100%;
+    height: 2px;
+    background-color: rgba(240, 255, 255, 0.25);
+    box-shadow: 0.25px 0.25px 0.5px rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 2px;
+    margin: 0px auto 16px;
+  }
 }
 
-.networkContainer hr {
-  max-width: 800px;
-  width: 100%;
-  height: 2px;
-  background-color: rgba(240, 255, 255, 0.25);
-  box-shadow: 0.25px 0.25px 0.5px rgba(0, 0, 0, 0.5);
-  border: none;
-  border-radius: 2px;
-  margin: 0px auto 10px;
-}
 
 .networkLabel {
   padding: 0 28px;
@@ -460,7 +496,7 @@ body {
   max-width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   background: linear-gradient(to top left, rgb(46, 87, 120), rgb(47, 54, 71));
   border-radius: 20px;
@@ -469,6 +505,15 @@ body {
   border-left: solid 0.15rem #5f719b;
   border-width: 0.1rem;
   box-shadow: 4px 4px 6px 1px rgba(0, 0, 0, 0.281);
+  hr {
+    width: 100%;
+    height: 2px;
+    background-color: rgba(240, 255, 255, 0.2);
+    box-shadow: 0.25px 0.25px 0.5px rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 2px;
+    margin-bottom: 1px;
+  }
 }
 
 .containerHeader {
@@ -476,11 +521,16 @@ body {
   text-align: center;
   padding: 0 20px 0;
   font-size: 1.1rem;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 70px;
 }
 
 .footerContainer {
   width: 100%;
-  padding: 0 20px;
+  padding: 2px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -489,24 +539,6 @@ body {
 
 .lastHR {
   margin-top: 1.25px;
-}
-
-.container hr {
-  width: 100%;
-  height: 2px;
-  background-color: rgba(240, 255, 255, 0.2);
-  box-shadow: 0.25px 0.25px 0.5px rgba(0, 0, 0, 0.5);
-  border: none;
-  border-radius: 2px;
-  margin-bottom: 1px;
-}
-
-.containerButtons hr {
-  justify-self: center;
-  align-self: start;
-  width: 90%;
-  margin-left: 10px;
-  margin-right: 10px;
 }
 
 .containerInfoContainer {
@@ -540,30 +572,32 @@ body {
   background: rgba(245, 255, 255, 0.134);
 }
 
-.containerInfo p {
-  margin: 0;
-  font-size: 1rem;
-  text-overflow: clip;
-  /* padding-right: 40px; */
-  text-overflow: ellipsis;
-  /* word-wrap: break-word; */
+.containerInfo {
+  p {
+    margin: 0;
+    font-size: 1rem;
+    text-overflow: clip;
+    /* padding-right: 40px; */
+    text-overflow: ellipsis;
+    /* word-wrap: break-word; */
+  }
+  
+  hr {
+    margin: 4px 0;
+    padding: 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(240, 255, 255, 0.2);
+    border: none;
+    border-radius: 1px;
+  }
 }
 
 .clipText {
   width: 100%;
-  overflow: auto;
+  overflow: scroll;
   text-overflow: ellipsis;
   padding-right: 0px !important;
-}
-
-.containerInfo hr {
-  margin: 4px 0;
-  padding: 0;
-  width: 100%;
-  height: 1px;
-  background-color: rgba(240, 255, 255, 0.2);
-  border: none;
-  border-radius: 1px;
 }
 
 .containerform {
@@ -583,35 +617,31 @@ body {
   border-radius: 14px;
   padding: 10px 20px;
   margin: 0;
-}
-
-.portInfo button {
-  padding: 0px;
-  width: 80px;
-  height: 24px;
-  margin: 0;
-  margin-left: 50%;
-}
-
-.portInfo button p {
-  margin: 0;
-  margin-bottom: 1.5px;
-}
-
-.portInfo li {
-  margin: 0;
-  padding: 0;
-  font-size: 1rem;
-}
-
-.portInfo hr {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 1px;
-  background-color: rgba(240, 255, 255, 0.2);
-  border: none;
-  border-radius: 1px;
+  button {
+    padding: 0px;
+    width: 80px;
+    height: 24px;
+    margin: 0;
+    margin-left: 50%;
+    p {
+      margin: 0;
+      margin-bottom: 1.5px;
+    }
+  }
+  li {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+  }
+  hr {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(240, 255, 255, 0.2);
+    border: none;
+    border-radius: 1px;
+  }
 }
 
 .tophr {
@@ -650,16 +680,29 @@ body {
   padding: 0px 10px;
   border-radius: 24px;
   color: rgba(245, 255, 255, 0.936);
+
+  .form-container {
+    font-weight: 600;
+    text-align: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+  }
+
+  p {
+    text-align: center;
+  }
+  
+  li {
+    font-weight: 400;
+  }
 }
 
-.portEdit .form-container {
-  font-weight: 600;
-  text-align: center;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  font-size: 16px;
+.liPort {
+  font-size: 20px;
 }
+
 
 .portEdit .chk,
 .addNetworkCheckbox .chk {
@@ -667,60 +710,68 @@ body {
   margin-right: 6px;
 }
 
-.portEdit p {
-  text-align: center;
-}
-
-.portEdit li {
-  font-weight: 400;
-}
-
 .publish {
   display: flex;
   justify-content: center;
   align-items: center;
+  input {
+    margin-right: 6px;
+    width: 60px;
+    color: #000000b3;
+    font-weight: 400;
+    font-size: 20px;
+    background: rgba(255, 255, 255, 0.985);
+    border-radius: 6px;
+    border: solid rgba(255, 255, 255, 0.233) 0.5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  input::placeholder {
+    color: rgba(108, 108, 108, 0.5);
+  }
+  
+  label {
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 20px;
+    margin-left: 0;
+    margin-right: 10px;
+  }
+  
+  button {
+    padding: 6px;
+    width: 80px;
+    margin-left: 10px;
+  }
 }
 
-.publish input {
-  margin-right: 6px;
-  width: 60px;
-  color: #000000b3;
-  font-weight: 400;
-  font-size: 20px;
-  background: rgba(255, 255, 255, 0.985);
-  border-radius: 6px;
-  border: solid rgba(255, 255, 255, 0.233) 0.5px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.publish input::placeholder {
-  color: rgb(108, 108, 108);
-}
-
-.publish label {
-  color: #ffffff;
-  font-weight: 400;
-  font-size: 20px;
-  margin-left: 0;
-  margin-right: 10px;
-}
-
-.publish button {
-  padding: 6px;
-  width: 80px;
-  margin-left: 10px;
-}
 
 .publishedPortsLabelContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
-.publishedPortsLabelContainer button {
-  margin-left: 10px;
-  width: 72px !important;
+  label {
+    font-size: 20px;
+  }
+
+  button {
+    margin-left: 10px;
+    // width: 72px !important;
+    width: 80px !important;
+    padding: 13.5px !important;
+    p {
+      transform: translate(5px, -6px);
+      color: rgba(0, 0, 0, 0.684);
+    }
+  }
+
+  button:hover {
+    p {
+      transform: translate(5px, -6px);
+    }
+  }
 }
 
 .form {
@@ -785,10 +836,9 @@ body {
   border: none;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   text-align: center;
-}
-
-.form-select option {
-  color: black;
+  option {
+    color: black;
+  }
 }
 
 .form-select:hover {
@@ -821,18 +871,18 @@ body {
 
 .addNetworkTextInput {
   display: flex;
-}
-
-.addNetworkTextInput input {
-  order: 2;
-  width: 65%;
-}
-
-.addNetworkTextInput label {
-  order: 1;
-  padding-right: 3%;
-  text-align: right;
-  width: 30%;
+  
+  input {
+    order: 2;
+    width: 65%;
+  }
+  
+  label {
+    order: 1;
+    padding-right: 3%;
+    text-align: right;
+    width: 30%;
+  }
 }
 
 .addNetworkTextInput input[disabled] + label {
@@ -938,7 +988,7 @@ body {
 
 .hrNet {
   margin-bottom: 0px !important;
-  margin-top: 4px !important;
+  margin-top: 8px !important;
 }
 
 .networkInfo {
@@ -947,7 +997,7 @@ body {
   gap: 20px;
   align-items: center;
   font-size: 85%;
-  margin: 0 auto;
+  margin: 2px auto;
 }
 
 .editPortInfo {
