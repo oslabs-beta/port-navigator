@@ -1053,18 +1053,20 @@ body {
 
 @media (max-height: 850px) {
   #chartdiv2 {
-    margin-bottom: 200px !important;
+    width: calc(488px + (1243 - 488) * ((100vw - 552px) / (1872 - 552))) !important;
+    margin-bottom: 100px !important;
   }
 }
 
 @media (max-height: 750px) {
   #chartdiv2 {
-    margin-bottom: 100px !important;
+    width: calc(488px + (866 - 488) * ((100vw - 552px) / (1872 - 552))) !important;
   }
 }
 
 @media (max-height: 650px) {
   #chartdiv2 {
+    width: 488px !important;
     margin-bottom: 50px !important;
   }
 }
