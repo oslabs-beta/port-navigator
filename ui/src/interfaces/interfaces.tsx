@@ -37,6 +37,12 @@ interface forceProps {
   children?: forceProps[];
 }
 
+interface treeProps {
+  name: string;
+  value?: number;
+  children?: treeProps[];
+}
+
 interface nodeData {
   from: string;
   to: string;
@@ -57,5 +63,6 @@ export type {
   setContainers,
   NetworkContainerInfo,
   graphData,
-  forceProps
+  forceProps,
+  treeProps
 };

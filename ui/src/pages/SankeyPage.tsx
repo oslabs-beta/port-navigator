@@ -22,7 +22,7 @@ const SankeyPage = (props: {
   useEffect(() => {
 
     am5.array.each(am5.registry.rootElements, function(root) {
-      if (root.dom.id === "chartdiv" || "chartdiv2") {
+      if (root.dom.id === "chartdiv" || "chartdiv2" || "chartdiv3" || "chartdiv4") {
         root.dispose();
       }
     });
@@ -41,9 +41,12 @@ const SankeyPage = (props: {
       nodeAlign: "center",
       maskContent: true,
       opacity: 1,
-      linkTension: 0.4
-      // nodePadding: 25,
-
+      linkTension: 0.2,
+      nodePadding: 20,
+      paddingTop: 60,
+      paddingBottom: 60,
+      paddingLeft: 60,
+      paddingRight: 60,
     })
   );
 
@@ -92,7 +95,6 @@ const SankeyPage = (props: {
     cornerRadiusBR: 4,
     tooltipY: am5.percent(-25),
     tooltipText: '{name}',
-    
   });
   
 

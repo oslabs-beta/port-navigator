@@ -1,36 +1,59 @@
 body {
   background-color: rgb(46, 62, 155);
+  height: 100vh;
+}
+
+#root {
+  height: 100%;
+  position: relative;
+  .App {
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
 }
 
 .mainContainer {
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+  width: 100%;
+  position: relative;
   color: rgba(245, 255, 255, 0.936);
   text-shadow: 0.25px 0.25px 1px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #chartdiv,
 #chartdiv2,
-#chartdiv3 {
-  margin-top: 28px;
-  width: 100%;
+#chartdiv3,
+#chartdiv4 {
+  position: relative;
+  width: 100% !important;
+  height: 100% !important;
+  justify-self: center;
 }
 
 #chartdiv {
-  height: calc(400px + (850 - 400) * ((100vh - 534px) / (989 - 534)));
+  height: calc(400px + (900 - 400) * ((100vh - 534px) / (989 - 534))) !important;
+  width: calc(488px + (1872 - 488) * ((100vw - 552px) / (1872 - 552))) !important;
 }
 
 #chartdiv2 {
-  height: calc(400px + (600 - 400) * ((100vh - 534px) / (989 - 534)));
-  width: calc(488px + (1000 - 488) * ((100vw - 552px) / (1872 - 552)));
+  height: calc(400px + (810 - 400) * ((100vh - 534px) / (989 - 534))) !important;
+  width: calc(488px + (1620 - 488) * ((100vw - 552px) / (1872 - 552))) !important;
+  margin-bottom: calc(300px + (0 - 300) * ((100vw - 552px) / (1872 - 552))) !important;
 }
 
 #chartdiv3 {
-  height: calc(440px + (850 - 440) * ((100vh - 534px) / (989 - 534)));
-  width: calc(548px + (1872 - 548) * ((100vw - 552px) / (1872 - 552)));
+  height: calc(440px + (900 - 440) * ((100vh - 534px) / (989 - 534))) !important;
+  width: calc(548px + (1872 - 548) * ((100vw - 552px) / (1872 - 552))) !important;
+}
+
+#chartdiv4 {
+  height: calc(440px + (900 - 440) * ((100vh - 534px) / (989 - 534))) !important;
+  width: calc(548px + (1872 - 548) * ((100vw - 552px) / (1872 - 552))) !important;
 }
 
 .buttonContainer,
@@ -178,6 +201,7 @@ body {
 .arc,
 .san,
 .force,
+.tree,
 .addNetworkButton {
   width: 130px;
   /* calc(130px + (180 - 130) * ((100vw - 552px) / (1872 - 552))); */
@@ -223,6 +247,7 @@ body {
 .arc:hover,
 .san:hover,
 .force:hover,
+.tree:hover,
 .publishedPortsLabelContainer button:hover {
   cursor: pointer;
   transform: scale(1.1);
@@ -240,18 +265,21 @@ body {
 .addNetworkButton:hover,
 .arc:hover,
 .san:hover,
-.force:hover {
+.force:hover,
+.tree:hover {
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
 }
 
 .arc,
 .san,
-.force {
+.force,
+.tree {
   margin-left: 20px;
   font-size: 1rem;
   padding: 10px 22px;
   margin-bottom: 0;
   width: 140px;
+  min-width: 94.04px;
   height: 41.4px;
 }
 
@@ -751,6 +779,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 6px 0 10px;
 
   label {
     font-size: 20px;
@@ -1002,4 +1031,40 @@ body {
 
 .editPortInfo {
   list-style: none;
+}
+
+@media (max-width: 645px) {
+  body {
+    padding: 16px 16px !important;
+  }
+  
+  .arc,
+  .san,
+  .force,
+  .tree {
+    margin: 0 4px;
+    min-width: 94.04px;
+  }
+
+  .buttonContainer button:first-of-type {
+    margin: 0 4px 0 auto;
+  }
+}
+
+@media (max-height: 850px) {
+  #chartdiv2 {
+    margin-bottom: 200px !important;
+  }
+}
+
+@media (max-height: 750px) {
+  #chartdiv2 {
+    margin-bottom: 100px !important;
+  }
+}
+
+@media (max-height: 650px) {
+  #chartdiv2 {
+    margin-bottom: 50px !important;
+  }
 }
