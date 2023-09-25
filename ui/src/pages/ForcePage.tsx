@@ -40,7 +40,7 @@ const ForcePage = (props: {
       maxRadius: am5.percent(15),
       nodePadding: 20,
       paddingTop: 20,
-      paddingBottom: 140,
+      paddingBottom: 100,
       paddingLeft: 20,
       paddingRight: 60,
 

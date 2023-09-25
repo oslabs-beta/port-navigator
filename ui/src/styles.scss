@@ -6,6 +6,7 @@ body {
 #root {
   height: 100%;
   position: relative;
+
   .App {
     position: relative;
     height: 100%;
@@ -32,7 +33,6 @@ body {
   position: relative;
   width: 100% !important;
   height: 100% !important;
-  justify-self: center;
 }
 
 #chartdiv {
@@ -1056,11 +1056,16 @@ body {
     width: calc(488px + (1243 - 488) * ((100vw - 552px) / (1872 - 552))) !important;
     margin-bottom: 100px !important;
   }
+
 }
 
 @media (max-height: 750px) {
   #chartdiv2 {
     width: calc(488px + (866 - 488) * ((100vw - 552px) / (1872 - 552))) !important;
+  }
+
+  #chartdiv3 {
+    width: calc(548px + (990 - 548) * ((100vw - 552px) / (1872 - 552))) !important;
   }
 }
 
