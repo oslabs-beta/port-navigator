@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Network component unit tests Network renders Network 1`] = `
+<div
+  className="userNetwork"
+>
+  <div
+    className="networkContainer"
+  >
+    <div
+      className="networkLabel"
+    >
+      <strong>
+        Network: 
+      </strong>
+      bridge
+    </div>
+    <hr
+      className="hrNet"
+    />
+    <div
+      className="networkInfo"
+    >
+      <div
+        className="Driver"
+      >
+        <strong>
+          Driver: 
+        </strong>
+        bridge
+      </div>
+      <div
+        className="Gateway"
+      >
+        <strong>
+          Gateway: 
+        </strong>
+        null
+      </div>
+      <div
+        className="Subnet"
+      >
+        <strong>
+          Subnet: 
+        </strong>
+        null
+      </div>
+    </div>
+    <hr />
+    <div
+      className="containerNetworkFeatures"
+    >
+      <div
+        className="connectedContainerContainer"
+      >
+        <p
+          className="connectedText"
+        >
+          Connected
+          <br />
+          Containers
+        </p>
+        <p
+          className="divider"
+        >
+          |
+        </p>
+        <p
+          className="connectedCount"
+        >
+          0
+        </p>
+      </div>
+      <div />
+      <button
+        className="innerButton"
+        id="0ShowHideNetworksButton"
+        onClick={[Function]}
+      >
+        Add Container
+      </button>
+    </div>
+    <button
+      className="deleteNetworkButton"
+      onClick={[Function]}
+    >
+      x
+    </button>
+  </div>
+  <div
+    className="containersContainer"
+    id="0ContainersContainer"
+    style={
+      {
+        "display": "none",
+      }
+    }
+  />
+</div>
+`;

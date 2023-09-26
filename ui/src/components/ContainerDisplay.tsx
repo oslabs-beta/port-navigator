@@ -13,11 +13,11 @@ const ContainerDisplay: React.FC<{
   info: ContainerInfo;
   network: NetworkInfo;
   containerIndex: number;
-}> = props => {
+}> = (props) => {
   // State determining if our FormModal should be displayed or not
   const [isOpen, setIsOpen] = useState<Boolean>(false);
   const [editPorts, setEditPorts] = useState<Boolean>(false);
-  const { ddClient, incForce } = useAppStore(store => {
+  const { ddClient, incForce } = useAppStore((store) => {
     return { ddClient: store.ddClient, incForce: store.incForce };
   });
 
@@ -37,7 +37,7 @@ const ContainerDisplay: React.FC<{
   const DisconnectContainer = async (
     containerName: string,
     networkName: string,
-    e: BaseSyntheticEvent<any>,
+    e: BaseSyntheticEvent<any>
   ): Promise<void> => {
     let connected = true;
     e.preventDefault();
@@ -77,7 +77,7 @@ const ContainerDisplay: React.FC<{
   const privatePortArray: string[] = [];
   const publicPortArray: string[] = [];
   const portType: Set<string> = new Set();
-  props.info.Ports.forEach(port => {
+  props.info.Ports.forEach((port) => {
     if (port.PublicPort)
       publicPortArray.push(port.PublicPort + ':' + port.PrivatePort);
     else if (port.PrivatePort) privatePortArray.push(port.PrivatePort);
@@ -98,27 +98,28 @@ const ContainerDisplay: React.FC<{
   });
 
   return (
-    <div id={props.id} className='container' ref={container}>
+    <div id={props.id} className="container" ref={container}>
       {/* Display container information*/}
-      <div className='containerHeader'>
+      <div className="containerHeader">
         <p>
           {' '}
           <strong>Container: </strong>
           <span /> {props.info.Name}
         </p>
       </div>
-      <div className='containerInfoContainer'>
+      <div className="containerInfoContainer">
         <div
           className={
             passedPorts ? 'containerInfo withPorts' : 'containerInfo noPorts'
-          }>
-          <hr className='tophr'/>
-          <p className='clipText'>
+          }
+        >
+          <hr className="tophr" />
+          <p className="clipText">
             <strong>ContainerID: </strong>
             <br /> {props.info.Id}
           </p>
           <hr />
-          <p className='clipText'>
+          <p className="clipText">
             <strong>Image: </strong>
             <br /> {props.info.Image}
           </p>
@@ -127,11 +128,11 @@ const ContainerDisplay: React.FC<{
             <strong>Activity: </strong>
             <br /> {props.info.State}
           </p>
-          <hr className='bottomhr'/>
+          <hr className="bottomhr" />
         </div>
-        <ul className='portInfo'>
-        <li>
-              <strong>Type: </strong> {portType}
+        <ul className="portInfo">
+          <li>
+            <strong>Type: </strong> {portType}
           </li>
           {/* Display list of information from Ports*/}
           <hr />
@@ -154,8 +155,11 @@ const ContainerDisplay: React.FC<{
             {privatePortArrayStr.length ? privatePortArrayStr : <em>null</em>}
           </li>
           <li>
-            <button className='innerButton editButton' onClick={() => setEditPorts(true)}>
-              <p>Edit Ports</p> 
+            <button
+              className="innerButton editButton"
+              onClick={() => setEditPorts(true)}
+            >
+              <p>Edit Ports</p>
             </button>
 
             {/* Display for form modal */}
@@ -176,24 +180,29 @@ const ContainerDisplay: React.FC<{
                   }
                 />
               </FormModal>,
-              document.body,
+              document.body
             )}
           </li>
         </ul>
       </div>
-      <div className='footerContainer'>
-
-        <div className='containerButtons'>
+      <div className="footerContainer">
+        <div className="containerButtons">
           {props.network.Name !== 'none' ? (
             <button
-              className='innerButton'
-              onClick={e =>
+              className="innerButton"
+              onClick={(e) =>
                 DisconnectContainer(props.info.Name, props.network.Name, e)
-              }>
+              }
+            >
               Disconnect
             </button>
           ) : null}
-          <button className='innerButton netconnect' onClick={() => setIsOpen(true)}>Connect to Networks</button>
+          <button
+            className="innerButton netconnect"
+            onClick={() => setIsOpen(true)}
+          >
+            Connect to Networks
+          </button>
 
           {/* Display for form modal */}
           {createPortal(
@@ -201,7 +210,7 @@ const ContainerDisplay: React.FC<{
               {/* Calling Form component function as child of FormModal */}
               <ConnectContainer info={props.info} formClose={formClose} />
             </FormModal>,
-            document.body,
+            document.body
           )}
         </div>
       </div>

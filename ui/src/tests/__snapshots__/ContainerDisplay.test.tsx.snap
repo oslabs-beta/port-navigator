@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Container component unit tests renders ContainerDisplay 1`] = `
+<div
+  className="container"
+  id="123456"
+>
+  <div
+    className="containerHeader"
+  >
+    <p>
+       
+      <strong>
+        Container: 
+      </strong>
+      <span />
+       
+      prometheus
+    </p>
+  </div>
+  <div
+    className="containerInfoContainer"
+  >
+    <div
+      className="containerInfo withPorts"
+    >
+      <hr
+        className="tophr"
+      />
+      <p
+        className="clipText"
+      >
+        <strong>
+          ContainerID: 
+        </strong>
+        <br />
+         
+        123456
+      </p>
+      <hr />
+      <p
+        className="clipText"
+      >
+        <strong>
+          Image: 
+        </strong>
+        <br />
+         
+        image
+      </p>
+      <hr />
+      <p>
+        <strong>
+          Activity: 
+        </strong>
+        <br />
+         
+        running
+      </p>
+      <hr
+        className="bottomhr"
+      />
+    </div>
+    <ul
+      className="portInfo"
+    >
+      <li>
+        <strong>
+          Type: 
+        </strong>
+         
+      </li>
+      <hr />
+      <li>
+        <strong>
+          IPv4Address: 
+        </strong>
+        0.0.0.0
+      </li>
+      <hr />
+      <li>
+        <strong>
+          Published Ports: 
+        </strong>
+        <em>
+          null
+        </em>
+      </li>
+      <hr />
+      <li>
+        <strong>
+          Private Ports: 
+        </strong>
+        <em>
+          null
+        </em>
+      </li>
+      <li>
+        <button
+          className="innerButton editButton"
+          onClick={[Function]}
+        >
+          <p>
+            Edit Ports
+          </p>
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div
+    className="footerContainer"
+  >
+    <div
+      className="containerButtons"
+    >
+      <button
+        className="innerButton"
+        onClick={[Function]}
+      >
+        Disconnect
+      </button>
+      <button
+        className="innerButton netconnect"
+        onClick={[Function]}
+      >
+        Connect to Networks
+      </button>
+    </div>
+  </div>
+</div>
+`;
