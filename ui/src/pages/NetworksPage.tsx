@@ -83,7 +83,7 @@ const NetworksPage = (props: {
           document.body,
         )}
         <button
-          className='addNetworkButton'
+          className='button addNetworkButton'
           onClick={() => setDisplayAddNetworkForm(true)}>
           Add Network
         </button>

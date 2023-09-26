@@ -22,7 +22,7 @@ const ArcPage = (props: {
     try{
 
     am5.array.each(am5.registry.rootElements, function(root) {
-      if (root.dom.id === "chartdiv" || "chartdiv2") {
+      if (root.dom.id === "chartdiv" || "chartdiv2" || "chartdiv3" || "chartdiv4") {
         root.dispose();
       }
     });

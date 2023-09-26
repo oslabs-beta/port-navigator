@@ -31,7 +31,7 @@ const PrivateCheckbox = (props: {
   };
 
   return (
-    <li>
+    <li className='liPort'>
       <input className='chk' type='checkbox' onChange={handleCheck} checked={checked} />
       {checked ? (
         <div className='publish'>

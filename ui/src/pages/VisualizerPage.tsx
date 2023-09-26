@@ -4,6 +4,7 @@ import { ContainerInfo, NetworkInfo } from '../interfaces/interfaces';
 import SankeyPage from './SankeyPage';
 import ArcPage from './ArcPage';
 import ForcePage from './ForcePage';
+import TreePage from './TreePage';
 
 
 const VisualizerPage = (props: {
@@ -13,7 +14,7 @@ const VisualizerPage = (props: {
   const nav = useNavigate();
   const location = useLocation();
 
-  const [activeDiagram, setActiveDiagram] = useState<'sankey' | 'arc' | 'force'>('sankey');
+  const [activeDiagram, setActiveDiagram] = useState<'sankey' | 'arc' | 'force' | 'tree'>('sankey');
 
   useEffect(() => {
     // Update activeDiagram based on the route
@@ -23,6 +24,8 @@ const VisualizerPage = (props: {
       setActiveDiagram('arc');
     } else if (location.pathname.endsWith('Force')) {
       setActiveDiagram('force');
+    } else if (location.pathname.endsWith('Tree')) {
+      setActiveDiagram('tree');
     }
   }, [location.pathname]);
 
@@ -41,6 +44,9 @@ const VisualizerPage = (props: {
         <button className='button force' onClick={() => nav('./Force')}>
           Force
         </button>
+        <button className='button tree' onClick={() => nav('./Tree')}>
+          Tree
+        </button>
       </div>
       {activeDiagram === 'sankey' && (
         <SankeyPage networks={props.networks} containers={props.containers} />
@@ -50,6 +56,9 @@ const VisualizerPage = (props: {
       )}
       {activeDiagram === 'force' && (
         <ForcePage networks={props.networks} containers={props.containers} />
+      )}
+      {activeDiagram === 'tree' && (
+        <TreePage networks={props.networks} containers={props.containers} />
       )}
     </div>
   );

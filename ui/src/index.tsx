@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import { DockerMuiThemeProvider } from '@docker/docker-mui-theme';
 import { HashRouter } from 'react-router-dom';
-import './styles.css';
+import './styles.scss';
 import App from './App';
 
 ReactDOM.render(
