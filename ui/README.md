@@ -57,7 +57,7 @@ docker buildx build --builder=buildx-multi-arch --platform=linux/amd64,linux/arm
 ### Build & Push Extension to DockerHub
 
 ```
-docker buildx build --push --builder=buildx-multi-arch --platform=linux/amd64,linux/arm64 --build-arg TAG=1.0.4 --tag=portnavigator/port-navigator:1.0.4 .
+docker buildx build --push --builder=buildx-multi-arch --platform=linux/amd64,linux/arm64 --build-arg TAG=1.1.0 --tag=portnavigator/port-navigator:1.1.0 .
 ```
 
 # CLI commands to know
