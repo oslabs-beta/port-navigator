@@ -27,7 +27,7 @@ exports[`NetworkPage unit tests Network renders NetworkPage 1`] = `
     className="addNetworkButtonContainer"
   >
     <button
-      className="addNetworkButton"
+      className="button addNetworkButton"
       onClick={[Function]}
     >
       Add Network
